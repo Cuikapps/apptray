@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: #0f3057;
+}
+.not-mobile-compatible {
+  display: none;
+  visibility: hidden;
+}
+@media screen and (max-height: 470px), (max-width: 990px) {
+  body app-root * {
+    display: none;
+    visibility: hidden;
+  }
+  .not-mobile-compatible {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    display: inline;
+    visibility: visible;
+    font-size: 30px;
+    color: #e7e7e7;
+  }
+}

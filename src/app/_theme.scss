@@ -1,0 +1,28 @@
+$primary: #0f3057;
+$secondary: #e7e7de;
+$tertiary: #00587a;
+$accent: #008891;
+$danger: #8b0000;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+$Poppins: "Poppins", sans-serif;
+
+@mixin close-button {
+  .x-close-btn {
+    cursor: pointer;
+  }
+  .x-close-btn:hover {
+    background-color: $primary;
+    transform: rotateZ(-90deg);
+    border-radius: 50%;
+    transition: transform 0.5s ease-in-out;
+    line {
+      stroke: $secondary;
+    }
+  }
+  .x-close-btn line {
+    stroke: $primary;
+    stroke-width: 5px;
+    stroke-linecap: round;
+  }
+}
