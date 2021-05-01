@@ -1,0 +1,25 @@
+@use '../../theme' as theme;
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 66px;
+  height: calc(100vh - 66px);
+  background-color: theme.$tertiary;
+
+  button {
+    border: none;
+    width: 66px;
+    height: 66px;
+    background-color: transparent;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: theme.$accent;
+    }
+  }
+
+  .active {
+    background-color: theme.$accent;
+  }
+}

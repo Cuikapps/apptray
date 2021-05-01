@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "cuikapps": {
+      "hosting": {
+        "apptray": [
+          "cuikapps"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<header>
+  <img src="../../../assets/cuiksuite.png" alt="Logo" height="66" />
+  <h1>Welcome {{ authService.DisplayName }}</h1>
+  <div class="controls">
+    <div class="plus-btn" (click)="creatorToggle = !creatorToggle">
+      <div class="top"></div>
+      <div class="right"></div>
+      <div class="bottom"></div>
+      <div class="left"></div>
+    </div>
+    <div class="profile">
+      <img
+        [src]="authService.PhotoURL || '../../../assets/account.png'"
+        alt="Profile Image"
+        width="50"
+        height="50"
+        (click)="accountToggle = !accountToggle"
+      />
+      <div class="account-panel" *ngIf="accountToggle">
+        <ul>
+          <li class="dash" (click)="goToDash()">
+            <span>Dashboard</span>
+          </li>
+          <li class="sign-out" (click)="authService.SignOut()">
+            <span>Log out</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="page">
+  <cuik-side-panel></cuik-side-panel>
+  <main></main>
+</div>
+<cuik-app-creator
+  (close)="creatorToggle = !creatorToggle"
+  *ngIf="creatorToggle"
+></cuik-app-creator>

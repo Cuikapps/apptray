@@ -5,7 +5,9 @@ $accent: #008891;
 $danger: #8b0000;
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 $Poppins: "Poppins", sans-serif;
+$Montserrat: 'Montserrat', sans-serif;
 
 @mixin close-button {
   .x-close-btn {

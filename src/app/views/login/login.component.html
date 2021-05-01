@@ -1,0 +1,21 @@
+<div class="login-block">
+  <h1>Login</h1>
+  <div class="line"></div>
+  <input #email type="email" placeholder="Email">
+  <input #pass  type="password" placeholder="Password">
+  <div class="btn-holder">
+    <button class="login-btn" (click)="authService.SignIn(email.value, pass.value)">Login</button>
+    <button class="create-btn" (click)="createAccount()">Create Account</button>
+
+  </div>
+  <br>
+  Or sign in with:
+      <button
+        type="button"
+        class="googleBtn"
+        (click)="authService.GoogleAuth()"
+      >
+        <img src="../../../assets/GoogleLogo.png" alt="Google Logo"/>
+        <span>Google</span>
+      </button>
+</div>

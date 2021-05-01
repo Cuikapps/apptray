@@ -1,0 +1,109 @@
+@use '../../theme' as theme;
+
+header {
+  background-color: theme.$primary;
+  display: flex;
+  height: 66px;
+  align-items: center;
+  justify-content: space-between;
+  color: theme.$secondary;
+  font-family: theme.$Montserrat;
+  font-weight: 100;
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    > div {
+      width: 55px;
+      height: 55px;
+      cursor: pointer;
+    }
+  }
+  .plus-btn {
+    background: radial-gradient(theme.$tertiary, theme.$accent, theme.$primary);
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    grid-template-rows: 45% 10% 45%;
+    border-radius: 50%;
+    &:hover {
+      background: radial-gradient(theme.$accent, theme.$tertiary);
+    }
+    > div {
+      width: 100%;
+      height: 100%;
+      border-radius: 0px 0px 10px 0px;
+      background-color: theme.$primary;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .right {
+      grid-column: 3;
+      grid-row: 1;
+      transform: rotateZ(90deg);
+    }
+    .bottom {
+      grid-column: 3;
+      grid-row: 3;
+      transform: rotateZ(180deg);
+    }
+    .left {
+      grid-column: 1;
+      grid-row: 3;
+      transform: rotateZ(-90deg);
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      border-radius: 50%;
+      &:hover {
+        filter: drop-shadow(0px 0px 15px theme.$tertiary);
+      }
+    }
+
+    .account-panel {
+      position: absolute;
+      top: 66px;
+      right: 0;
+      width: 225px;
+      height: 110px;
+      background-color: theme.$primary;
+      border-radius: 0px 0px 0px 15px;
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style: none;
+          font-size: 1.3rem;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            background-color: theme.$tertiary;
+          }
+        }
+      }
+    }
+  }
+}
+.page {
+  display: flex;
+  main {
+    height: calc(100vh - 66px);
+    width: calc(100vw - 66px);
+  }
+}
+
+cuik-app-creator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color: theme.$secondary, $alpha: 0.05);
+}
