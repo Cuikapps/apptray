@@ -1,0 +1,15 @@
+<div class="panel">
+  <div class="exit" (click)="close.emit()">
+    <svg
+      version="1.0"
+      xmlns="http://www.w3.org/2000/svg"
+      width="25px"
+      height="25px"
+      class="x-close-btn"
+    >
+      <line x1="5" y1="5" x2="19" y2="19"></line>
+      <line x1="5" y1="19" x2="19" y2="5"></line>
+    </svg>
+  </div>
+  <h2>Editing:{{ state.editingApp }}</h2>
+</div>

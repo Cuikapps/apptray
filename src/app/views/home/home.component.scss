@@ -10,6 +10,10 @@ header {
   font-family: theme.$Montserrat;
   font-weight: 100;
 
+  .logo {
+    cursor: pointer;
+  }
+
   .controls {
     display: flex;
     gap: 10px;
@@ -96,10 +100,14 @@ header {
   main {
     height: calc(100vh - 66px);
     width: calc(100vw - 66px);
+    display: flex;
+    gap: 10px;
+    padding: 10px;
   }
 }
 
-cuik-app-creator {
+cuik-app-creator,
+cuik-app-editor {
   position: absolute;
   top: 0;
   left: 0;

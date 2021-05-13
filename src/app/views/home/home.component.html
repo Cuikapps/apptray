@@ -1,8 +1,14 @@
 <header>
-  <img src="../../../assets/cuiksuite.png" alt="Logo" height="66" />
+  <img
+    src="../../../assets/cuiksuite.png"
+    alt="Logo"
+    height="66"
+    class="logo"
+    (click)="openSite()"
+  />
   <h1>Welcome {{ authService.DisplayName }}</h1>
   <div class="controls">
-    <div class="plus-btn" (click)="creatorToggle = !creatorToggle">
+    <div class="plus-btn" (click)="state.creatorToggle = !state.creatorToggle">
       <div class="top"></div>
       <div class="right"></div>
       <div class="bottom"></div>
@@ -14,9 +20,9 @@
         alt="Profile Image"
         width="50"
         height="50"
-        (click)="accountToggle = !accountToggle"
+        (click)="state.accountToggle = !state.accountToggle"
       />
-      <div class="account-panel" *ngIf="accountToggle">
+      <div class="account-panel" *ngIf="state.accountToggle">
         <ul>
           <li class="dash" (click)="goToDash()">
             <span>Dashboard</span>
@@ -31,9 +37,16 @@
 </header>
 <div class="page">
   <cuik-side-panel></cuik-side-panel>
-  <main></main>
+  <main>
+    <cuik-app-icon *ngFor="let app of appData" [app-data]="app"></cuik-app-icon>
+  </main>
 </div>
 <cuik-app-creator
-  (close)="creatorToggle = !creatorToggle"
-  *ngIf="creatorToggle"
+  (close)="state.creatorToggle = !state.creatorToggle"
+  *ngIf="state.creatorToggle"
 ></cuik-app-creator>
+<cuik-app-editor
+  (close)="state.editorToggle = !state.editorToggle"
+  *ngIf="state.editorToggle"
+>
+</cuik-app-editor>

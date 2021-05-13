@@ -39,7 +39,7 @@ export class FirestoreService {
     T | Observable<Action<DocumentSnapshot<T | undefined>>> | undefined
   > {
     if (subscription) return this.store.doc<T>(path).snapshotChanges();
-    else return await (await this.store.doc<T>(path).get().toPromise()).data();
+    else return (await this.store.doc<T>(path).get().toPromise()).data();
   }
 
   /**

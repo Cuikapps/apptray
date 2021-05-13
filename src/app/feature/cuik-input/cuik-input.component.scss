@@ -1,0 +1,25 @@
+@use '../../theme' as theme;
+
+label {
+  $width: 160px;
+  $height: 35px;
+  $background-color: theme.$secondary;
+  $border: 2px solid theme.$primary;
+  $border-radius: 20px;
+  $color: theme.$primary;
+  $font-size: large;
+
+  input {
+    width: $width;
+    height: $height;
+    background-color: $background-color;
+    border: $border;
+    border-radius: $border-radius;
+    text-indent: $border-radius / 4;
+    color: $color;
+    font-size: $font-size;
+    &:focus {
+      outline-style: dotted;
+    }
+  }
+}

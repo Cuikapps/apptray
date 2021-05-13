@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { StateService } from '@app/services/state.service';
+import { Component, OnInit } from '@angular/core';
+import { StateService, activeControls } from '@app/services/state.service';
 
 @Component({
   selector: 'cuik-side-panel',
@@ -17,9 +17,8 @@ export class SidePanelComponent implements OnInit {
    * @see activeControl
    * if is already equal to the @param button then it is set to 'none'
    */
-  activateControl(button: string) {
+  activateControl(button: activeControls) {
     if (this.state.activeControl == button) this.state.activeControl = 'none';
     else this.state.activeControl = button;
   }
 }
- 

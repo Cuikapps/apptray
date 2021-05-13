@@ -1,0 +1,10 @@
+<label for="input" cuikToolTip [tooltip]="toolTip">
+  <input
+    #input
+    (keyup)="cuikKeyup.emit(input.value)"
+    id="input"
+    [type]="type"
+    [placeholder]="placeHolder"
+  />
+  <span></span>
+</label>

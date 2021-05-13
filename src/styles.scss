@@ -1,3 +1,5 @@
+@use './app/theme' as theme;
+
 /* You can add global styles to this file, and also import other style files */
 * {
   box-sizing: border-box;
@@ -14,6 +16,18 @@ body {
 .not-mobile-compatible {
   display: none;
   visibility: hidden;
+}
+.tooltip {
+  position: absolute;
+  background-color: theme.$primary;
+  width: fit-content;
+  height: fit-content;
+  max-width: 400px;
+
+  color: theme.$secondary;
+  border-radius: 15px 15px 15px 0px;
+  padding: 5px;
+  transform: translate(-50%, -100%);
 }
 @media screen and (max-height: 470px), (max-width: 990px) {
   body app-root * {

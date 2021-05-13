@@ -1,0 +1,35 @@
+<div class="block" (click)="open()">
+  <div class="bar">
+    {{ appData.title }}
+    <div
+      class="edit"
+      (click)="editApp()"
+      *ngIf="state.activeControl == 'edit'"
+    ></div>
+    <div
+      class="del"
+      (click)="apptray.deleteApp(appData.title)"
+      *ngIf="state.activeControl == 'trash-can'"
+    ></div>
+    <div class="move" *ngIf="state.activeControl == 'move'"></div>
+  </div>
+  <div class="imgs">
+    <ng-container *ngIf="hasMultipleImages()">
+      <img
+        *ngFor="let img of appData.images"
+        [src]="img"
+        alt="App Image"
+        width="30%"
+      />
+    </ng-container>
+    <ng-container *ngIf="!hasMultipleImages()">
+      <img
+        style="border-radius: 0px 0px 19px 19px"
+        [src]="appData.images[0]"
+        alt="App Image"
+        width="100%"
+        height="100%"
+      />
+    </ng-container>
+  </div>
+</div>

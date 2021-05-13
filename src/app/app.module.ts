@@ -16,6 +16,8 @@ import { FirestoreService } from '@services/firestore.service';
 import { LogService } from './services/log.service';
 import { HomeComponent } from './views/home/home.component';
 import { ComponentsModule } from './components/components.module';
+import { StateService } from './services/state.service';
+import { ApptrayService } from './services/apptray.service';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent],
@@ -30,7 +32,13 @@ import { ComponentsModule } from './components/components.module';
     AngularFireStorageModule,
     ComponentsModule,
   ],
-  providers: [AuthService, LogService, FirestoreService],
+  providers: [
+    AuthService,
+    LogService,
+    FirestoreService,
+    StateService,
+    ApptrayService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

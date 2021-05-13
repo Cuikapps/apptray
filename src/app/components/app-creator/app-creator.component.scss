@@ -2,6 +2,9 @@
 
 .panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 500px;
   height: 700px;
   background-color: theme.$secondary;
@@ -10,11 +13,118 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: theme.$primary;
+  font-family: theme.$Poppins;
 
   .exit {
     position: absolute;
     top: 4px;
     right: 4px;
     @include theme.close-button;
+  }
+  textarea {
+    margin-top: 10px;
+    border: 2px solid theme.$primary;
+    border-radius: 20px;
+    text-indent: 10px;
+    background-color: theme.$secondary;
+    color: theme.$primary;
+    font-family: theme.$Poppins;
+    resize: vertical;
+    min-height: 200px;
+    max-height: 320px;
+    &:focus {
+      outline-style: dotted;
+    }
+  }
+  //#region checkbox
+  .checkbox {
+    display: grid;
+    grid-template-columns: auto min-content;
+    grid-gap: 0.5em;
+    font-size: 0.9rem;
+    color: theme.$primary;
+    margin-top: 10px;
+    &--disabled {
+      color: theme.$danger;
+    }
+  }
+
+  .checkbox__control {
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    border-radius: 0.25em;
+    border: 0.1em solid currentColor;
+
+    svg {
+      transition: transform 0.1s ease-in 25ms;
+      transform: scale(0);
+      transform-origin: bottom left;
+    }
+  }
+
+  .checkbox__input {
+    display: grid;
+    grid-template-areas: "checkbox";
+
+    > * {
+      grid-area: checkbox;
+    }
+
+    input {
+      opacity: 0;
+      width: 1em;
+      height: 1em;
+      cursor: pointer;
+
+      &:focus + .checkbox__control {
+        box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em currentColor;
+      }
+
+      &:checked + .checkbox__control svg {
+        transform: scale(1);
+      }
+
+      &:disabled + .checkbox__control {
+        color: theme.$danger;
+      }
+    }
+  }
+  //#endregion
+
+  .urls,
+  .images,
+  .submit {
+    margin-top: 20px;
+    cursor: pointer;
+    padding: 10px;
+    border: 2px solid theme.$primary;
+    background-color: theme.$secondary;
+    transition: color 200ms ease-in, background-color 200ms ease-out,
+      border 200ms ease-out, border-radius 200ms ease-out;
+    border-radius: 20px;
+    &:hover {
+      background-color: theme.$tertiary;
+      color: theme.$secondary;
+      border: 2px solid theme.$tertiary;
+      border-radius: 30px;
+    }
+  }
+
+  cuik-url-box,
+  cuik-img-upload {
+    position: absolute;
+
+    &:is(cuik-url-box) {
+      top: 50%;
+      right: -50%;
+      transform: translate(0%, -50%);
+    }
+    &:is(cuik-img-upload) {
+      top: 50%;
+      left: -50%;
+      transform: translate(0%, -50%);
+    }
   }
 }

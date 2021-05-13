@@ -3,11 +3,13 @@ $secondary: #e7e7de;
 $tertiary: #00587a;
 $accent: #008891;
 $danger: #8b0000;
+$honey: #ffc30b;
+$kelly: #4cbb17;
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 $Poppins: "Poppins", sans-serif;
-$Montserrat: 'Montserrat', sans-serif;
+$Montserrat: "Montserrat", sans-serif;
 
 @mixin close-button {
   .x-close-btn {
@@ -26,5 +28,35 @@ $Montserrat: 'Montserrat', sans-serif;
     stroke: $primary;
     stroke-width: 5px;
     stroke-linecap: round;
+  }
+}
+
+@mixin custom-scroll(
+  $radius: number,
+  $color: color,
+  $width: number,
+  $border: border,
+  $background-color: color,
+  $thickness: thin or auto
+) {
+  @if $thickness == thin or $thickness == auto {
+    &::-webkit-scrollbar {
+      width: $width; /* width of the entire scrollbar */
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $background-color; /* color of the tracking area */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color; /* color of the scroll thumb */
+      border-radius: $radius; /* roundness of the scroll thumb */
+      border: $border; /* creates padding around scroll thumb */
+    }
+
+    scrollbar-width: $thickness; /* "auto" or "thin" */
+    scrollbar-color: $color $background-color; /* scroll thumb and track */
+  } @else {
+    @error "Property #{$thickness} must be either thin or auto";
   }
 }
