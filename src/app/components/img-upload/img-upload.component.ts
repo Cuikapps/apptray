@@ -33,18 +33,51 @@ export class ImgUploadComponent implements OnInit {
 
   submit() {
     //#region If image sizes are less 1 mb then they are added to images array
-    if (this.img1.nativeElement.files && this.checkSize(this.img1))
-      this.images.push(this.img1.nativeElement.files[0]);
-    else alert('Image must be less than 1mb');
-    if (this.img2.nativeElement.files && this.checkSize(this.img2))
-      this.images.push(this.img2.nativeElement.files[0]);
-    else alert('Image must be less than 1mb');
-    if (this.img3.nativeElement.files && this.checkSize(this.img3))
-      this.images.push(this.img3.nativeElement.files[0]);
-    else alert('Image must be less than 1mb');
-    if (this.img4.nativeElement.files && this.checkSize(this.img4))
-      this.images.push(this.img4.nativeElement.files[0]);
-    else alert('Image must be less than 1mb');
+
+    //Images Check 1
+    if (
+      this.img1.nativeElement.files &&
+      this.img1.nativeElement.files.length > 0
+    )
+      if (this.checkSize(this.img1))
+        this.images.push(this.img1.nativeElement.files[0]);
+      else {
+        alert('Image 1 must be less than 1mb');
+        return;
+      }
+    //Images Check 2
+    if (
+      this.img2.nativeElement.files &&
+      this.img2.nativeElement.files.length > 0
+    )
+      if (this.checkSize(this.img2))
+        this.images.push(this.img2.nativeElement.files[0]);
+      else {
+        alert('Image 2 must be less than 1mb');
+        return;
+      }
+    //Images Check 3
+    if (
+      this.img3.nativeElement.files &&
+      this.img3.nativeElement.files.length > 0
+    )
+      if (this.checkSize(this.img3))
+        this.images.push(this.img3.nativeElement.files[0]);
+      else {
+        alert('Image 3 must be less than 1mb');
+        return;
+      }
+    //Images Check 4
+    if (
+      this.img4.nativeElement.files &&
+      this.img4.nativeElement.files.length > 0
+    )
+      if (this.checkSize(this.img4))
+        this.images.push(this.img4.nativeElement.files[0]);
+      else {
+        alert('Image 4 must be less than 1mb');
+        return;
+      }
     //#endregion
 
     if (this.images.length < 1) {
@@ -52,12 +85,10 @@ export class ImgUploadComponent implements OnInit {
     } else this.files.emit(this.images);
   }
 
-  checkSize(input: ElementRef<HTMLInputElement>) {
-    if (
-      input.nativeElement.files &&
-      input.nativeElement.files[0].size / 1024 / 1024 == Math.floor(1)
-    )
-      return true;
+  checkSize(input: ElementRef<HTMLInputElement>): boolean {
+    if (input.nativeElement.files)
+      if (input.nativeElement.files[0].size <= 1048569) return true;
+      else return false;
     else return false;
   }
 }

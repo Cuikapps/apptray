@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FirestoreService {
-  constructor(private store: AngularFirestore) {}
+  constructor(public store: AngularFirestore) {}
 
   /**
    *

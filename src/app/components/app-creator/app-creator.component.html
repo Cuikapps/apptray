@@ -73,7 +73,7 @@
     [hidden]="!state.urlToggle"
   ></cuik-url-box>
   <cuik-img-upload
-    (files)="tempImages = $event"
+    (files)="setTempImages($event)"
     [hidden]="!state.imgUploadToggle"
   ></cuik-img-upload>
 </div>

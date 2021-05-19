@@ -3,9 +3,12 @@
     "cuikapps": {
       "hosting": {
         "apptray": [
-          "cuikapps"
+          "apptray"
         ]
       }
     }
+  },
+  "projects": {
+    "cuikapps": "cuikapps"
   }
 }

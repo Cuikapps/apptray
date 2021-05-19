@@ -21,13 +21,27 @@ export class AppIconComponent implements OnInit {
   }
 
   editApp() {
-    this.state.editingApp = this.appData.title;
+    this.state.editingApp = this.appData.id;
     this.state.editorToggle = true;
   }
 
   open() {
     for (let i = 0; i < this.appData.urls.length; i++) {
       window.open(this.appData.urls[i], '_blank');
+    }
+  }
+
+  removeApp() {
+    if (this.appData.owner == localStorage.getItem('user')) {
+      if (
+        confirm(
+          'You are the owner of this app, so the app will be deleted for ever.'
+        )
+      ) {
+        this.apptray.deleteApp(this.appData.id);
+      }
+    } else {
+      this.apptray.removeUserApp(this.appData.id);
     }
   }
 }
