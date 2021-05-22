@@ -26,9 +26,10 @@ export class AppIconComponent implements OnInit {
   }
 
   open() {
-    for (let i = 0; i < this.appData.urls.length; i++) {
-      window.open(this.appData.urls[i], '_blank');
-    }
+    if (this.state.activeControl == 'none')
+      for (let i = 0; i < this.appData.urls.length; i++) {
+        window.open(this.appData.urls[i], '_blank');
+      }
   }
 
   removeApp() {

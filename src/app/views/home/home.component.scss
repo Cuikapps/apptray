@@ -14,6 +14,35 @@ header {
     cursor: pointer;
   }
 
+  h1 {
+    max-width: 600px;
+  }
+
+  .search {
+    background-color: theme.$secondary;
+    height: 35px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 3px 0px theme.$primary;
+    display: flex;
+    align-items: center;
+    input {
+      border: none;
+      background-color: transparent;
+      width: calc(100% - (24px * 1.5));
+      height: 30px;
+      font-size: 18px;
+      color: theme.$primary;
+      &:focus {
+        outline: none;
+      }
+    }
+    svg {
+      transform: scale(1.5, 1.5);
+      cursor: pointer;
+    }
+  }
+
   .controls {
     display: flex;
     gap: 10px;

@@ -1,0 +1,48 @@
+@use '../../theme' as theme;
+
+.select {
+  width: 150px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  gap: 0;
+  .display {
+    border: 2px solid theme.$primary;
+    border-radius: 10px 0px 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 131px;
+    height: 43px;
+    color: theme.$primary;
+  }
+  .arrow {
+    background-color: theme.$primary;
+    color: theme.$secondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+    width: 20px;
+    border-radius: 0px 10px 10px 0px;
+  }
+  .selection {
+    width: inherit;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    transform: translate(0, 43px);
+    border: 2px solid theme.$tertiary;
+    border-radius: 10px;
+    span {
+      color: theme.$primary;
+      padding: 2.5px 1px;
+      &:hover {
+        background-color: theme.$tertiary;
+        color: theme.$secondary;
+      }
+    }
+  }
+}

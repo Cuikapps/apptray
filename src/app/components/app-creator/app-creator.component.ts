@@ -16,7 +16,7 @@ export class AppCreatorComponent implements OnInit {
     private apptray: ApptrayService
   ) {}
 
-  @Output() close: EventEmitter<void> = new EventEmitter<void>();
+  @Output() closeCreate: EventEmitter<void> = new EventEmitter<void>();
 
   createdApp: App = {
     id: this.fs.genRandID(),
@@ -36,7 +36,7 @@ export class AppCreatorComponent implements OnInit {
   tempImages!: File[];
 
   submit() {
-    //Check to see if links are valid
+    // Check to see if links are valid
     for (let url of this.createdApp.urls) {
       if (!url.includes('https://')) {
         alert(`Your url: ${url}, does not begin with "https://"`);
@@ -44,7 +44,7 @@ export class AppCreatorComponent implements OnInit {
       }
     }
 
-    //Check if images are set
+    // Check if images are set
     if (this.tempImages == undefined || null) {
       console.log(this.tempImages);
       alert('You must have image(s)');
@@ -58,15 +58,15 @@ export class AppCreatorComponent implements OnInit {
       });
   }
 
-  setUrls(urls: string[]) {
+  setUrls(urls: string[]): void {
     this.createdApp.urls = urls;
   }
 
-  setTitle(title: string) {
+  setTitle(title: string): void {
     this.createdApp.title = title;
   }
 
-  setTempImages(files: File[]) {
+  setTempImages(files: File[]): void {
     this.tempImages = files;
   }
 

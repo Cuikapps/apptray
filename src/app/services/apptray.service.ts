@@ -15,20 +15,32 @@ export class ApptrayService {
     private fs: FirestoreService,
     private fstorage: AngularFireStorage
   ) {
-    this.retrieveUserApps();
+    this.fs
+      .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
+      .then((value) => {
+        if (value) {
+          this.retrieveUserApps();
+        } else {
+          this.fs.create<UserApp>(
+            '/users-apps/' + localStorage.getItem('user'),
+            { apps: [] },
+            false
+          );
+        }
+      });
   }
 
   public $appList: Subject<App[]> = new Subject<App[]>();
 
-  retrieveUserApps() {
+  retrieveUserApps(): void {
     let userApps: UserApp = { apps: [''] };
 
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
-        userApps = <UserApp>v;
+        userApps = v as UserApp;
 
-        let apps: App[] = [
+        const apps: App[] = [
           {
             id: '',
             desc: '',
@@ -49,39 +61,41 @@ export class ApptrayService {
          * Goes through the apps that the users has and adds each to the apps array.
          */
         apps.pop();
-        for (let appId of userApps.apps) {
-          this.fs.read<App>('/apptray-apps/' + appId, false).then((v) => {
-            apps.push(<App>v);
-          });
+        for (const appId of userApps.apps) {
+          this.fs
+            .read<App>('/apptray-apps/' + appId, false)
+            .then((app): void => {
+              apps.push(app as App);
+            });
         }
 
         this.$appList.next(apps);
       });
   }
 
-  deleteApp(appId: string) {
+  deleteApp(appId: string): void {
     let userApps: UserApp = { apps: [''] };
 
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
-        userApps = <UserApp>v;
+        userApps = v as UserApp;
 
         for (let i = 0; i < userApps.apps.length; i++) {
-          if (userApps.apps[i] == appId) {
+          if (userApps.apps[i] === appId) {
             userApps.apps.splice(i, 1);
             break;
           }
         }
-        //Update the users current apps
+        // Update the users current apps
         this.fs.update<UserApp>('users-apps/' + localStorage.getItem('user'), {
           apps: userApps.apps,
         });
 
-        //Delete the app data
+        // Delete the app data
         this.fs.delete('/apptray-apps/' + appId);
 
-        //Delete all files in the apps images folder.
+        // Delete all files in the apps images folder.
         this.fstorage
           .ref('/apptray-images/' + appId)
           .listAll()
@@ -95,14 +109,14 @@ export class ApptrayService {
       });
   }
 
-  removeUserApp(appId: string) {
+  removeUserApp(appId: string): void {
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
-        let userApps = <UserApp>v;
+        const userApps = v as UserApp;
 
         for (let i = 0; i < userApps.apps.length; i++) {
-          if (userApps.apps[i] == appId) {
+          if (userApps.apps[i] === appId) {
             userApps.apps.splice(i, 1);
             break;
           }
@@ -114,14 +128,14 @@ export class ApptrayService {
       .then(() => this.retrieveUserApps());
   }
 
-  moveApp(from: number, to: number) {
+  moveApp(from: number, to: number): void {
     let userApps: UserApp = { apps: [''] };
 
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
-        userApps = <UserApp>v;
-        //swap the selected elements;
+        userApps = v as UserApp;
+        // swap the selected elements;
         [userApps.apps[from], userApps.apps[to]] = [
           userApps.apps[to],
           userApps.apps[from],
@@ -134,12 +148,12 @@ export class ApptrayService {
       });
   }
 
-  createApp(data: App) {
+  createApp(data: App): void {
     let userApps: UserApp;
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
-        userApps = <UserApp>v;
+        userApps = v as UserApp;
         userApps.apps.push(data.id);
         this.fs.create('/apptray-apps/' + data.id, data, false);
         this.fs.store
@@ -149,32 +163,32 @@ export class ApptrayService {
       });
   }
 
-  updateApp(data: App) {
+  updateApp(data: App): void {
     this.fs.update<App>('/apptray-apps/' + data.title, data);
   }
 
   async setAppImages(images: File[], appId: string): Promise<string[]> {
-    let renamedImgs: File[] = [];
+    const renamedImgs: File[] = [];
 
     for (let i = 0; i < images.length; i++) {
-      let blob = images[i].slice(0, images[i].size, images[i].type);
+      const blob = images[i].slice(0, images[i].size, images[i].type);
       renamedImgs[i] = new File([blob], `Image_${i}`, { type: images[i].type });
     }
 
-    for (let i = 0; i < renamedImgs.length; i++) {
+    for (const renamedImg of renamedImgs) {
       await this.fstorage
-        .ref(`/apptray-images/${appId}/${renamedImgs[i].name}`)
-        .put(renamedImgs[i]);
+        .ref(`/apptray-images/${appId}/${renamedImg.name}`)
+        .put(renamedImg);
     }
 
-    let refArr: AngularFireStorageReference[] = [];
-    for (let i = 0; i < renamedImgs.length; i++) {
+    const refArr: AngularFireStorageReference[] = [];
+    for (const renamedImg of renamedImgs) {
       refArr.push(
-        this.fstorage.ref(`/apptray-images/${appId}/${renamedImgs[i].name}`)
+        this.fstorage.ref(`/apptray-images/${appId}/${renamedImg.name}`)
       );
     }
 
-    let urls: string[] = [];
+    const urls: string[] = [];
 
     for (let i = 0; i < refArr.length; i++) {
       urls[i] = await refArr[i].getDownloadURL().toPromise();

@@ -1,12 +1,14 @@
 @use '../../theme' as theme;
 
+// TODO Add custom scroll bar fro body and creator
 .panel {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 700px;
+  height: 80vh;
+  overflow-y: auto;
   background-color: theme.$secondary;
   border: 2px solid theme.$primary;
   border-radius: 20px;

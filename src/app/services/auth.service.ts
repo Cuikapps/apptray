@@ -8,6 +8,7 @@ import {
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { IUser } from '@interfaces/iuser';
+import { ApptrayService } from './apptray.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +23,8 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private apptray: ApptrayService
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -30,6 +32,7 @@ export class AuthService {
 
         this.userState = user;
         this._createStoreData(user);
+        this.apptray.retrieveUserApps();
 
         this.isLoggedIn = true;
         if (user.emailVerified) this.isVerified = true;

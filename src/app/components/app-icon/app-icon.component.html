@@ -1,4 +1,4 @@
-<div class="block">
+<div class="block" (click)="open()">
   <div class="bar">
     {{ appData.title }}
     <div
@@ -13,7 +13,7 @@
     ></div>
     <div class="move" *ngIf="state.activeControl == 'move'"></div>
   </div>
-  <div class="imgs" (click)="open()">
+  <div class="imgs">
     <ng-container *ngIf="hasMultipleImages()">
       <img
         [src]="img"

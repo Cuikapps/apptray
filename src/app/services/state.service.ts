@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
+import { Setting } from '@app/interfaces/setting';
 
-export type activeControls = 'none' | 'trash-can' | 'move' | 'edit';
+export type activeControls = 'none' | 'trash-can' | 'move' | 'edit' | 'setting';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StateService {
-  constructor() {}
+  constructor() {
+    if (localStorage.getItem('apptray-settings') === null) {
+      let settings: Setting = {
+        searchEngine: 'Google',
+      };
+
+      localStorage.setItem('apptray-settings', JSON.stringify(settings));
+    }
+  }
 
   //#region activeControl
   private _activeControl: activeControls = 'none';
@@ -75,6 +84,25 @@ export class StateService {
   }
   public set imgUploadToggle(value: boolean) {
     this._imgUploadToggle = value;
+  }
+  //#endregion
+
+  //#region searchEngine
+  get searchEngine(): string {
+    let settingObj: Setting = JSON.parse(
+      localStorage.getItem('apptray-settings') || '{}'
+    );
+
+    return settingObj.searchEngine;
+  }
+  set searchEngine(v: string) {
+    let settingObj: Setting = JSON.parse(
+      localStorage.getItem('apptray-settings') || '{}'
+    );
+
+    settingObj.searchEngine = v;
+
+    localStorage.setItem('apptray-settings', JSON.stringify(settingObj));
   }
   //#endregion
 }

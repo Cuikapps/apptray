@@ -8,6 +8,7 @@ import { FeatureModule } from '../feature/feature.module';
 import { UrlBoxComponent } from './url-box/url-box.component';
 import { ImgUploadComponent } from './img-upload/img-upload.component';
 import { FormsModule } from '@angular/forms';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     AppEditorComponent,
     UrlBoxComponent,
     ImgUploadComponent,
+    SettingsComponent,
   ],
   imports: [CommonModule, FeatureModule, FormsModule],
   exports: [
@@ -26,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     AppEditorComponent,
     UrlBoxComponent,
     ImgUploadComponent,
+    SettingsComponent,
     FeatureModule,
   ],
 })
