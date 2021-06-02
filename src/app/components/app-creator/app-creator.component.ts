@@ -35,9 +35,9 @@ export class AppCreatorComponent implements OnInit {
 
   tempImages!: File[];
 
-  submit() {
+  submit(): void {
     // Check to see if links are valid
-    for (let url of this.createdApp.urls) {
+    for (const url of this.createdApp.urls) {
       if (!url.includes('https://')) {
         alert(`Your url: ${url}, does not begin with "https://"`);
         return;
@@ -45,7 +45,7 @@ export class AppCreatorComponent implements OnInit {
     }
 
     // Check if images are set
-    if (this.tempImages == undefined || null) {
+    if (this.tempImages === undefined || null) {
       console.log(this.tempImages);
       alert('You must have image(s)');
     }

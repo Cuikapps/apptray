@@ -1,63 +1,4 @@
-<header>
-  <img
-    src="../../../assets/cuiksuite.png"
-    alt="Logo"
-    height="66"
-    class="logo"
-    (click)="openSite()"
-  />
-  <h1>Welcome {{ authService.DisplayName }} (Beta!)</h1>
-  <div class="search">
-    <input
-      #searchInput
-      type="text"
-      placeholder="search"
-      (change)="search(searchInput.value)"
-    />
-    <svg
-      width="24"
-      height="24"
-      stroke="#0f3057"
-      (click)="search(searchInput.value)"
-    >
-      <circle
-        cx="10"
-        cy="10"
-        r="6"
-        stroke-width="2"
-        fill="transparent"
-      ></circle>
-      <line x1="14" y1="14" x2="20" y2="20" stroke-width="2"></line>
-    </svg>
-  </div>
-  <div class="controls">
-    <div class="plus-btn" (click)="state.creatorToggle = !state.creatorToggle">
-      <div class="top"></div>
-      <div class="right"></div>
-      <div class="bottom"></div>
-      <div class="left"></div>
-    </div>
-    <div class="profile">
-      <img
-        [src]="authService.PhotoURL || '../../../assets/account.png'"
-        alt="Profile Image"
-        width="50"
-        height="50"
-        (click)="state.accountToggle = !state.accountToggle"
-      />
-      <div class="account-panel" *ngIf="state.accountToggle">
-        <ul>
-          <li class="dash" (click)="goToDash()">
-            <span>Dashboard</span>
-          </li>
-          <li class="sign-out" (click)="signOut()">
-            <span>Log out</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</header>
+<cuik-nav (signOut)="signOut()"></cuik-nav>
 <div class="page">
   <cuik-side-panel></cuik-side-panel>
   <main>
@@ -69,8 +10,9 @@
   *ngIf="state.creatorToggle"
 ></cuik-app-creator>
 <cuik-app-editor
-  (close)="state.editorToggle = !state.editorToggle"
+  (closeTab)="state.editorToggle = !state.editorToggle"
   *ngIf="state.editorToggle"
+  [apps]="appData"
 >
 </cuik-app-editor>
 <cuik-settings *ngIf="state.activeControl == 'setting'"></cuik-settings>

@@ -9,7 +9,7 @@ export type activeControls = 'none' | 'trash-can' | 'move' | 'edit' | 'setting';
 export class StateService {
   constructor() {
     if (localStorage.getItem('apptray-settings') === null) {
-      let settings: Setting = {
+      const settings: Setting = {
         searchEngine: 'Google',
       };
 
@@ -19,7 +19,7 @@ export class StateService {
 
   //#region activeControl
   private _activeControl: activeControls = 'none';
-  public get activeControl() {
+  public get activeControl(): activeControls {
     return this._activeControl;
   }
   public set activeControl(value: activeControls) {
@@ -28,7 +28,7 @@ export class StateService {
   //#endregion
 
   //#region editingApp
-  private _editingApp: string = ' ';
+  private _editingApp = ' ';
   public get editingApp(): string {
     return this._editingApp;
   }
@@ -38,7 +38,7 @@ export class StateService {
   //#endregion
 
   //#region editorToggle
-  private _editorToggle: boolean = false;
+  private _editorToggle = false;
   public get editorToggle(): boolean {
     return this._editorToggle;
   }
@@ -48,7 +48,7 @@ export class StateService {
   //#endregion
 
   //#region accountToggle
-  private _accountToggle: boolean = false;
+  private _accountToggle = false;
   public get accountToggle(): boolean {
     return this._accountToggle;
   }
@@ -58,7 +58,7 @@ export class StateService {
   //#endregion
 
   //#region creatorToggle
-  private _creatorToggle: boolean = false;
+  private _creatorToggle = false;
   public get creatorToggle(): boolean {
     return this._creatorToggle;
   }
@@ -68,7 +68,7 @@ export class StateService {
   //#endregion
 
   //#region urlToggle
-  private _urlToggle: boolean = false;
+  private _urlToggle = false;
   public get urlToggle(): boolean {
     return this._urlToggle;
   }
@@ -78,7 +78,7 @@ export class StateService {
   //#endregion
 
   //#region imgUploadToggle
-  private _imgUploadToggle: boolean = false;
+  private _imgUploadToggle = false;
   public get imgUploadToggle(): boolean {
     return this._imgUploadToggle;
   }
@@ -89,14 +89,14 @@ export class StateService {
 
   //#region searchEngine
   get searchEngine(): string {
-    let settingObj: Setting = JSON.parse(
+    const settingObj: Setting = JSON.parse(
       localStorage.getItem('apptray-settings') || '{}'
     );
 
     return settingObj.searchEngine;
   }
   set searchEngine(v: string) {
-    let settingObj: Setting = JSON.parse(
+    const settingObj: Setting = JSON.parse(
       localStorage.getItem('apptray-settings') || '{}'
     );
 

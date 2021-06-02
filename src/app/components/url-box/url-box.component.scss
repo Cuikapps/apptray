@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  background-color: theme.$secondary;
 
   @include theme.custom-scroll(
     5px,

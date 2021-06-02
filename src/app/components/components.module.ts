@@ -9,6 +9,7 @@ import { UrlBoxComponent } from './url-box/url-box.component';
 import { ImgUploadComponent } from './img-upload/img-upload.component';
 import { FormsModule } from '@angular/forms';
 import { SettingsComponent } from './settings/settings.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SettingsComponent } from './settings/settings.component';
     UrlBoxComponent,
     ImgUploadComponent,
     SettingsComponent,
+    NavComponent,
   ],
   imports: [CommonModule, FeatureModule, FormsModule],
   exports: [
@@ -30,6 +32,7 @@ import { SettingsComponent } from './settings/settings.component';
     ImgUploadComponent,
     SettingsComponent,
     FeatureModule,
+    NavComponent,
   ],
 })
 export class ComponentsModule {}

@@ -15,32 +15,34 @@ export class AppIconComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  hasMultipleImages() {
-    if (this.appData.images.length > 1) return true;
-    else return false;
+  hasMultipleImages(): boolean {
+    if (this.appData.images.length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  editApp() {
-    this.state.editingApp = this.appData.id;
-    this.state.editorToggle = true;
+  editApp(): void {
+    if (this.appData.owner === localStorage.getItem('user')) {
+      this.state.editingApp = this.appData.id;
+      this.state.editorToggle = true;
+    } else {
+      alert('You must the owner of this app to edit it.');
+    }
   }
 
-  open() {
-    if (this.state.activeControl == 'none')
-      for (let i = 0; i < this.appData.urls.length; i++) {
-        window.open(this.appData.urls[i], '_blank');
+  open(): void {
+    if (this.state.activeControl === 'none') {
+      for (const url of this.appData.urls) {
+        window.open(url, '_blank');
       }
+    }
   }
 
-  removeApp() {
-    if (this.appData.owner == localStorage.getItem('user')) {
-      if (
-        confirm(
-          'You are the owner of this app, so the app will be deleted for ever.'
-        )
-      ) {
-        this.apptray.deleteApp(this.appData.id);
-      }
+  removeApp(): void {
+    if (this.appData.owner === localStorage.getItem('user')) {
+      this.apptray.deleteApp(this.appData.id);
     } else {
       this.apptray.removeUserApp(this.appData.id);
     }

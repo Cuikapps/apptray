@@ -1,0 +1,161 @@
+@use '../../theme' as theme;
+
+header {
+  background-color: theme.$primary;
+  display: flex;
+  height: 66px;
+  align-items: center;
+  justify-content: space-between;
+  color: theme.$secondary;
+  font-family: theme.$Montserrat;
+  font-weight: 100;
+
+  .logo {
+    cursor: pointer;
+  }
+
+  h1 {
+    max-width: 600px;
+  }
+
+  .search {
+    background-color: theme.$secondary;
+    height: 35px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 3px 0px theme.$primary;
+    display: flex;
+    align-items: center;
+
+    &::after {
+      position: absolute;
+      content: "beta";
+      padding: 3px 5px;
+      transform: translateX(430px);
+      border: 1px solid theme.$accent;
+      color: lighten($color: theme.$accent, $amount: 10%);
+      border-radius: 5px;
+      text-shadow: 1px 1px 1px theme.$secondary;
+    }
+    input {
+      border: none;
+      background-color: transparent;
+      width: calc(100% - (24px * 1.5));
+      height: 30px;
+      font-size: 18px;
+      color: theme.$primary;
+      &:focus {
+        outline: none;
+      }
+    }
+    svg {
+      transform: scale(1.5, 1.5);
+      cursor: pointer;
+    }
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    > div {
+      width: 55px;
+      height: 55px;
+      cursor: pointer;
+    }
+  }
+  .plus-btn {
+    background: radial-gradient(theme.$tertiary, theme.$accent, theme.$primary);
+    display: grid;
+    grid-template-columns: 45% 10% 45%;
+    grid-template-rows: 45% 10% 45%;
+    border-radius: 50%;
+    &:hover {
+      background: radial-gradient(theme.$accent, theme.$tertiary);
+    }
+    > div {
+      width: 100%;
+      height: 100%;
+      border-radius: 0px 0px 10px 0px;
+      background-color: theme.$primary;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .right {
+      grid-column: 3;
+      grid-row: 1;
+      transform: rotateZ(90deg);
+    }
+    .bottom {
+      grid-column: 3;
+      grid-row: 3;
+      transform: rotateZ(180deg);
+    }
+    .left {
+      grid-column: 1;
+      grid-row: 3;
+      transform: rotateZ(-90deg);
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      border-radius: 50%;
+      &:hover {
+        filter: drop-shadow(0px 0px 15px theme.$tertiary);
+      }
+    }
+
+    .account-panel {
+      position: absolute;
+      top: 66px;
+      right: 0;
+      width: 225px;
+      height: 110px;
+      background-color: theme.$primary;
+      border-radius: 0px 0px 0px 15px;
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style: none;
+          font-size: 1.3rem;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            background-color: theme.$tertiary;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  header h1 {
+    display: none;
+  }
+}
+@media screen and (max-width: 775px) {
+  header {
+    justify-content: space-evenly;
+
+    .logo {
+      display: none;
+    }
+    .search {
+      width: 300px;
+    }
+    .search::after {
+      display: none;
+    }
+    .controls .plus-btn {
+      display: none;
+    }
+  }
+}

@@ -10,6 +10,9 @@
   align-items: center;
   overflow-y: scroll;
   overflow-x: hidden;
+  background-color: theme.$secondary;
+  color: theme.$primary;
+  font-family: theme.$Poppins;
 
   @include theme.custom-scroll(
     5px,

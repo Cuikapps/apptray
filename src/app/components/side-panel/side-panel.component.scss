@@ -23,3 +23,8 @@
     background-color: theme.$accent;
   }
 }
+@media screen and (max-width: 775px) {
+  .panel {
+    display: none;
+  }
+}

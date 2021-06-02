@@ -7,13 +7,15 @@ import { App } from '@app/interfaces/app';
 import { UserApp } from '@app/interfaces/user-app';
 import { Subject } from 'rxjs';
 import { FirestoreService } from './firestore.service';
+import { StateService } from './state.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApptrayService {
   constructor(
     private fs: FirestoreService,
-    private fstorage: AngularFireStorage
+    private fstorage: AngularFireStorage,
+    private state: StateService
   ) {
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
@@ -74,39 +76,59 @@ export class ApptrayService {
   }
 
   deleteApp(appId: string): void {
-    let userApps: UserApp = { apps: [''] };
+    if (
+      confirm(
+        'Are you sure you want to delete this app. Deleting this app will remove it from everybody else who it is shared with.'
+      )
+    ) {
+      let userApps: UserApp = { apps: [''] };
 
-    this.fs
-      .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
-      .then((v) => {
-        userApps = v as UserApp;
+      this.fs
+        .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
+        .then((v) => {
+          userApps = v as UserApp;
 
-        for (let i = 0; i < userApps.apps.length; i++) {
-          if (userApps.apps[i] === appId) {
-            userApps.apps.splice(i, 1);
-            break;
+          for (let i = 0; i < userApps.apps.length; i++) {
+            if (userApps.apps[i] === appId) {
+              userApps.apps.splice(i, 1);
+              break;
+            }
           }
-        }
-        // Update the users current apps
-        this.fs.update<UserApp>('users-apps/' + localStorage.getItem('user'), {
-          apps: userApps.apps,
-        });
 
-        // Delete the app data
-        this.fs.delete('/apptray-apps/' + appId);
+          // removes app from the users who have it
+          this.fs
+            .collection<UserApp>('users-apps')
+            .where('apps', 'array-contains', appId)
+            .get()
+            .then((docs) => {
+              docs.forEach((doc) => {
+                let newApps = doc.data().apps;
+                newApps = newApps.filter((item) => item !== appId);
 
-        // Delete all files in the apps images folder.
-        this.fstorage
-          .ref('/apptray-images/' + appId)
-          .listAll()
-          .toPromise()
-          .then((result) => {
-            result.items.forEach((file) => {
-              file.delete();
+                doc.ref.set({ apps: newApps }, { merge: true });
+              });
+            })
+            .catch((e) => {
+              console.log(e);
+            })
+            .finally(() => {
+              // Delete the app data
+              this.fs.delete('/apptray-apps/' + appId);
+
+              // Delete all files in the apps images folder.
+              this.fstorage
+                .ref('/apptray-images/' + appId)
+                .listAll()
+                .toPromise()
+                .then((result) => {
+                  result.items.forEach((file) => {
+                    file.delete();
+                  });
+                })
+                .finally(() => this.retrieveUserApps());
             });
-          })
-          .then(() => this.retrieveUserApps());
-      });
+        });
+    }
   }
 
   removeUserApp(appId: string): void {
@@ -163,8 +185,10 @@ export class ApptrayService {
       });
   }
 
-  updateApp(data: App): void {
-    this.fs.update<App>('/apptray-apps/' + data.title, data);
+  updateApp(data: Partial<App>): void {
+    this.fs
+      .update<App>('/apptray-apps/' + data.id, data)
+      .then(() => this.retrieveUserApps());
   }
 
   async setAppImages(images: File[], appId: string): Promise<string[]> {
