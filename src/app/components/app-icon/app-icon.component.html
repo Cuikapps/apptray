@@ -1,16 +1,16 @@
-<div class="block" (click)="open()">
+<div
+  #block
+  class="block"
+  (click)="open()"
+  [ngClass]="{
+    'selected-first': selectedFirst,
+    'selected-second': selectedSecond
+  }"
+>
   <div class="bar">
     {{ appData.title }}
-    <div
-      class="edit"
-      (click)="editApp()"
-      *ngIf="state.activeControl == 'edit'"
-    ></div>
-    <div
-      class="del"
-      (click)="removeApp()"
-      *ngIf="state.activeControl == 'trash-can'"
-    ></div>
+    <div class="edit" *ngIf="state.activeControl == 'edit'"></div>
+    <div class="del" *ngIf="state.activeControl == 'trash-can'"></div>
     <div class="move" *ngIf="state.activeControl == 'move'"></div>
   </div>
   <div class="imgs">

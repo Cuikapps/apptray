@@ -2,7 +2,11 @@
 <div class="page">
   <cuik-side-panel></cuik-side-panel>
   <main>
-    <cuik-app-icon *ngFor="let app of appData" [app-data]="app"></cuik-app-icon>
+    <cuik-app-icon
+      *ngFor="let app of appData; let i = index"
+      [app-data]="app"
+      [index]="i"
+    ></cuik-app-icon>
   </main>
 </div>
 <cuik-app-creator

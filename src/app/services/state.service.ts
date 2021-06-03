@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { AppIconComponent } from '@app/components/app-icon/app-icon.component';
 import { Setting } from '@app/interfaces/setting';
+import { ApptrayService } from './apptray.service';
 
 export type activeControls = 'none' | 'trash-can' | 'move' | 'edit' | 'setting';
 
@@ -7,7 +9,7 @@ export type activeControls = 'none' | 'trash-can' | 'move' | 'edit' | 'setting';
   providedIn: 'root',
 })
 export class StateService {
-  constructor() {
+  constructor(private apptray: ApptrayService) {
     if (localStorage.getItem('apptray-settings') === null) {
       const settings: Setting = {
         searchEngine: 'Google',
@@ -103,6 +105,45 @@ export class StateService {
     settingObj.searchEngine = v;
 
     localStorage.setItem('apptray-settings', JSON.stringify(settingObj));
+  }
+  //#endregion
+
+  //#region selectedApp
+  private _selectedApp = -1;
+  get selectedApp(): number {
+    return this._selectedApp;
+  }
+  setSelectedApp(value: number, callerClass: AppIconComponent): void {
+    this._selectedApp = value;
+
+    if (this._selectedApp > -1 && this._moveToApp > -1) {
+      this.apptray.moveApp(this._selectedApp, this._moveToApp).then(() => {
+        // resets everything back to how they were at initialization
+        this._selectedApp = -1;
+        this._moveToApp = -1;
+        callerClass.resetSelection();
+      });
+    }
+  }
+  //#endregion
+
+  //#region moveToApp
+  // tslint:disable-next-line: member-ordering
+  private _moveToApp = -1;
+  get moveToApp(): number {
+    return this._moveToApp;
+  }
+  setMoveToApp(value: number, callerClass: AppIconComponent): void {
+    this._moveToApp = value;
+
+    if (this._selectedApp > -1 && this._moveToApp > -1) {
+      this.apptray.moveApp(this._selectedApp, this._moveToApp).then(() => {
+        // resets everything back to how they were at initialization
+        this._selectedApp = -1;
+        this._moveToApp = -1;
+        callerClass.resetSelection();
+      });
+    }
   }
   //#endregion
 }

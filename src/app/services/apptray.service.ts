@@ -7,15 +7,13 @@ import { App } from '@app/interfaces/app';
 import { UserApp } from '@app/interfaces/user-app';
 import { Subject } from 'rxjs';
 import { FirestoreService } from './firestore.service';
-import { StateService } from './state.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ApptrayService {
   constructor(
     private fs: FirestoreService,
-    private fstorage: AngularFireStorage,
-    private state: StateService
+    private fstorage: AngularFireStorage
   ) {
     this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
@@ -150,10 +148,10 @@ export class ApptrayService {
       .then(() => this.retrieveUserApps());
   }
 
-  moveApp(from: number, to: number): void {
+  moveApp(from: number, to: number): Promise<void> {
     let userApps: UserApp = { apps: [''] };
 
-    this.fs
+    return this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
         userApps = v as UserApp;
@@ -163,16 +161,17 @@ export class ApptrayService {
           userApps.apps[from],
         ];
 
-        this.fs.update<UserApp>('users-apps/' + localStorage.getItem('user'), {
-          apps: userApps.apps,
-        });
-        this.retrieveUserApps();
+        this.fs
+          .update<UserApp>('users-apps/' + localStorage.getItem('user'), {
+            apps: userApps.apps,
+          })
+          .then(() => this.retrieveUserApps());
       });
   }
 
-  createApp(data: App): void {
+  createApp(data: App): Promise<void> {
     let userApps: UserApp;
-    this.fs
+    return this.fs
       .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
       .then((v) => {
         userApps = v as UserApp;
