@@ -3,13 +3,16 @@
   class="block"
   (click)="open()"
   [ngClass]="{
-    'selected-first': selectedFirst,
-    'selected-second': selectedSecond
+    'selected-first': selectedFirst && state.activeControl == 'move',
+    'selected-second': selectedSecond && state.activeControl == 'move'
   }"
 >
   <div class="bar">
     {{ appData.title }}
-    <div class="edit" *ngIf="state.activeControl == 'edit'"></div>
+    <div
+      class="edit"
+      *ngIf="state.activeControl == 'edit' || state.activeControl == 'info'"
+    ></div>
     <div class="del" *ngIf="state.activeControl == 'trash-can'"></div>
     <div class="move" *ngIf="state.activeControl == 'move'"></div>
   </div>

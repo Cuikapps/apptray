@@ -14,13 +14,24 @@
     background-color: transparent;
     transition: background-color 0.2s linear;
 
+    &[title="Store"] svg > circle {
+      transition: fill 0.2s linear;
+      fill: theme.$tertiary;
+    }
+
     &:hover {
       background-color: theme.$accent;
+      &[title="Store"] svg > circle {
+        fill: theme.$accent;
+      }
     }
   }
 
   .active {
     background-color: theme.$accent;
+    &[title="Store"] svg > circle {
+      fill: theme.$accent;
+    }
   }
 }
 @media screen and (max-width: 775px) {

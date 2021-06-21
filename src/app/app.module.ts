@@ -18,6 +18,7 @@ import { HomeComponent } from './views/home/home.component';
 import { ComponentsModule } from './components/components.module';
 import { StateService } from './services/state.service';
 import { ApptrayService } from './services/apptray.service';
+import { YesNoPipe } from './feature/pipes/yes-no.pipe';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent],

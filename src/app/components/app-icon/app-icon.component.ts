@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { App } from '@app/interfaces/app';
 import { ApptrayService } from '@app/services/apptray.service';
@@ -51,6 +50,8 @@ export class AppIconComponent implements OnInit {
       this.editApp();
     } else if (this.state.activeControl === 'trash-can') {
       this.removeApp();
+    } else if (this.state.activeControl === 'info') {
+      this.openInfo();
     }
   }
 
@@ -83,5 +84,10 @@ export class AppIconComponent implements OnInit {
   resetSelection(): void {
     this.selectedFirst = false;
     this.selectedSecond = false;
+  }
+
+  openInfo(): void {
+    this.state.infoToggle = true;
+    this.state.viewingApp = this.appData.id;
   }
 }

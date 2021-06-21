@@ -19,4 +19,11 @@
   [apps]="appData"
 >
 </cuik-app-editor>
+<cuik-info
+  (closeTab)="state.infoToggle = !state.infoToggle"
+  *ngIf="state.infoToggle"
+  [apps]="appData"
+>
+</cuik-info>
+
 <cuik-settings *ngIf="state.activeControl == 'setting'"></cuik-settings>

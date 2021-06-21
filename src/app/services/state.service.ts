@@ -3,12 +3,29 @@ import { AppIconComponent } from '@app/components/app-icon/app-icon.component';
 import { Setting } from '@app/interfaces/setting';
 import { ApptrayService } from './apptray.service';
 
-export type activeControls = 'none' | 'trash-can' | 'move' | 'edit' | 'setting';
+export type activeControls =
+  | 'none'
+  | 'trash-can'
+  | 'move'
+  | 'edit'
+  | 'setting'
+  | 'info';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StateService {
+  private _accountToggle = false;
+  private _activeControl: activeControls = 'none';
+  private _creatorToggle = false;
+  private _editingApp = ' ';
+  private _editorToggle = false;
+  private _imgUploadToggle = false;
+  private _infoToggle = false;
+  private _moveToApp = -1;
+  private _urlToggle = false;
+  private _viewingApp = ' ';
+
   constructor(private apptray: ApptrayService) {
     if (localStorage.getItem('apptray-settings') === null) {
       const settings: Setting = {
@@ -20,7 +37,6 @@ export class StateService {
   }
 
   //#region activeControl
-  private _activeControl: activeControls = 'none';
   public get activeControl(): activeControls {
     return this._activeControl;
   }
@@ -30,7 +46,7 @@ export class StateService {
   //#endregion
 
   //#region editingApp
-  private _editingApp = ' ';
+
   public get editingApp(): string {
     return this._editingApp;
   }
@@ -40,7 +56,7 @@ export class StateService {
   //#endregion
 
   //#region editorToggle
-  private _editorToggle = false;
+
   public get editorToggle(): boolean {
     return this._editorToggle;
   }
@@ -50,7 +66,7 @@ export class StateService {
   //#endregion
 
   //#region accountToggle
-  private _accountToggle = false;
+
   public get accountToggle(): boolean {
     return this._accountToggle;
   }
@@ -60,7 +76,7 @@ export class StateService {
   //#endregion
 
   //#region creatorToggle
-  private _creatorToggle = false;
+
   public get creatorToggle(): boolean {
     return this._creatorToggle;
   }
@@ -70,7 +86,7 @@ export class StateService {
   //#endregion
 
   //#region urlToggle
-  private _urlToggle = false;
+
   public get urlToggle(): boolean {
     return this._urlToggle;
   }
@@ -80,7 +96,7 @@ export class StateService {
   //#endregion
 
   //#region imgUploadToggle
-  private _imgUploadToggle = false;
+
   public get imgUploadToggle(): boolean {
     return this._imgUploadToggle;
   }
@@ -128,8 +144,7 @@ export class StateService {
   //#endregion
 
   //#region moveToApp
-  // tslint:disable-next-line: member-ordering
-  private _moveToApp = -1;
+
   get moveToApp(): number {
     return this._moveToApp;
   }
@@ -144,6 +159,24 @@ export class StateService {
         callerClass.resetSelection();
       });
     }
+  }
+  //#endregion
+
+  //#region infoToggle
+  public get infoToggle(): boolean {
+    return this._infoToggle;
+  }
+  public set infoToggle(v: boolean) {
+    this._infoToggle = v;
+  }
+  //#endregion
+
+  //#region viewingApp
+  public get viewingApp(): string {
+    return this._viewingApp;
+  }
+  public set viewingApp(v: string) {
+    this._viewingApp = v;
   }
   //#endregion
 }

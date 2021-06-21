@@ -9,6 +9,8 @@ import {
 import { Router } from '@angular/router';
 import { IUser } from '@interfaces/iuser';
 import { ApptrayService } from './apptray.service';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,7 @@ export class AuthService {
   storeData!: IUser;
 
   isLoggedIn: boolean = localStorage.getItem('user') ? true : false;
-  isVerified: boolean = false;
+  isVerified = false;
 
   constructor(
     public afs: AngularFirestore,
@@ -35,8 +37,11 @@ export class AuthService {
         this.apptray.retrieveUserApps();
 
         this.isLoggedIn = true;
-        if (user.emailVerified) this.isVerified = true;
-        else this.isVerified = false;
+        if (user.emailVerified) {
+          this.isVerified = true;
+        } else {
+          this.isVerified = false;
+        }
         this.SetDocData();
       } else {
         this.isLoggedIn = false;
@@ -48,11 +53,13 @@ export class AuthService {
         this.userState = userData;
         this._createStoreData(userData);
         this.SetDocData();
-      } else this.userState = null;
+      } else {
+        this.userState = null;
+      }
     });
   }
 
-  private _createStoreData(data: firebase.User) {
+  private _createStoreData(data: firebase.User): void {
     if (data.displayName && data.email && data.emailVerified) {
       this.storeData = {
         uid: data.uid,
@@ -112,13 +119,18 @@ export class AuthService {
   /**
    * Make sure that the user is authenticated before calling these.
    */
-  get Email() {
-    if (this.userState && this.userState.email) return this.userState.email;
-    else return '';
+  get Email(): string {
+    if (this.userState && this.userState.email) {
+      return this.userState.email;
+    } else {
+      return '';
+    }
   }
   set Email(v: string) {
     this.afAuth.currentUser.then((user): void => {
-      if (user) user?.updateEmail(v);
+      if (user) {
+        user?.updateEmail(v);
+      }
       if (this.userState) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `users/${this.userState.uid}`
@@ -130,20 +142,26 @@ export class AuthService {
     });
   }
 
-  get EmailVerified() {
-    if (this.userState && this.userState.emailVerified)
+  get EmailVerified(): boolean {
+    if (this.userState && this.userState.emailVerified) {
       return this.userState.emailVerified;
-    else return false;
+    } else {
+      return false;
+    }
   }
 
-  get DisplayName() {
-    if (this.userState && this.userState.displayName)
+  get DisplayName(): string {
+    if (this.userState && this.userState.displayName) {
       return this.userState.displayName;
-    else return '';
+    } else {
+      return '';
+    }
   }
   set DisplayName(v: string) {
     this.afAuth.currentUser.then((user) => {
-      if (user) user.updateProfile({ displayName: v });
+      if (user) {
+        user.updateProfile({ displayName: v });
+      }
       if (this.userState) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `users/${this.userState.uid}`
@@ -156,15 +174,19 @@ export class AuthService {
   }
 
   get PhotoURL(): string | null {
-    if (this.userState && this.userState.photoURL)
+    if (this.userState && this.userState.photoURL) {
       return this.userState.photoURL;
-    else return null;
+    } else {
+      return null;
+    }
   }
   set PhotoURL(v: string | null) {
     this.afAuth.currentUser.then((user) => {
-      if (user) user.updateProfile({ photoURL: v });
+      if (user) {
+        user.updateProfile({ photoURL: v });
+      }
       if (this.userState) {
-        const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+        const userRef: AngularFirestoreDocument<IUser> = this.afs.doc(
           `users/${this.userState.uid}`
         );
         userRef.update({
@@ -172,5 +194,11 @@ export class AuthService {
         });
       }
     });
+  }
+
+  getUserFromID(
+    id: string
+  ): Observable<firebase.firestore.DocumentSnapshot<IUser>> {
+    return this.afs.collection<IUser>('users').doc(id).get();
   }
 }

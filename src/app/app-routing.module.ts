@@ -9,6 +9,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
+    path: 'store',
+    loadChildren: () =>
+      import('./views/store/store.module').then((m) => m.StoreModule),
+  },
+  {
     path: '**',
     component: PageNotFoundGuard,
     canActivate: [PageNotFoundGuard],

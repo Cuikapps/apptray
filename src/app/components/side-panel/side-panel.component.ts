@@ -18,7 +18,10 @@ export class SidePanelComponent implements OnInit {
    * if is already equal to the @param button then it is set to 'none'
    */
   activateControl(button: activeControls) {
-    if (this.state.activeControl == button) this.state.activeControl = 'none';
-    else this.state.activeControl = button;
+    if (this.state.activeControl === button) {
+      this.state.activeControl = 'none';
+    } else {
+      this.state.activeControl = button;
+    }
   }
 }

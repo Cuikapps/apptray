@@ -10,6 +10,9 @@ import { ImgUploadComponent } from './img-upload/img-upload.component';
 import { FormsModule } from '@angular/forms';
 import { SettingsComponent } from './settings/settings.component';
 import { NavComponent } from './nav/nav.component';
+import { InfoComponent } from './info/info.component';
+import { AppViewComponent } from './app-view/app-view.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,10 @@ import { NavComponent } from './nav/nav.component';
     ImgUploadComponent,
     SettingsComponent,
     NavComponent,
+    InfoComponent,
+    AppViewComponent,
   ],
-  imports: [CommonModule, FeatureModule, FormsModule],
+  imports: [CommonModule, FeatureModule, FormsModule, RouterModule],
   exports: [
     SidePanelComponent,
     AppCreatorComponent,
@@ -33,6 +38,8 @@ import { NavComponent } from './nav/nav.component';
     SettingsComponent,
     FeatureModule,
     NavComponent,
+    InfoComponent,
+    AppViewComponent,
   ],
 })
 export class ComponentsModule {}
