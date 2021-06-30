@@ -27,16 +27,6 @@ header {
     display: flex;
     align-items: center;
 
-    &::after {
-      position: absolute;
-      content: "beta";
-      padding: 3px 5px;
-      transform: translateX(430px);
-      border: 1px solid theme.$accent;
-      color: lighten($color: theme.$accent, $amount: 10%);
-      border-radius: 5px;
-      text-shadow: 1px 1px 1px theme.$secondary;
-    }
     input {
       border: none;
       background-color: transparent;

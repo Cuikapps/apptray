@@ -21,7 +21,7 @@ import { ApptrayService } from './services/apptray.service';
 import { YesNoPipe } from './feature/pipes/yes-no.pipe';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

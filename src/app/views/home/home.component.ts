@@ -18,16 +18,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public appService: ApptrayService,
     public state: StateService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
+    this.appService.retrieveUserApps(this.appService.userApps);
+
     this.subscriptions[0] = this.appService.$appList.subscribe((app) => {
       this.appData = app;
     });
   }
 
-  ngOnInit(): void {}
-
   signOut(): void {
-    this.subscriptions[0].unsubscribe();
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
     this.authService.SignOut();
   }
 

@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  Action,
+  DocumentSnapshot,
+  QueryDocumentSnapshot,
+} from '@angular/fire/firestore';
+import {
   AngularFireStorage,
   AngularFireStorageReference,
 } from '@angular/fire/storage';
 import { App } from '@app/interfaces/app';
 import { UserApp } from '@app/interfaces/user-app';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FirestoreService } from './firestore.service';
 
 // TODO add try-catch statements to all functions
@@ -18,10 +23,16 @@ export class ApptrayService {
     private fstorage: AngularFireStorage
   ) {
     this.fs
-      .read<UserApp>('/users-apps/' + localStorage.getItem('user'), false)
-      .then((value) => {
-        if (value) {
-          this.retrieveUserApps();
+      .read<UserApp>('/users-apps/' + localStorage.getItem('user'), true)
+      .then((observable) => {
+        if (observable) {
+          const subscription = observable as Observable<
+            Action<DocumentSnapshot<UserApp | undefined>>
+          >;
+          subscription.subscribe((value) => {
+            this.userApps = value.payload.data()?.apps || [];
+            this.retrieveUserApps(value.payload.data()?.apps || []);
+          });
         } else {
           this.fs.create<UserApp>(
             '/users-apps/' + localStorage.getItem('user'),
@@ -33,39 +44,20 @@ export class ApptrayService {
   }
 
   public $appList: Subject<App[]> = new Subject<App[]>();
+  public $storeApps: Subject<QueryDocumentSnapshot<App>[]> = new Subject<
+    QueryDocumentSnapshot<App>[]
+  >();
 
-  async retrieveUserApps(): Promise<void> {
-    let userApps: UserApp = { apps: [''] };
+  userApps: string[] = [];
 
-    const newUserApps = await this.fs.read<UserApp>(
-      '/users-apps/' + localStorage.getItem('user'),
-      false
-    );
-
-    userApps = newUserApps as UserApp;
-
-    const apps: App[] = [
-      {
-        id: '',
-        desc: '',
-        downloads: 0,
-        images: [''],
-        owner: '',
-        public: false,
-        rating: {
-          numberOfReviews: 0,
-          stars: 0,
-        },
-        title: '',
-        urls: [''],
-      },
-    ];
+  async retrieveUserApps(userApps: string[]): Promise<void> {
+    const apps: App[] = [];
 
     /**
      * Goes through the apps that the users has and adds each to the apps array.
      */
     apps.pop();
-    for (const appId of userApps.apps) {
+    for (const appId of userApps) {
       const app = await this.fs.read<App>('/apptray-apps/' + appId, false);
       apps.push(app as App);
     }
@@ -76,21 +68,12 @@ export class ApptrayService {
   async deleteApp(appId: string): Promise<void> {
     if (
       confirm(
-        'Are you sure you want to delete this app. Deleting this app will remove it from everybody else who it is shared with.'
+        'Are you sure you want to delete this app. Deleting this app will remove it from everybody else who have installed it.'
       )
     ) {
-      let userApps: UserApp = { apps: [''] };
-
-      const newUserApps = await this.fs.read<UserApp>(
-        '/users-apps/' + localStorage.getItem('user'),
-        false
-      );
-
-      userApps = newUserApps as UserApp;
-
-      for (let i = 0; i < userApps.apps.length; i++) {
-        if (userApps.apps[i] === appId) {
-          userApps.apps.splice(i, 1);
+      for (let i = 0; i < this.userApps.length; i++) {
+        if (this.userApps[i] === appId) {
+          this.userApps.splice(i, 1);
           break;
         }
       }
@@ -124,74 +107,50 @@ export class ApptrayService {
   }
 
   async removeUserApp(appId: string): Promise<void> {
-    const newUserApps = await this.fs.read<UserApp>(
-      '/users-apps/' + localStorage.getItem('user'),
-      false
-    );
-
-    const userApps = newUserApps as UserApp;
-
-    for (let i = 0; i < userApps.apps.length; i++) {
-      if (userApps.apps[i] === appId) {
-        userApps.apps.splice(i, 1);
+    for (let i = 0; i < this.userApps.length; i++) {
+      if (this.userApps[i] === appId) {
+        this.userApps.splice(i, 1);
         break;
       }
     }
     await this.fs.update<UserApp>(
       'users-apps/' + localStorage.getItem('user'),
       {
-        apps: userApps.apps,
+        apps: this.userApps,
       }
     );
-
-    await this.retrieveUserApps();
   }
 
   async moveApp(from: number, to: number): Promise<void> {
-    let userApps: UserApp = { apps: [''] };
-
-    const newUserApps = await this.fs.read<UserApp>(
-      '/users-apps/' + localStorage.getItem('user'),
-      false
-    );
-
-    userApps = newUserApps as UserApp;
     // swap the selected elements;
-    [userApps.apps[from], userApps.apps[to]] = [
-      userApps.apps[to],
-      userApps.apps[from],
+    [this.userApps[from], this.userApps[to]] = [
+      this.userApps[to],
+      this.userApps[from],
     ];
 
     await this.fs.update<UserApp>(
       'users-apps/' + localStorage.getItem('user'),
       {
-        apps: userApps.apps,
+        apps: this.userApps,
       }
     );
-
-    await this.retrieveUserApps();
   }
 
   async createApp(data: App): Promise<void> {
-    let userApps: UserApp;
-    const newUserApps = await this.fs.read<UserApp>(
-      '/users-apps/' + localStorage.getItem('user'),
-      false
-    );
-
-    userApps = newUserApps as UserApp;
+    const userApps: UserApp = {
+      apps: this.userApps,
+    };
     userApps.apps.push(data.id);
     this.fs.create('/apptray-apps/' + data.id, data, false);
     await this.fs.store
       .doc<UserApp>('/users-apps/' + localStorage.getItem('user'))
       .set(userApps);
-
-    await this.retrieveUserApps();
   }
 
   async updateApp(data: Partial<App>): Promise<void> {
+    data.update = new Date().toDateString();
+
     await this.fs.update<App>('/apptray-apps/' + data.id, data);
-    await this.retrieveUserApps();
   }
 
   async setAppImages(images: File[], appId: string): Promise<string[]> {
@@ -222,5 +181,146 @@ export class ApptrayService {
     }
 
     return urls;
+  }
+
+  async updateStoreAppsWithSorting(sorting: string): Promise<void> {
+    const orderBy = this._processOrderBy(' ', sorting);
+
+    if (orderBy === 'rating.stars') {
+      const query = await this.fs
+        .collection<App>('apptray-apps')
+        .where('public', '==', true)
+        .orderBy('rating.stars', sorting === 'low' ? 'asc' : 'desc')
+        .limit(100)
+        .get();
+
+      this.$storeApps.next(query.docs);
+    } else {
+      const query = await this.fs
+        .collection<App>('apptray-apps')
+        .where('public', '==', true)
+        .orderBy('downloads', 'desc')
+        .limit(100)
+        .get();
+
+      this.$storeApps.next(query.docs);
+    }
+  }
+
+  async updateStoreAppsWithSearch(search: string): Promise<void> {
+    const firstQuery = await this.fs
+      .collection<App>('apptray-apps')
+      .where('public', '==', true)
+      .where('title', '>=', search)
+      .where('title', '<=', search + '\uf8ff')
+      .limit(100)
+      .get();
+
+    const secondQuery = await this.fs
+      .collection<App>('apptray-apps')
+      .where('public', '==', true)
+      .where('title', 'array-contains', search)
+      .limit(100)
+      .get();
+
+    this.$storeApps.next(firstQuery.docs.concat(secondQuery.docs));
+  }
+
+  async installApp(appId: string): Promise<void> {
+    const userApps: UserApp = { apps: this.userApps };
+    const app = (await this.fs.read('apptray-apps/' + appId, false)) as App;
+
+    if (!this.userHasApp(appId)) {
+      userApps.apps.push(appId);
+      app.downloads++;
+
+      await this.fs.update<UserApp>(
+        'users-apps/' + localStorage.getItem('user'),
+        userApps
+      );
+      await this.fs.update<App>('apptray-apps/' + appId, app);
+    } else {
+      alert('You already have this app.');
+    }
+  }
+
+  /**
+   *
+   * @returns true if user has the app
+   */
+  userHasApp(appId: string): boolean {
+    return this.userApps.includes(appId);
+  }
+
+  async rateApp(appId: string, rate: number): Promise<void> {
+    const app = (await this.fs.read<App>(
+      'apptray-apps/' + appId,
+      false
+    )) as App;
+
+    if (!app.ratedBy) {
+      app.ratedBy = [
+        {
+          id: '',
+          rating: 1,
+        },
+      ];
+    }
+
+    if (
+      localStorage.getItem('user') &&
+      app.ratedBy.findIndex(
+        (obj) => obj.id === localStorage.getItem('user') || ''
+      ) === -1
+    ) {
+      app.ratedBy.push({
+        id: localStorage.getItem('user') || '',
+        rating: rate,
+      });
+    } else {
+      const indexOfRating: number = app.ratedBy.findIndex(
+        (obj) => obj.id === localStorage.getItem('user') || ''
+      );
+
+      app.ratedBy[indexOfRating] = {
+        id: localStorage.getItem('user') || '',
+        rating: rate,
+      };
+    }
+
+    let meanRating = 0;
+
+    for (const rateBy of app.ratedBy) {
+      meanRating += rateBy.rating;
+    }
+
+    meanRating /= app.ratedBy.length;
+
+    app.rating.numberOfReviews++;
+    app.rating.stars = meanRating;
+
+    this.fs.update<App>('apptray-apps/' + appId, app);
+  }
+
+  private _processOrderBy(orderBy: string, sorting: string): string {
+    switch (sorting) {
+      case 'pop': {
+        orderBy = 'downloads';
+        break;
+      }
+      case 'high': {
+        orderBy = 'rating.stars';
+        break;
+      }
+      case 'low': {
+        orderBy = 'rating.stars';
+        break;
+      }
+      default: {
+        orderBy = 'downloads';
+      }
+    }
+
+    return orderBy;
   }
 }

@@ -13,6 +13,7 @@ import { NavComponent } from './nav/nav.component';
 import { InfoComponent } from './info/info.component';
 import { AppViewComponent } from './app-view/app-view.component';
 import { RouterModule } from '@angular/router';
+import { StarViewComponent } from './star-view/star-view.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
     NavComponent,
     InfoComponent,
     AppViewComponent,
+    StarViewComponent,
   ],
   imports: [CommonModule, FeatureModule, FormsModule, RouterModule],
   exports: [
@@ -40,6 +42,7 @@ import { RouterModule } from '@angular/router';
     NavComponent,
     InfoComponent,
     AppViewComponent,
+    StarViewComponent,
   ],
 })
 export class ComponentsModule {}

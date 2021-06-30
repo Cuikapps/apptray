@@ -1,0 +1,122 @@
+@use '../../theme' as theme;
+
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  color: theme.$primary;
+  .imgs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+    height: 100px;
+    padding: 1px;
+
+    img {
+      width: 96px;
+      height: 96px;
+    }
+    .mult-img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+  h1 {
+    font-family: theme.$Montserrat;
+    font-size: 2.5rem;
+  }
+}
+.display {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  color: theme.$tertiary;
+  font-family: theme.$Poppins;
+  grid-template-areas:
+    "update creation"
+    "desc desc"
+    "desc desc"
+    "rating ratings"
+    "owner downloads"
+    "urls urls"
+    "rate rate"
+    "goto link";
+}
+.update {
+  grid-area: update;
+}
+.creation {
+  grid-area: creation;
+}
+.desc {
+  grid-area: desc;
+  height: 300px;
+}
+.rating {
+  grid-area: rating;
+}
+.ratings {
+  grid-area: ratings;
+}
+.owner {
+  grid-area: owner;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  img {
+    border-radius: 50%;
+  }
+}
+.downloads {
+  grid-area: downloads;
+  align-self: center;
+}
+.urls {
+  grid-area: urls;
+}
+.rate {
+  grid-area: rate;
+
+  .stars {
+    .bar {
+      position: absolute;
+      height: 20px;
+      background-color: gold;
+      z-index: 5;
+    }
+    svg {
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+    }
+  }
+}
+.goto {
+  grid-area: goto;
+}
+.link {
+  grid-area: link;
+}
+.link,
+.goto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  background-color: theme.$secondary;
+  color: theme.$primary;
+  border: 2px solid theme.$primary;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: large;
+  user-select: none;
+  cursor: pointer;
+  transition: all 200ms ease-in;
+
+  &:hover {
+    background-color: theme.$primary;
+    color: theme.$secondary;
+    border-radius: 15px;
+  }
+}

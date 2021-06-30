@@ -11,4 +11,12 @@ export interface App {
   };
   title: string;
   urls: string[];
+  creation: string;
+  update: string;
+  ratedBy: [
+    {
+      id: string;
+      rating: number;
+    }
+  ];
 }

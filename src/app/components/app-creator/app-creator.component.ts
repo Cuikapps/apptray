@@ -31,6 +31,14 @@ export class AppCreatorComponent implements OnInit {
       stars: 0,
     },
     owner: localStorage.getItem('user') || '',
+    creation: '',
+    update: '',
+    ratedBy: [
+      {
+        id: '',
+        rating: 1,
+      },
+    ],
   };
 
   tempImages!: File[];
@@ -38,8 +46,8 @@ export class AppCreatorComponent implements OnInit {
   submit(): void {
     // Check to see if links are valid
     for (const url of this.createdApp.urls) {
-      if (!url.includes('https://')) {
-        alert(`Your url: ${url}, does not begin with "https://"`);
+      if (!url.includes('https://') || !url.includes('http://')) {
+        alert(`Your url: ${url}, does not begin with "https://" or "http://"`);
         return;
       }
     }
@@ -53,6 +61,10 @@ export class AppCreatorComponent implements OnInit {
       .setAppImages(this.tempImages, this.createdApp.id)
       .then((urls) => {
         this.createdApp.images = urls;
+
+        this.createdApp.creation = new Date().toDateString();
+        this.createdApp.update = new Date().toDateString();
+
         this.apptray.createApp(this.createdApp);
         this.state.creatorToggle = false;
       });

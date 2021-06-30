@@ -34,7 +34,6 @@ export class AuthService {
 
         this.userState = user;
         this._createStoreData(user);
-        this.apptray.retrieveUserApps();
 
         this.isLoggedIn = true;
         if (user.emailVerified) {
