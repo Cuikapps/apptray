@@ -28,7 +28,7 @@ export class AppCreatorComponent implements OnInit {
     downloads: 0,
     rating: {
       numberOfReviews: 0,
-      stars: 0,
+      stars: 1,
     },
     owner: localStorage.getItem('user') || '',
     creation: '',
@@ -46,7 +46,7 @@ export class AppCreatorComponent implements OnInit {
   submit(): void {
     // Check to see if links are valid
     for (const url of this.createdApp.urls) {
-      if (!url.includes('https://') || !url.includes('http://')) {
+      if (!(url.includes('https://') || url.includes('http://'))) {
         alert(`Your url: ${url}, does not begin with "https://" or "http://"`);
         return;
       }
