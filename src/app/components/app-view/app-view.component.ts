@@ -39,7 +39,9 @@ export class AppViewComponent implements OnInit {
               const indexOfRating: number = this.appData.ratedBy.findIndex(
                 (obj) => obj.id === user.uid
               );
-              this.stars = this.appData.ratedBy[indexOfRating].rating;
+              if (this.appData.ratedBy[indexOfRating]) {
+                this.stars = this.appData.ratedBy[indexOfRating].rating;
+              }
             }
 
             this.ownerProfile.name = user.displayName;
