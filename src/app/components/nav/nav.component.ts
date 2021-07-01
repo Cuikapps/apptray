@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
   }
 
   openSite(): void {
-    window.open('https://cuikapps.com');
+    this.state.activeControl = 'none';
   }
 
   search(search: string): void {
@@ -59,7 +59,6 @@ export class NavComponent implements OnInit {
         break;
       }
     }
-    // TODO change _blank to _top.
-    window.open(searchURL + search, '_blank');
+    window.open(searchURL + search, '_top');
   }
 }
