@@ -50,7 +50,11 @@ export class AppEditorComponent implements OnInit, OnDestroy {
   }
 
   setTitle(title: string): void {
-    this.tempTitle = title;
+    if (title.length < 29) {
+      this.tempTitle = title;
+    } else {
+      alert('The title must be less than 29 characters.');
+    }
   }
 
   setUrls(urls: string[]): void {

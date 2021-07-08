@@ -54,7 +54,6 @@ export class AppCreatorComponent implements OnInit {
 
     // Check if images are set
     if (this.tempImages === undefined || null) {
-      console.log(this.tempImages);
       alert('You must have image(s)');
     }
     this.apptray
@@ -75,7 +74,11 @@ export class AppCreatorComponent implements OnInit {
   }
 
   setTitle(title: string): void {
-    this.createdApp.title = title;
+    if (title.length < 29) {
+      this.createdApp.title = title;
+    } else {
+      alert('The title must be less than 29 characters.');
+    }
   }
 
   setTempImages(files: File[]): void {
