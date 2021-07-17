@@ -296,7 +296,7 @@ export class ApptrayService {
 
     meanRating /= app.ratedBy.length;
 
-    app.rating.numberOfReviews++;
+    app.rating.numberOfReviews = app.ratedBy.length;
     app.rating.stars = meanRating;
 
     this.fs.update<App>('apptray-apps/' + appId, app);

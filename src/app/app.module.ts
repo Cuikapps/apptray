@@ -18,7 +18,6 @@ import { ComponentsModule } from './components/components.module';
 import { StateService } from './services/state.service';
 import { ApptrayService } from './services/apptray.service';
 
-
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [

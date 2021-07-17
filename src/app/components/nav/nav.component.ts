@@ -1,4 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+} from '@angular/core';
 import { AuthService } from '@app/services/auth.service';
 import { StateService } from '@app/services/state.service';
 
@@ -7,12 +15,18 @@ import { StateService } from '@app/services/state.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, AfterViewChecked {
   constructor(public authService: AuthService, public state: StateService) {}
 
   @Output() signOut: EventEmitter<void> = new EventEmitter<void>();
 
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
   ngOnInit(): void {}
+
+  ngAfterViewChecked(): void {
+    this.searchInput.nativeElement.select();
+  }
 
   goToDash(): void {
     window.open('https://cuikapps.com/dashboard');
@@ -20,6 +34,27 @@ export class NavComponent implements OnInit {
 
   openSite(): void {
     this.state.activeControl = 'none';
+  }
+
+  openMail(): void {
+    let mailURL = 'https://mail.google.com/mail';
+
+    switch (this.state.emailService) {
+      case 'Gmail': {
+        mailURL = 'https://mail.google.com/mail';
+        break;
+      }
+      case 'Outlook': {
+        mailURL = 'https://outlook.live.com/mail';
+        break;
+      }
+      case 'Yahoo Mail': {
+        mailURL = 'https://mail.yahoo.com/';
+        break;
+      }
+    }
+
+    window.open(mailURL, '_top');
   }
 
   search(search: string): void {

@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { App } from '@app/interfaces/app';
 import { IUser } from '@app/interfaces/iuser';
 import { ApptrayService } from '@app/services/apptray.service';
 import { FirestoreService } from '@app/services/firestore.service';
 
+export type rateData = {
+  id: string;
+  stars: number;
+};
 @Component({
   selector: 'cuik-app-view',
   templateUrl: './app-view.component.html',
@@ -16,6 +20,8 @@ export class AppViewComponent implements OnInit {
     private fs: FirestoreService,
     public apptray: ApptrayService
   ) {}
+
+  @Output() rate: EventEmitter<rateData> = new EventEmitter<rateData>();
 
   appData!: App;
   stars = 1;
@@ -50,10 +56,6 @@ export class AppViewComponent implements OnInit {
           });
       });
     });
-  }
-
-  hasMultipleImages(data: App): boolean {
-    return data.images.length > 1 ? true : false;
   }
 
   run(): void {

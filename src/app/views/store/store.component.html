@@ -57,22 +57,12 @@
           (mouseleave)="hoverApps[i] = false"
         >
           <div class="imgs">
-            <ng-container *ngIf="hasMultipleImages(app.data())">
-              <img
-                [src]="img"
-                *ngFor="let img of app.data().images"
-                alt="App Image"
-                class="mult-img"
-              />
-            </ng-container>
-            <ng-container *ngIf="!hasMultipleImages(app.data())">
-              <img
-                [src]="app.data().images[0]"
-                alt="App Image"
-                width="96"
-                height="75"
-              />
-            </ng-container>
+            <img
+              [src]="app.data().images[0]"
+              alt="App Image"
+              width="96"
+              height="75"
+            />
           </div>
           <div class="info">
             <h3>{{ app.data().title }}</h3>
@@ -98,7 +88,7 @@
       </div>
     </div>
     <div class="app-view">
-      <cuik-app-view></cuik-app-view>
+      <cuik-app-view (rate)="rate($event)"></cuik-app-view>
     </div>
   </div>
 </div>

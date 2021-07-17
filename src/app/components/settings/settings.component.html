@@ -6,8 +6,16 @@
         <h4>Search Engine</h4>
         <cuik-custom-select
           [values]="engines"
-          [default]="default"
+          [default]="defaultEngine"
           (update)="updateSearchEngine($event)"
+        ></cuik-custom-select>
+      </li>
+      <li>
+        <h4>Email Service</h4>
+        <cuik-custom-select
+          [values]="mails"
+          [default]="defaultEmail"
+          (update)="updateEmailService($event)"
         ></cuik-custom-select>
       </li>
     </ul>

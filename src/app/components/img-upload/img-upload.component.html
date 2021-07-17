@@ -11,38 +11,5 @@
     />
   </label>
 
-  <label for="image-2">
-    {{ img2.files && img2.files[0] ? img2.files[0].name : "+" }}
-    <input
-      (change)="inputChange(img2)"
-      #img2
-      id="image-2"
-      type="file"
-      accept="image/png, image/jpeg"
-    />
-  </label>
-
-  <label for="image-3">
-    {{ img3.files && img3.files[0] ? img3.files[0].name : "+" }}
-    <input
-      (change)="inputChange(img3)"
-      #img3
-      id="image-3"
-      type="file"
-      accept="image/png, image/jpeg"
-    />
-  </label>
-
-  <label for="image-4">
-    {{ img4.files && img4.files[0] ? img4.files[0].name : "+" }}
-    <input
-      (change)="inputChange(img4)"
-      #img4
-      id="image-4"
-      type="file"
-      accept="image/png, image/jpeg"
-    />
-  </label>
-
   <div class="submit" (click)="submit()">Upload</div>
 </div>

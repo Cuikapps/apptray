@@ -22,14 +22,6 @@ export class AppIconComponent implements OnInit {
     this.selectedSecond = false;
   }
 
-  hasMultipleImages(): boolean {
-    if (this.appData.images.length > 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   editApp(): void {
     if (this.appData.owner === localStorage.getItem('user')) {
       this.state.editingApp = this.appData.id;

@@ -5,7 +5,6 @@ import {
   CollectionReference,
   DocumentSnapshot,
 } from '@angular/fire/firestore';
-import { UserApp } from '@app/interfaces/user-app';
 import { Observable } from 'rxjs';
 
 @Injectable({

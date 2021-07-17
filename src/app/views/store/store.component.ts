@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { rateData } from '@app/components/app-view/app-view.component';
 import { App } from '@app/interfaces/app';
-import { UserApp } from '@app/interfaces/user-app';
 import { ApptrayService } from '@app/services/apptray.service';
 import { FirestoreService } from '@app/services/firestore.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cuik-store',
@@ -43,14 +43,13 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.apptray.updateStoreAppsWithSearch(this.searchQuery);
   }
 
-  hasMultipleImages(data: App): boolean {
-    return data.images.length > 1 ? true : false;
-  }
-
   goto(appId: string): void {
     this.router.navigate(['/store', appId]);
   }
 
+  rate(data: rateData): void {
+    this.apptray.rateApp(data.id, data.stars);
+  }
   run(urls: string[]): void {
     for (const url of urls) {
       window.open(url, '_blank');

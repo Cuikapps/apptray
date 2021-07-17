@@ -1,17 +1,7 @@
 <div class="loaded" *ngIf="appData">
   <div class="title-bar">
     <div class="imgs">
-      <ng-container *ngIf="hasMultipleImages(appData)">
-        <img
-          [src]="img"
-          *ngFor="let img of appData.images"
-          alt="App Image"
-          class="mult-img"
-        />
-      </ng-container>
-      <ng-container *ngIf="!hasMultipleImages(appData)">
-        <img [src]="appData.images[0]" alt="App Image" width="96" height="75" />
-      </ng-container>
+      <img [src]="appData.images[0]" alt="App Image" width="96" height="75" />
     </div>
     <h1>{{ appData.title }}</h1>
     <div class="imgs"></div>
@@ -33,7 +23,7 @@
       />
       <p>{{ ownerProfile.name }}</p>
     </div>
-    <div class="downloads">Downloads:  {{ appData.downloads }}</div>
+    <div class="downloads">Downloads: {{ appData.downloads }}</div>
     <div class="urls">
       Urls:
       <ul>
@@ -46,7 +36,7 @@
         <div class="bar" [ngStyle]="{ width: 20 * stars + 'px' }"></div>
         <svg
           (mouseenter)="stars = 1"
-          (click)="apptray.rateApp(appData.id, stars)"
+          (click)="rate.emit({ id: appData.id, stars: stars })"
           width="20"
           height="20"
           viewBox="0 0 20 20"
@@ -69,7 +59,7 @@
         </svg>
         <svg
           (mouseenter)="stars = 2"
-          (click)="apptray.rateApp(appData.id, stars)"
+          (click)="rate.emit({ id: appData.id, stars: stars })"
           width="20"
           height="20"
           viewBox="0 0 20 20"
@@ -92,7 +82,7 @@
         </svg>
         <svg
           (mouseenter)="stars = 3"
-          (click)="apptray.rateApp(appData.id, stars)"
+          (click)="rate.emit({ id: appData.id, stars: stars })"
           width="20"
           height="20"
           viewBox="0 0 20 20"
@@ -115,7 +105,7 @@
         </svg>
         <svg
           (mouseenter)="stars = 4"
-          (click)="apptray.rateApp(appData.id, stars)"
+          (click)="rate.emit({ id: appData.id, stars: stars })"
           width="20"
           height="20"
           viewBox="0 0 20 20"
@@ -138,7 +128,7 @@
         </svg>
         <svg
           (mouseenter)="stars = 5"
-          (click)="apptray.rateApp(appData.id, stars)"
+          (click)="rate.emit({ id: appData.id, stars: stars })"
           width="20"
           height="20"
           viewBox="0 0 20 20"

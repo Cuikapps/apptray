@@ -1,4 +1,16 @@
 <div class="panel">
+  <button title="Plus" (click)="state.creatorToggle = !state.creatorToggle">
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 50 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line x1="50%" y1="5%" x2="50%" y2="95%" />
+      <line x1="5%" y1="50%" x2="95%" y2="50%" />
+    </svg>
+  </button>
   <button
     title="Trash Can"
     [ngClass]="{ active: state.activeControl == 'trash-can' }"

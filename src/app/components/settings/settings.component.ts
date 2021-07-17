@@ -20,10 +20,18 @@ export class SettingsComponent implements OnInit {
     'Aol.com',
   ];
 
-  default: number = this.engines.indexOf(this.state.searchEngine);
+  mails: string[] = ['Gmail', 'Yahoo Mail', 'Outlook'];
+
+  defaultEngine: number = this.engines.indexOf(this.state.searchEngine);
+
+  defaultEmail: number = this.mails.indexOf(this.state.emailService);
 
   updateSearchEngine(v: string): void {
     this.state.searchEngine = v;
+  }
+
+  updateEmailService(v: string): void {
+    this.state.emailService = v;
   }
 
   ngOnInit(): void {}

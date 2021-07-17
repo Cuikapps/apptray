@@ -31,12 +31,7 @@
     </svg>
   </div>
   <div class="controls">
-    <div class="plus-btn" (click)="state.creatorToggle = !state.creatorToggle">
-      <div class="top"></div>
-      <div class="right"></div>
-      <div class="bottom"></div>
-      <div class="left"></div>
-    </div>
+    <div class="mail" (click)="openMail()"><h3>Mail</h3></div>
     <div class="profile">
       <img
         [src]="authService.PhotoURL || '../../../assets/account.png'"

@@ -27,11 +27,15 @@ export class StateService {
   private _viewingApp = ' ';
 
   constructor(private apptray: ApptrayService) {
-    if (localStorage.getItem('apptray-settings') === null) {
+    const tempSettings: Setting = JSON.parse(
+      localStorage.getItem('apptray-settings') || '{}'
+    );
+
+    if (!tempSettings.searchEngine || !tempSettings.emailService) {
       const settings: Setting = {
         searchEngine: 'Google',
+        emailService: 'Gmail',
       };
-
       localStorage.setItem('apptray-settings', JSON.stringify(settings));
     }
   }
@@ -119,6 +123,25 @@ export class StateService {
     );
 
     settingObj.searchEngine = v;
+
+    localStorage.setItem('apptray-settings', JSON.stringify(settingObj));
+  }
+  //#endregion
+
+  //#region emailService
+  get emailService(): string {
+    const settingObj: Setting = JSON.parse(
+      localStorage.getItem('apptray-settings') || '{}'
+    );
+
+    return settingObj.emailService;
+  }
+  set emailService(v: string) {
+    const settingObj: Setting = JSON.parse(
+      localStorage.getItem('apptray-settings') || '{}'
+    );
+
+    settingObj.emailService = v;
 
     localStorage.setItem('apptray-settings', JSON.stringify(settingObj));
   }
