@@ -1,0 +1,53 @@
+@use "../../../Theme" as theme;
+
+.container {
+  position: relative;
+  border: 1px solid rgb(var(--secondary));
+  height: 30px;
+  width: 100px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  h5 {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80px;
+    svg {
+      fill: rgb(var(--primary));
+    }
+  }
+
+  .list {
+    display: none;
+    position: absolute;
+    left: 115px;
+    top: 0px;
+    border: 1px solid rgb(var(--secondary));
+    border-radius: 10px;
+    width: 100px;
+    padding: 5px;
+    background: radial-gradient(
+      farthest-corner at 40% 45%,
+      #{"rgba(var(--secondary), 0.6)"} 0%,
+      #{"rgba(var(--secondary), 0.3)"} 100%
+    );
+
+    h6 {
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 5px;
+      &:hover {
+        background-color: #{"rgba(var(--accent), 0.3)"};
+      }
+    }
+  }
+
+  .active {
+    display: block;
+  }
+}

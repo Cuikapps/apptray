@@ -1,0 +1,12 @@
+@use "../../../Theme" as theme;
+
+.container {
+  color: rgb(var(--primary));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;  
+  h3 {
+    margin-bottom: 10px;
+  }
+}

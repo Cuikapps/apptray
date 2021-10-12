@@ -1,0 +1,39 @@
+@use '../../../Theme' as theme;
+
+.menu {
+  display: flex;
+  width: 200px;
+  height: 10px;
+  flex-direction: column;
+  padding: 10px 5px;
+  border: 1px solid rgb(var(--secondary));
+  border-radius: 15px;
+  background: linear-gradient(
+    150deg,
+    #{"rgba(var(--secondary), 0.64)"} 0%,
+    #{"rgba(var(--secondary), 0.71)"} 49%,
+    #{"rgba(var(--secondary), 0.33)"} 100%
+  );
+  animation: start 100ms ease 1 forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+@keyframes start {
+  from {
+    height: 10px;
+  }
+
+  50% {
+    height: 20px;
+  }
+
+  75% {
+    height: 40px;
+  }
+
+  to {
+    height: auto;
+  }
+}

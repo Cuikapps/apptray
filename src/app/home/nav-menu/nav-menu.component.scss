@@ -1,0 +1,14 @@
+@use "../../Theme" as theme;
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  gap: 3px;
+  background-color: theme.$primary;
+  border-radius: 10px;
+  color: theme.$secondary;
+  padding: 5px 0px;
+  height: auto;
+  width: 100px;
+}

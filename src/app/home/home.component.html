@@ -1,0 +1,67 @@
+<div class="head">
+  <div class="left">
+    <img src="../../assets/LOGO.png" height="20" alt="Logo" />
+    <h6 (click)="openNavMenu('settings')">Settings</h6>
+    <h6 (click)="openNavMenu('store')">Store</h6>
+    <h6 (click)="openNavMenu('help')">Help</h6>
+  </div>
+  <div class="center">
+    <h6 (click)="openNavMenu('user')">
+      {{ (auth.storeData | async)?.displayName ?? "Cannot get username" }}
+    </h6>
+  </div>
+  <div class="right">
+    <app-change-theme></app-change-theme>
+    <app-clock></app-clock>
+  </div>
+</div>
+<div
+  class="desktop {{ theme.currentTheme | async }}"
+  (mouseup)="clicked($event)"
+  (mousedown)="mouseDown($event)"
+  (mousemove)="mouseMoved($event)"
+  (keydown.control.s)="openSearchBar($event)"
+  tabindex="0"
+>
+  <app-options-menu
+    [style.top]="mouseYPosClick + 'px'"
+    [style.left]="mouseXPosClick + 'px'"
+    *ngIf="isOptionsOpen"
+  >
+    <div class="menu-button explorer">File Explorer</div>
+    <div class="menu-button store">Store</div>
+    <div class="menu-button favorites">Favorites</div>
+    <div class="menu-button trash">Trash</div>
+    <div class="menu-button mail">Mail</div>
+    <div class="menu-button search">Search</div>
+    <hr />
+    <div class="menu-button new">New</div>
+    <div class="menu-button props">Properties</div>
+  </app-options-menu>
+  <div
+    *ngIf="isSelectAreaOpen"
+    [ngStyle]="selectAreaStyle"
+    class="select-area"
+  ></div>
+</div>
+<app-task-bar
+  class="{{ theme.currentTheme | async }}"
+  *ngIf="!(state.isMainMenuOpen | async)"
+  (mouseenter)="hovered = true"
+  (mouseleave)="hovered = false"
+  [barOpen]="hovered ? 'open' : ''"
+></app-task-bar>
+<app-nav-menu *ngIf="isNavMenuOpen" [ngStyle]="{ left: menuLeft }">
+  <h6
+    *ngFor="let menuItem of menuItems; let i = index"
+    (click)="menuEvents[i]()"
+  >
+    {{ menuItem }}
+  </h6>
+</app-nav-menu>
+<app-search *ngIf="state.isSearchOpen | async"></app-search>
+<app-program-manager></app-program-manager>
+<app-main-menu
+  *ngIf="state.isMainMenuOpen | async"
+  [class]="theme.currentTheme | async"
+></app-main-menu>

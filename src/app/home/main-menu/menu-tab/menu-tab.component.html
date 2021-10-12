@@ -1,0 +1,9 @@
+<div class="button" (click)="state.openMenuTab.next(content.toLowerCase())">
+  <h4>{{ content }}</h4>
+  <div
+    class="active"
+    [ngClass]="{
+      enabled: (state.openMenuTab | async) === content.toLowerCase()
+    }"
+  ></div>
+</div>

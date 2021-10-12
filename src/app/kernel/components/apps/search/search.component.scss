@@ -1,0 +1,38 @@
+@use "../../../../Theme" as theme;
+
+.container {
+  position: fixed;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  top: 50px;
+  left: calc(50vw - 450px);
+  width: 900px;
+  height: 50px;
+  background: radial-gradient(
+    farthest-corner at 40% 45%,
+    #{"rgba(var(--secondary), 0.6)"} 0%,
+    #{"rgba(var(--secondary), 0.3)"} 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgb(var(--secondary));
+
+  input {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: rgb(var(--primary));
+    font-size: large;
+
+    outline-offset: 5px;
+    outline-color: rgb(var(--secondary));
+    outline-width: 1px;
+
+    &:focus {
+      outline-style: solid;
+    }
+  }
+}
+
+@include theme.theme-setup;

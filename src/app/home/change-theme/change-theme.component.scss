@@ -1,0 +1,42 @@
+@use "../../Theme" as theme;
+
+.container {
+  position: relative;
+}
+.bar {
+  width: 50px;
+  height: 14px;
+  background-color: theme.$tertiary;
+  border-radius: 17px;
+  display: flex;
+
+  .spot1,
+  .spot2,
+  .spot3 {
+    width: calc(50px / 3);
+    height: 13px;
+    background-color: transparent;
+  }
+
+  .button {
+    position: absolute;
+    top: 0;
+    width: 13px;
+    height: 13px;
+    background-color: theme.$secondary;
+    border-radius: 50%;
+    transition: all 200ms ease;
+  }
+
+  .Light {
+    left: 1px;
+  }
+
+  .Default {
+    left: calc(16.66px + 2px);
+  }
+
+  .Dark {
+    left: calc(33.32px + 2px);
+  }
+}

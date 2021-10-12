@@ -1,43 +1,43 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { environment } from '../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './views/login/login.component';
-import { AuthService } from '@services/auth.service';
-import { FirestoreService } from '@services/firestore.service';
-import { LogService } from './services/log.service';
-import { ComponentsModule } from './components/components.module';
-import { StateService } from './services/state.service';
-import { ApptrayService } from './services/apptray.service';
+import { KernelModule } from './kernel/kernel.module';
+
+import { CirclesToRhumbusesSpinnerModule } from 'angular-epic-spinners';
+import { HomeComponent } from './home/home.component';
+import { ChangeThemeComponent } from './home/change-theme/change-theme.component';
+import { ClockComponent } from './home/clock/clock.component';
+import { TaskBarComponent } from './home/task-bar/task-bar.component';
+import { NavMenuComponent } from './home/nav-menu/nav-menu.component';
+import { ProgramManagerComponent } from './home/program-manager/program-manager.component';
+import { MainMenuComponent } from './home/main-menu/main-menu.component';
+import { SettingsComponent } from './home/main-menu/settings/settings.component';
+import { MenuTabComponent } from './home/main-menu/menu-tab/menu-tab.component';
+import { SettingsMenuComponent } from './home/main-menu/settings/settings-menu/settings-menu.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    ChangeThemeComponent,
+    ClockComponent,
+    TaskBarComponent,
+    NavMenuComponent,
+    ProgramManagerComponent,
+    MainMenuComponent,
+    SettingsComponent,
+    MenuTabComponent,
+    SettingsMenuComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    AngularFireAnalyticsModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
-    ComponentsModule,
+    KernelModule,
+    CirclesToRhumbusesSpinnerModule,
   ],
-  providers: [
-    AuthService,
-    LogService,
-    FirestoreService,
-    StateService,
-    ApptrayService,
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
