@@ -1,0 +1,25 @@
+<div class="container">
+  <h3>Appearance</h3>
+  <app-settings-menu
+    [display]="'Theme'"
+    [options]="themeOptions"
+    [default]="currentThemeIndex"
+    (changeSetting)="change($event)"
+  ></app-settings-menu>
+</div>
+
+<div class="container">
+  <h3>3rd Party Providers</h3>
+  <app-settings-menu
+    [display]="'Search Engine'"
+    [options]="searchEngineOptions"
+    [default]="currentSearchEngineIndex"
+    (changeSetting)="change($event)"
+  ></app-settings-menu>
+  <app-settings-menu
+    [display]="'Mail Provider'"
+    [options]="mailProviderOptions"
+    [default]="currentMailProviderIndex"
+    (changeSetting)="change($event)"
+  ></app-settings-menu>
+</div>

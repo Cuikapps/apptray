@@ -1,0 +1,118 @@
+# Details
+
+Date : 2021-10-06 21:50:48
+
+Directory d:\Apps\apptray\src
+
+Total : 103 files,  2778 codes, 93 comments, 506 blanks, all 3377 lines
+
+[summary](results.md)
+
+## Files
+| filename | language | code | comment | blank | total |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| [src/app/_Theme.scss](/src/app/_Theme.scss) | SCSS | 28 | 0 | 2 | 30 |
+| [src/app/app-routing.module.ts](/src/app/app-routing.module.ts) | TypeScript | 16 | 0 | 3 | 19 |
+| [src/app/app.component.html](/src/app/app.component.html) | HTML | 11 | 0 | 2 | 13 |
+| [src/app/app.component.scss](/src/app/app.component.scss) | SCSS | 12 | 0 | 1 | 13 |
+| [src/app/app.component.spec.ts](/src/app/app.component.spec.ts) | TypeScript | 31 | 0 | 5 | 36 |
+| [src/app/app.component.ts](/src/app/app.component.ts) | TypeScript | 26 | 0 | 6 | 32 |
+| [src/app/app.module.ts](/src/app/app.module.ts) | TypeScript | 40 | 0 | 4 | 44 |
+| [src/app/guards/not-found.guard.spec.ts](/src/app/guards/not-found.guard.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/guards/not-found.guard.ts](/src/app/guards/not-found.guard.ts) | TypeScript | 21 | 5 | 1 | 27 |
+| [src/app/guards/returning-again.guard.spec.ts](/src/app/guards/returning-again.guard.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/guards/returning-again.guard.ts](/src/app/guards/returning-again.guard.ts) | TypeScript | 31 | 0 | 3 | 34 |
+| [src/app/home/change-theme/change-theme.component.html](/src/app/home/change-theme/change-theme.component.html) | HTML | 8 | 0 | 1 | 9 |
+| [src/app/home/change-theme/change-theme.component.scss](/src/app/home/change-theme/change-theme.component.scss) | SCSS | 36 | 0 | 7 | 43 |
+| [src/app/home/change-theme/change-theme.component.spec.ts](/src/app/home/change-theme/change-theme.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/change-theme/change-theme.component.ts](/src/app/home/change-theme/change-theme.component.ts) | TypeScript | 32 | 0 | 7 | 39 |
+| [src/app/home/clock/clock.component.html](/src/app/home/clock/clock.component.html) | HTML | 1 | 0 | 1 | 2 |
+| [src/app/home/clock/clock.component.scss](/src/app/home/clock/clock.component.scss) | SCSS | 3 | 0 | 1 | 4 |
+| [src/app/home/clock/clock.component.spec.ts](/src/app/home/clock/clock.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/clock/clock.component.ts](/src/app/home/clock/clock.component.ts) | TypeScript | 58 | 2 | 14 | 74 |
+| [src/app/home/home.component.html](/src/app/home/home.component.html) | HTML | 58 | 0 | 1 | 59 |
+| [src/app/home/home.component.scss](/src/app/home/home.component.scss) | SCSS | 123 | 0 | 24 | 147 |
+| [src/app/home/home.component.spec.ts](/src/app/home/home.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/home.component.ts](/src/app/home/home.component.ts) | TypeScript | 217 | 6 | 28 | 251 |
+| [src/app/home/main-menu/main-menu.component.html](/src/app/home/main-menu/main-menu.component.html) | HTML | 23 | 0 | 1 | 24 |
+| [src/app/home/main-menu/main-menu.component.scss](/src/app/home/main-menu/main-menu.component.scss) | SCSS | 43 | 0 | 8 | 51 |
+| [src/app/home/main-menu/main-menu.component.spec.ts](/src/app/home/main-menu/main-menu.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/main-menu/main-menu.component.ts](/src/app/home/main-menu/main-menu.component.ts) | TypeScript | 11 | 0 | 3 | 14 |
+| [src/app/home/main-menu/menu-tab/menu-tab.component.html](/src/app/home/main-menu/menu-tab/menu-tab.component.html) | HTML | 9 | 0 | 1 | 10 |
+| [src/app/home/main-menu/menu-tab/menu-tab.component.scss](/src/app/home/main-menu/menu-tab/menu-tab.component.scss) | SCSS | 27 | 0 | 6 | 33 |
+| [src/app/home/main-menu/menu-tab/menu-tab.component.spec.ts](/src/app/home/main-menu/menu-tab/menu-tab.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/main-menu/menu-tab/menu-tab.component.ts](/src/app/home/main-menu/menu-tab/menu-tab.component.ts) | TypeScript | 12 | 0 | 4 | 16 |
+| [src/app/home/main-menu/settings/settings-menu/settings-menu.component.html](/src/app/home/main-menu/settings/settings-menu/settings-menu.component.html) | HTML | 8 | 0 | 1 | 9 |
+| [src/app/home/main-menu/settings/settings-menu/settings-menu.component.scss](/src/app/home/main-menu/settings/settings-menu/settings-menu.component.scss) | SCSS | 16 | 0 | 2 | 18 |
+| [src/app/home/main-menu/settings/settings-menu/settings-menu.component.spec.ts](/src/app/home/main-menu/settings/settings-menu/settings-menu.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/main-menu/settings/settings-menu/settings-menu.component.ts](/src/app/home/main-menu/settings/settings-menu/settings-menu.component.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/main-menu/settings/settings.component.html](/src/app/home/main-menu/settings/settings.component.html) | HTML | 24 | 0 | 2 | 26 |
+| [src/app/home/main-menu/settings/settings.component.scss](/src/app/home/main-menu/settings/settings.component.scss) | SCSS | 11 | 0 | 2 | 13 |
+| [src/app/home/main-menu/settings/settings.component.spec.ts](/src/app/home/main-menu/settings/settings.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/main-menu/settings/settings.component.ts](/src/app/home/main-menu/settings/settings.component.ts) | TypeScript | 67 | 0 | 10 | 77 |
+| [src/app/home/nav-menu/nav-menu.component.html](/src/app/home/nav-menu/nav-menu.component.html) | HTML | 3 | 0 | 1 | 4 |
+| [src/app/home/nav-menu/nav-menu.component.scss](/src/app/home/nav-menu/nav-menu.component.scss) | SCSS | 13 | 0 | 2 | 15 |
+| [src/app/home/nav-menu/nav-menu.component.spec.ts](/src/app/home/nav-menu/nav-menu.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/nav-menu/nav-menu.component.ts](/src/app/home/nav-menu/nav-menu.component.ts) | TypeScript | 11 | 0 | 5 | 16 |
+| [src/app/home/program-manager/program-manager.component.html](/src/app/home/program-manager/program-manager.component.html) | HTML | 1 | 0 | 1 | 2 |
+| [src/app/home/program-manager/program-manager.component.scss](/src/app/home/program-manager/program-manager.component.scss) | SCSS | 0 | 0 | 1 | 1 |
+| [src/app/home/program-manager/program-manager.component.spec.ts](/src/app/home/program-manager/program-manager.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/program-manager/program-manager.component.ts](/src/app/home/program-manager/program-manager.component.ts) | TypeScript | 11 | 0 | 5 | 16 |
+| [src/app/home/task-bar/task-bar.component.html](/src/app/home/task-bar/task-bar.component.html) | HTML | 394 | 0 | 1 | 395 |
+| [src/app/home/task-bar/task-bar.component.scss](/src/app/home/task-bar/task-bar.component.scss) | SCSS | 48 | 0 | 11 | 59 |
+| [src/app/home/task-bar/task-bar.component.spec.ts](/src/app/home/task-bar/task-bar.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/home/task-bar/task-bar.component.ts](/src/app/home/task-bar/task-bar.component.ts) | TypeScript | 19 | 0 | 5 | 24 |
+| [src/app/kernel/components/apps/file-explorer/file-explorer.component.html](/src/app/kernel/components/apps/file-explorer/file-explorer.component.html) | HTML | 0 | 0 | 2 | 2 |
+| [src/app/kernel/components/apps/file-explorer/file-explorer.component.scss](/src/app/kernel/components/apps/file-explorer/file-explorer.component.scss) | SCSS | 0 | 0 | 1 | 1 |
+| [src/app/kernel/components/apps/file-explorer/file-explorer.component.spec.ts](/src/app/kernel/components/apps/file-explorer/file-explorer.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/kernel/components/apps/file-explorer/file-explorer.component.ts](/src/app/kernel/components/apps/file-explorer/file-explorer.component.ts) | TypeScript | 11 | 0 | 5 | 16 |
+| [src/app/kernel/components/apps/search/search.component.html](/src/app/kernel/components/apps/search/search.component.html) | HTML | 3 | 0 | 1 | 4 |
+| [src/app/kernel/components/apps/search/search.component.scss](/src/app/kernel/components/apps/search/search.component.scss) | SCSS | 33 | 0 | 6 | 39 |
+| [src/app/kernel/components/apps/search/search.component.spec.ts](/src/app/kernel/components/apps/search/search.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/kernel/components/apps/search/search.component.ts](/src/app/kernel/components/apps/search/search.component.ts) | TypeScript | 21 | 0 | 5 | 26 |
+| [src/app/kernel/components/options-menu/options-menu.component.html](/src/app/kernel/components/options-menu/options-menu.component.html) | HTML | 3 | 0 | 1 | 4 |
+| [src/app/kernel/components/options-menu/options-menu.component.scss](/src/app/kernel/components/options-menu/options-menu.component.scss) | SCSS | 34 | 0 | 6 | 40 |
+| [src/app/kernel/components/options-menu/options-menu.component.spec.ts](/src/app/kernel/components/options-menu/options-menu.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/kernel/components/options-menu/options-menu.component.ts](/src/app/kernel/components/options-menu/options-menu.component.ts) | TypeScript | 10 | 0 | 3 | 13 |
+| [src/app/kernel/components/select-menu/select-menu.component.html](/src/app/kernel/components/select-menu/select-menu.component.html) | HTML | 20 | 0 | 1 | 21 |
+| [src/app/kernel/components/select-menu/select-menu.component.scss](/src/app/kernel/components/select-menu/select-menu.component.scss) | SCSS | 48 | 0 | 6 | 54 |
+| [src/app/kernel/components/select-menu/select-menu.component.spec.ts](/src/app/kernel/components/select-menu/select-menu.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/kernel/components/select-menu/select-menu.component.ts](/src/app/kernel/components/select-menu/select-menu.component.ts) | TypeScript | 34 | 0 | 7 | 41 |
+| [src/app/kernel/interface/app.ts](/src/app/kernel/interface/app.ts) | TypeScript | 5 | 0 | 1 | 6 |
+| [src/app/kernel/interface/iuser.ts](/src/app/kernel/interface/iuser.ts) | TypeScript | 7 | 0 | 1 | 8 |
+| [src/app/kernel/interface/lexed-command.ts](/src/app/kernel/interface/lexed-command.ts) | TypeScript | 4 | 0 | 1 | 5 |
+| [src/app/kernel/interface/open-apps.ts](/src/app/kernel/interface/open-apps.ts) | TypeScript | 4 | 0 | 2 | 6 |
+| [src/app/kernel/interface/setting.ts](/src/app/kernel/interface/setting.ts) | TypeScript | 30 | 0 | 5 | 35 |
+| [src/app/kernel/internal/data/EApiUrls.ts](/src/app/kernel/internal/data/EApiUrls.ts) | TypeScript | 10 | 0 | 2 | 12 |
+| [src/app/kernel/internal/services/auth.service.spec.ts](/src/app/kernel/internal/services/auth.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/internal/services/auth.service.ts](/src/app/kernel/internal/services/auth.service.ts) | TypeScript | 85 | 0 | 12 | 97 |
+| [src/app/kernel/internal/services/cookie.service.spec.ts](/src/app/kernel/internal/services/cookie.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/internal/services/cookie.service.ts](/src/app/kernel/internal/services/cookie.service.ts) | TypeScript | 24 | 5 | 9 | 38 |
+| [src/app/kernel/internal/services/format-param.service.spec.ts](/src/app/kernel/internal/services/format-param.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/internal/services/format-param.service.ts](/src/app/kernel/internal/services/format-param.service.ts) | TypeScript | 14 | 0 | 5 | 19 |
+| [src/app/kernel/internal/services/loading.service.spec.ts](/src/app/kernel/internal/services/loading.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/internal/services/loading.service.ts](/src/app/kernel/internal/services/loading.service.ts) | TypeScript | 19 | 0 | 5 | 24 |
+| [src/app/kernel/internal/services/settings.service.spec.ts](/src/app/kernel/internal/services/settings.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/internal/services/settings.service.ts](/src/app/kernel/internal/services/settings.service.ts) | TypeScript | 69 | 0 | 10 | 79 |
+| [src/app/kernel/internal/services/theme.service.spec.ts](/src/app/kernel/internal/services/theme.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/internal/services/theme.service.ts](/src/app/kernel/internal/services/theme.service.ts) | TypeScript | 18 | 0 | 4 | 22 |
+| [src/app/kernel/kernel.module.ts](/src/app/kernel/kernel.module.ts) | TypeScript | 43 | 0 | 2 | 45 |
+| [src/app/kernel/services/executables.service.spec.ts](/src/app/kernel/services/executables.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/services/executables.service.ts](/src/app/kernel/services/executables.service.ts) | TypeScript | 22 | 0 | 3 | 25 |
+| [src/app/kernel/services/shell.service.spec.ts](/src/app/kernel/services/shell.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/services/shell.service.ts](/src/app/kernel/services/shell.service.ts) | TypeScript | 44 | 2 | 14 | 60 |
+| [src/app/kernel/services/state.service.spec.ts](/src/app/kernel/services/state.service.spec.ts) | TypeScript | 12 | 0 | 5 | 17 |
+| [src/app/kernel/services/state.service.ts](/src/app/kernel/services/state.service.ts) | TypeScript | 18 | 0 | 6 | 24 |
+| [src/app/sign-in/sign-in.component.html](/src/app/sign-in/sign-in.component.html) | HTML | 15 | 0 | 1 | 16 |
+| [src/app/sign-in/sign-in.component.scss](/src/app/sign-in/sign-in.component.scss) | SCSS | 89 | 0 | 14 | 103 |
+| [src/app/sign-in/sign-in.component.spec.ts](/src/app/sign-in/sign-in.component.spec.ts) | TypeScript | 20 | 0 | 6 | 26 |
+| [src/app/sign-in/sign-in.component.ts](/src/app/sign-in/sign-in.component.ts) | TypeScript | 14 | 0 | 4 | 18 |
+| [src/environments/environment.prod.ts](/src/environments/environment.prod.ts) | TypeScript | 4 | 0 | 1 | 5 |
+| [src/environments/environment.ts](/src/environments/environment.ts) | TypeScript | 4 | 11 | 3 | 18 |
+| [src/index.html](/src/index.html) | HTML | 13 | 0 | 1 | 14 |
+| [src/main.ts](/src/main.ts) | TypeScript | 11 | 0 | 4 | 15 |
+| [src/polyfills.ts](/src/polyfills.ts) | TypeScript | 1 | 57 | 8 | 66 |
+| [src/styles.scss](/src/styles.scss) | SCSS | 21 | 1 | 6 | 28 |
+| [src/test.ts](/src/test.ts) | TypeScript | 18 | 4 | 4 | 26 |
+
+[summary](results.md)

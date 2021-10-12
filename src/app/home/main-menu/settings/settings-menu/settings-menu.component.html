@@ -1,0 +1,8 @@
+<div class="container {{ theme.currentTheme | async }}">
+  <h5>{{ display }}</h5>
+  <app-select-menu
+    [options]="options"
+    [default]="default"
+    (onSelect)="setSetting($event)"
+  ></app-select-menu>
+</div>

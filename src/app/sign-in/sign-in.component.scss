@@ -1,0 +1,102 @@
+@use '../Theme' as theme;
+
+.center {
+  transform: translate(50vw, 50vh) translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: theme.$primary;
+  height: 500px;
+  width: 350px;
+  min-width: 200px;
+
+  .top {
+    width: 100%;
+    font-family: var(--montserrat);
+    font-weight: bold;
+    border-bottom: 3px theme.$primary solid;
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    gap: 10px;
+
+    input {
+      border: none;
+      border-bottom: 2px solid theme.$tertiary;
+      background-color: transparent;
+      text-indent: 5px;
+      width: 250px;
+      height: 30px;
+      border-radius: 0px 10px 10px 0px;
+
+      &:focus {
+        outline-color: theme.$tertiary;
+        outline-width: 1px;
+        outline-style: solid;
+      }
+
+      &::placeholder {
+        color: theme.$primary;
+      }
+    }
+  }
+
+  .actions {
+    padding: 15px;
+    display: flex;
+    gap: 30px;
+
+    input {
+      width: 130px;
+      height: 45px;
+      border-radius: 15px;
+      background-color: theme.$primary;
+      border: 2px solid theme.$primary;
+      color: theme.$secondary;
+      font-size: 1rem;
+      transition: all 200ms ease;
+
+      &:hover {
+        border-radius: 20px;
+        background-color: theme.$secondary;
+        color: theme.$primary;
+      }
+
+      &:focus {
+        outline-color: theme.$tertiary;
+        outline-width: 1px;
+        outline-style: solid;
+      }
+    }
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 130px;
+      height: 45px;
+      border-radius: 15px;
+      background-color: theme.$secondary;
+      border: 2px solid theme.$primary;
+      color: theme.$primary;
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: all 200ms ease;
+
+      &:hover {
+        border-radius: 20px;
+        background-color: theme.$primary;
+        color: theme.$secondary;
+      }
+
+      &:focus {
+        outline-color: theme.$tertiary;
+        outline-width: 1px;
+        outline-style: solid;
+      }
+    }
+  }
+}

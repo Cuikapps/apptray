@@ -5,15 +5,7 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine"
-    ],
-    "paths": {
-      "@app/*": ["src/app/*"],
-      "@classes/*": ["src/app/classes/*"],
-      "@services/*": ["src/app/services/*"],
-      "@components/*": ["src/app/components/*"],
-      "@interfaces/*": ["src/app/interfaces/*"],
-      "@data/*": ["src/app/data/*"]
-    }
+    ]
   },
   "files": [
     "src/test.ts",

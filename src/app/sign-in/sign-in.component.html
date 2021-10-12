@@ -1,0 +1,15 @@
+<div class="center">
+  <div class="top"><h1>Sign In</h1></div>
+  <div class="input">
+    <input #email type="email" placeholder="Email" />
+    <input #pass type="password" placeholder="Password" />
+  </div>
+  <div class="actions">
+    <input
+      type="submit"
+      value="Sign In"
+      (click)="submit(email.value, pass.value)"
+    />
+    <a href="https://cuikapps.com/register-user">Create Account</a>
+  </div>
+</div>

@@ -1,29 +1,27 @@
-@use './app/theme' as theme;
-
 /* You can add global styles to this file, and also import other style files */
+
 * {
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
+  font-family: var(--poppins);
+
+  &::selection {
+    background-color: #0f3057;
+    color: #e7e7de;
+  }
 }
 
-body,
-html {
-  height: 100%;
-  overflow-x: hidden;
-}
+html,
 body {
-  margin: 0;
-  background-color: theme.$primary;
+  background-color: #e7e7de;
+  height: 100%;
+  width: 100%;
 }
-.tooltip {
-  position: absolute;
-  background-color: theme.$primary;
-  width: fit-content;
-  height: fit-content;
-  max-width: 300px;
 
-  color: theme.$secondary;
-  border-radius: 15px 15px 15px 0px;
-  padding: 5px;
-  left: 50%;
-  transform: translate(-50%, -100%);
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&display=swap");
+
+:root {
+  --poppins: "Poppins", sans-serif;
+  --montserrat: "Montserrat", sans-serif;
 }

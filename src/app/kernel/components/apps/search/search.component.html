@@ -1,0 +1,9 @@
+<div class="container {{ theme.currentTheme | async }}">
+  <input
+    #search
+    (change)="query(search.value)"
+    type="text"
+    autocomplete="false"
+    spellcheck="false"
+  />
+</div>

@@ -1,0 +1,174 @@
+Date : 2021-10-06 21:50:00
+Directory : d:\Apps\apptray
+Total : 116 files,  18858 codes, 130 comments, 539 blanks, all 19527 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          8 |     15,973 |         24 |          7 |     16,004 |
+| TypeScript |         70 |      1,626 |         93 |        388 |      2,107 |
+| HTML       |         17 |        594 |          0 |         20 |        614 |
+| SCSS       |         18 |        585 |          1 |        106 |        692 |
+| JavaScript |          2 |         66 |         12 |          4 |         82 |
+| Markdown   |          1 |         14 |          0 |         14 |         28 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                          | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                             |        116 |     18,858 |        130 |        539 |     19,527 |
+| e2e                                                                                           |          4 |         68 |          8 |         11 |         87 |
+| e2e\src                                                                                       |          2 |         27 |          1 |          8 |         36 |
+| src                                                                                           |        103 |      2,778 |         93 |        506 |      3,377 |
+| src\app                                                                                       |         96 |      2,706 |         20 |        479 |      3,205 |
+| src\app\guards                                                                                |          4 |         76 |          5 |         14 |         95 |
+| src\app\home                                                                                  |         40 |      1,507 |          8 |        222 |      1,737 |
+| src\app\home\change-theme                                                                     |          4 |         96 |          0 |         21 |        117 |
+| src\app\home\clock                                                                            |          4 |         82 |          2 |         22 |        106 |
+| src\app\home\main-menu                                                                        |         16 |        351 |          0 |         70 |        421 |
+| src\app\home\main-menu\menu-tab                                                               |          4 |         68 |          0 |         17 |         85 |
+| src\app\home\main-menu\settings                                                               |          8 |        186 |          0 |         35 |        221 |
+| src\app\home\main-menu\settings\settings-menu                                                 |          4 |         64 |          0 |         15 |         79 |
+| src\app\home\nav-menu                                                                         |          4 |         47 |          0 |         14 |         61 |
+| src\app\home\program-manager                                                                  |          4 |         32 |          0 |         13 |         45 |
+| src\app\home\task-bar                                                                         |          4 |        481 |          0 |         23 |        504 |
+| src\app\kernel                                                                                |         41 |        821 |          7 |        195 |      1,023 |
+| src\app\kernel\components                                                                     |         16 |        297 |          0 |         68 |        365 |
+| src\app\kernel\components\apps                                                                |          8 |        108 |          0 |         32 |        140 |
+| src\app\kernel\components\apps\file-explorer                                                  |          4 |         31 |          0 |         14 |         45 |
+| src\app\kernel\components\apps\search                                                         |          4 |         77 |          0 |         18 |         95 |
+| src\app\kernel\components\options-menu                                                        |          4 |         67 |          0 |         16 |         83 |
+| src\app\kernel\components\select-menu                                                         |          4 |        122 |          0 |         20 |        142 |
+| src\app\kernel\interface                                                                      |          5 |         50 |          0 |         10 |         60 |
+| src\app\kernel\internal                                                                       |         13 |        311 |          5 |         77 |        393 |
+| src\app\kernel\internal\data                                                                  |          1 |         10 |          0 |          2 |         12 |
+| src\app\kernel\internal\services                                                              |         12 |        301 |          5 |         75 |        381 |
+| src\app\kernel\services                                                                       |          6 |        120 |          2 |         38 |        160 |
+| src\app\sign-in                                                                               |          4 |        138 |          0 |         25 |        163 |
+| src\environments                                                                              |          2 |          8 |         11 |          4 |         23 |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                      | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\Apps\apptray\README.md                                                                     | Markdown   |         14 |          0 |         14 |         28 |
+| d:\Apps\apptray\angular.json                                                                  | JSON       |        111 |         20 |          0 |        131 |
+| d:\Apps\apptray\e2e\protractor.conf.js                                                        | JavaScript |         29 |          6 |          2 |         37 |
+| d:\Apps\apptray\e2e\src\app.e2e-spec.ts                                                       | TypeScript |         18 |          1 |          5 |         24 |
+| d:\Apps\apptray\e2e\src\app.po.ts                                                             | TypeScript |          9 |          0 |          3 |         12 |
+| d:\Apps\apptray\e2e\tsconfig.json                                                             | JSON       |         12 |          1 |          1 |         14 |
+| d:\Apps\apptray\karma.conf.js                                                                 | JavaScript |         37 |          6 |          2 |         45 |
+| d:\Apps\apptray\package-lock.json                                                             | JSON       |     15,584 |          0 |          1 |     15,585 |
+| d:\Apps\apptray\package.json                                                                  | JSON       |         54 |          0 |          1 |         55 |
+| d:\Apps\apptray\src\app\_Theme.scss                                                           | SCSS       |         28 |          0 |          2 |         30 |
+| d:\Apps\apptray\src\app\app-routing.module.ts                                                 | TypeScript |         16 |          0 |          3 |         19 |
+| d:\Apps\apptray\src\app\app.component.html                                                    | HTML       |         11 |          0 |          2 |         13 |
+| d:\Apps\apptray\src\app\app.component.scss                                                    | SCSS       |         12 |          0 |          1 |         13 |
+| d:\Apps\apptray\src\app\app.component.spec.ts                                                 | TypeScript |         31 |          0 |          5 |         36 |
+| d:\Apps\apptray\src\app\app.component.ts                                                      | TypeScript |         26 |          0 |          6 |         32 |
+| d:\Apps\apptray\src\app\app.module.ts                                                         | TypeScript |         40 |          0 |          4 |         44 |
+| d:\Apps\apptray\src\app\guards\not-found.guard.spec.ts                                        | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\guards\not-found.guard.ts                                             | TypeScript |         21 |          5 |          1 |         27 |
+| d:\Apps\apptray\src\app\guards\returning-again.guard.spec.ts                                  | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\guards\returning-again.guard.ts                                       | TypeScript |         31 |          0 |          3 |         34 |
+| d:\Apps\apptray\src\app\home\change-theme\change-theme.component.html                         | HTML       |          8 |          0 |          1 |          9 |
+| d:\Apps\apptray\src\app\home\change-theme\change-theme.component.scss                         | SCSS       |         36 |          0 |          7 |         43 |
+| d:\Apps\apptray\src\app\home\change-theme\change-theme.component.spec.ts                      | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\change-theme\change-theme.component.ts                           | TypeScript |         32 |          0 |          7 |         39 |
+| d:\Apps\apptray\src\app\home\clock\clock.component.html                                       | HTML       |          1 |          0 |          1 |          2 |
+| d:\Apps\apptray\src\app\home\clock\clock.component.scss                                       | SCSS       |          3 |          0 |          1 |          4 |
+| d:\Apps\apptray\src\app\home\clock\clock.component.spec.ts                                    | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\clock\clock.component.ts                                         | TypeScript |         58 |          2 |         14 |         74 |
+| d:\Apps\apptray\src\app\home\home.component.html                                              | HTML       |         58 |          0 |          1 |         59 |
+| d:\Apps\apptray\src\app\home\home.component.scss                                              | SCSS       |        123 |          0 |         24 |        147 |
+| d:\Apps\apptray\src\app\home\home.component.spec.ts                                           | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\home.component.ts                                                | TypeScript |        217 |          6 |         28 |        251 |
+| d:\Apps\apptray\src\app\home\main-menu\main-menu.component.html                               | HTML       |         23 |          0 |          1 |         24 |
+| d:\Apps\apptray\src\app\home\main-menu\main-menu.component.scss                               | SCSS       |         43 |          0 |          8 |         51 |
+| d:\Apps\apptray\src\app\home\main-menu\main-menu.component.spec.ts                            | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\main-menu\main-menu.component.ts                                 | TypeScript |         11 |          0 |          3 |         14 |
+| d:\Apps\apptray\src\app\home\main-menu\menu-tab\menu-tab.component.html                       | HTML       |          9 |          0 |          1 |         10 |
+| d:\Apps\apptray\src\app\home\main-menu\menu-tab\menu-tab.component.scss                       | SCSS       |         27 |          0 |          6 |         33 |
+| d:\Apps\apptray\src\app\home\main-menu\menu-tab\menu-tab.component.spec.ts                    | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\main-menu\menu-tab\menu-tab.component.ts                         | TypeScript |         12 |          0 |          4 |         16 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings-menu\settings-menu.component.html    | HTML       |          8 |          0 |          1 |          9 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings-menu\settings-menu.component.scss    | SCSS       |         16 |          0 |          2 |         18 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings-menu\settings-menu.component.spec.ts | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings-menu\settings-menu.component.ts      | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings.component.html                       | HTML       |         24 |          0 |          2 |         26 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings.component.scss                       | SCSS       |         11 |          0 |          2 |         13 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings.component.spec.ts                    | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\main-menu\settings\settings.component.ts                         | TypeScript |         67 |          0 |         10 |         77 |
+| d:\Apps\apptray\src\app\home\nav-menu\nav-menu.component.html                                 | HTML       |          3 |          0 |          1 |          4 |
+| d:\Apps\apptray\src\app\home\nav-menu\nav-menu.component.scss                                 | SCSS       |         13 |          0 |          2 |         15 |
+| d:\Apps\apptray\src\app\home\nav-menu\nav-menu.component.spec.ts                              | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\nav-menu\nav-menu.component.ts                                   | TypeScript |         11 |          0 |          5 |         16 |
+| d:\Apps\apptray\src\app\home\program-manager\program-manager.component.html                   | HTML       |          1 |          0 |          1 |          2 |
+| d:\Apps\apptray\src\app\home\program-manager\program-manager.component.scss                   | SCSS       |          0 |          0 |          1 |          1 |
+| d:\Apps\apptray\src\app\home\program-manager\program-manager.component.spec.ts                | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\program-manager\program-manager.component.ts                     | TypeScript |         11 |          0 |          5 |         16 |
+| d:\Apps\apptray\src\app\home\task-bar\task-bar.component.html                                 | HTML       |        394 |          0 |          1 |        395 |
+| d:\Apps\apptray\src\app\home\task-bar\task-bar.component.scss                                 | SCSS       |         48 |          0 |         11 |         59 |
+| d:\Apps\apptray\src\app\home\task-bar\task-bar.component.spec.ts                              | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\home\task-bar\task-bar.component.ts                                   | TypeScript |         19 |          0 |          5 |         24 |
+| d:\Apps\apptray\src\app\kernel\components\apps\file-explorer\file-explorer.component.html     | HTML       |          0 |          0 |          2 |          2 |
+| d:\Apps\apptray\src\app\kernel\components\apps\file-explorer\file-explorer.component.scss     | SCSS       |          0 |          0 |          1 |          1 |
+| d:\Apps\apptray\src\app\kernel\components\apps\file-explorer\file-explorer.component.spec.ts  | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\kernel\components\apps\file-explorer\file-explorer.component.ts       | TypeScript |         11 |          0 |          5 |         16 |
+| d:\Apps\apptray\src\app\kernel\components\apps\search\search.component.html                   | HTML       |          3 |          0 |          1 |          4 |
+| d:\Apps\apptray\src\app\kernel\components\apps\search\search.component.scss                   | SCSS       |         33 |          0 |          6 |         39 |
+| d:\Apps\apptray\src\app\kernel\components\apps\search\search.component.spec.ts                | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\kernel\components\apps\search\search.component.ts                     | TypeScript |         21 |          0 |          5 |         26 |
+| d:\Apps\apptray\src\app\kernel\components\options-menu\options-menu.component.html            | HTML       |          3 |          0 |          1 |          4 |
+| d:\Apps\apptray\src\app\kernel\components\options-menu\options-menu.component.scss            | SCSS       |         34 |          0 |          6 |         40 |
+| d:\Apps\apptray\src\app\kernel\components\options-menu\options-menu.component.spec.ts         | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\kernel\components\options-menu\options-menu.component.ts              | TypeScript |         10 |          0 |          3 |         13 |
+| d:\Apps\apptray\src\app\kernel\components\select-menu\select-menu.component.html              | HTML       |         20 |          0 |          1 |         21 |
+| d:\Apps\apptray\src\app\kernel\components\select-menu\select-menu.component.scss              | SCSS       |         48 |          0 |          6 |         54 |
+| d:\Apps\apptray\src\app\kernel\components\select-menu\select-menu.component.spec.ts           | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\kernel\components\select-menu\select-menu.component.ts                | TypeScript |         34 |          0 |          7 |         41 |
+| d:\Apps\apptray\src\app\kernel\interface\app.ts                                               | TypeScript |          5 |          0 |          1 |          6 |
+| d:\Apps\apptray\src\app\kernel\interface\iuser.ts                                             | TypeScript |          7 |          0 |          1 |          8 |
+| d:\Apps\apptray\src\app\kernel\interface\lexed-command.ts                                     | TypeScript |          4 |          0 |          1 |          5 |
+| d:\Apps\apptray\src\app\kernel\interface\open-apps.ts                                         | TypeScript |          4 |          0 |          2 |          6 |
+| d:\Apps\apptray\src\app\kernel\interface\setting.ts                                           | TypeScript |         30 |          0 |          5 |         35 |
+| d:\Apps\apptray\src\app\kernel\internal\data\EApiUrls.ts                                      | TypeScript |         10 |          0 |          2 |         12 |
+| d:\Apps\apptray\src\app\kernel\internal\services\auth.service.spec.ts                         | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\internal\services\auth.service.ts                              | TypeScript |         85 |          0 |         12 |         97 |
+| d:\Apps\apptray\src\app\kernel\internal\services\cookie.service.spec.ts                       | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\internal\services\cookie.service.ts                            | TypeScript |         24 |          5 |          9 |         38 |
+| d:\Apps\apptray\src\app\kernel\internal\services\format-param.service.spec.ts                 | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\internal\services\format-param.service.ts                      | TypeScript |         14 |          0 |          5 |         19 |
+| d:\Apps\apptray\src\app\kernel\internal\services\loading.service.spec.ts                      | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\internal\services\loading.service.ts                           | TypeScript |         19 |          0 |          5 |         24 |
+| d:\Apps\apptray\src\app\kernel\internal\services\settings.service.spec.ts                     | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\internal\services\settings.service.ts                          | TypeScript |         69 |          0 |         10 |         79 |
+| d:\Apps\apptray\src\app\kernel\internal\services\theme.service.spec.ts                        | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\internal\services\theme.service.ts                             | TypeScript |         18 |          0 |          4 |         22 |
+| d:\Apps\apptray\src\app\kernel\kernel.module.ts                                               | TypeScript |         43 |          0 |          2 |         45 |
+| d:\Apps\apptray\src\app\kernel\services\executables.service.spec.ts                           | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\services\executables.service.ts                                | TypeScript |         22 |          0 |          3 |         25 |
+| d:\Apps\apptray\src\app\kernel\services\shell.service.spec.ts                                 | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\services\shell.service.ts                                      | TypeScript |         44 |          2 |         14 |         60 |
+| d:\Apps\apptray\src\app\kernel\services\state.service.spec.ts                                 | TypeScript |         12 |          0 |          5 |         17 |
+| d:\Apps\apptray\src\app\kernel\services\state.service.ts                                      | TypeScript |         18 |          0 |          6 |         24 |
+| d:\Apps\apptray\src\app\sign-in\sign-in.component.html                                        | HTML       |         15 |          0 |          1 |         16 |
+| d:\Apps\apptray\src\app\sign-in\sign-in.component.scss                                        | SCSS       |         89 |          0 |         14 |        103 |
+| d:\Apps\apptray\src\app\sign-in\sign-in.component.spec.ts                                     | TypeScript |         20 |          0 |          6 |         26 |
+| d:\Apps\apptray\src\app\sign-in\sign-in.component.ts                                          | TypeScript |         14 |          0 |          4 |         18 |
+| d:\Apps\apptray\src\environments\environment.prod.ts                                          | TypeScript |          4 |          0 |          1 |          5 |
+| d:\Apps\apptray\src\environments\environment.ts                                               | TypeScript |          4 |         11 |          3 |         18 |
+| d:\Apps\apptray\src\index.html                                                                | HTML       |         13 |          0 |          1 |         14 |
+| d:\Apps\apptray\src\main.ts                                                                   | TypeScript |         11 |          0 |          4 |         15 |
+| d:\Apps\apptray\src\polyfills.ts                                                              | TypeScript |          1 |         57 |          8 |         66 |
+| d:\Apps\apptray\src\styles.scss                                                               | SCSS       |         21 |          1 |          6 |         28 |
+| d:\Apps\apptray\src\test.ts                                                                   | TypeScript |         18 |          4 |          4 |         26 |
+| d:\Apps\apptray\tsconfig.app.json                                                             | JSON       |         14 |          1 |          1 |         16 |
+| d:\Apps\apptray\tsconfig.json                                                                 | JSON       |         29 |          1 |          1 |         31 |
+| d:\Apps\apptray\tsconfig.spec.json                                                            | JSON       |         17 |          1 |          1 |         19 |
+| d:\Apps\apptray\tslint.json                                                                   | JSON       |        152 |          0 |          1 |        153 |
+| Total                                                                                         |            |     18,858 |        130 |        539 |     19,527 |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

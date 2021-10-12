@@ -1,0 +1,58 @@
+@use "../../Theme" as theme;
+
+.bar {
+  width: 80vw;
+  height: 106px;
+  position: absolute;
+  bottom: -70px;
+  left: 10vw;
+  border-radius: 20px;
+  border: 1px solid rgb(var(--secondary));
+  transition: all 200ms ease;
+
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 0px 5px;
+
+  background: radial-gradient(
+    farthest-corner at 40% 45%,
+    #{"rgba(var(--secondary), 0.6)"} 0%,
+    #{"rgba(var(--secondary), 0.3)"} 100%
+  );
+
+  .app {
+    height: 96px;
+    width: 96px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 20px;
+    border: 1px solid rgb(var(--secondary));
+    background-color: #{"rgba(var(--secondary), 0.3)"};
+    transition: all 100ms ease;
+
+    &:hover {
+      background-color: #{"rgba(var(--accent), 0.2)"};
+    }
+
+    svg {
+      path,
+      rect,
+      circle {
+        stroke: rgb(var(--primary));
+      }
+
+      stop {
+        stop-color: rgb(var(--tertiary));
+      }
+    }
+  }
+}
+
+.open {
+  bottom: 50px;
+}
+
+@include theme.theme-setup;

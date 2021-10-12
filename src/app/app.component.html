@@ -1,4 +1,12 @@
-<div class="page">
-<router-outlet></router-outlet>
+<div class="os-root">
+  <router-outlet></router-outlet>
 </div>
 
+<div class="loading" *ngIf="appLoading">
+  <app-circles-to-rhumbuses-spinner
+    [animationDuration]="2000"
+    [color]="'#0f3057'"
+    [circlesNum]="3"
+    [circleSize]="15"
+  ></app-circles-to-rhumbuses-spinner>
+</div>

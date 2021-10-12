@@ -1,0 +1,23 @@
+<div class="left-menu">
+  <div class="top">
+    <app-menu-tab [content]="'Settings'"></app-menu-tab>
+    <app-menu-tab [content]="'Store'"></app-menu-tab>
+    <app-menu-tab [content]="'Help?'"></app-menu-tab>
+  </div>
+  <div class="bottom">
+    <div class="back" (click)="state.isMainMenuOpen.next(false)">
+      <h4>Go Back</h4>
+      <svg width="25px" height="25px" viewBox="0 0 979.469 979.469">
+        <path
+          d="M421.337,945.03l-377.5-378.1c-44.4-44.5-44.4-111.1,0-155.401l377.5-377.3c44.3-44.3,113.7-46.2,157.7-2.2
+      c43,43,38.399,115.5-3.4,157.2l-184.399,184.4c0,0,465.1,0.6,465.3,0.6c30.8,0,60.5,12,81.6,34.4
+      c50.601,54,37.101,148.5-27.7,184.4c-16.399,9.101-35.1,13.9-53.899,13.801l-465.3-0.4c0,0,184.3,184.2,184.399,184.3
+      c41.9,41.9,46.101,114.101,3.4,156.9C535.037,991.631,465.637,989.331,421.337,945.03z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+<div class="right-menu" [ngSwitch]="state.openMenuTab | async">
+  <app-settings *ngSwitchCase="'settings'"></app-settings>
+</div>
