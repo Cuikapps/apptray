@@ -20,10 +20,31 @@ $danger: #8b0000;
     --danger: 167, 40, 40;
   }
   .Light {
-    --primary: 238, 240, 240;
-    --secondary: 73, 73, 73;
-    --tertiary: 155, 155, 155;
-    --accent: 146, 146, 146;
+    --primary: 73, 73, 73;
+    --secondary: 238, 240, 240;
+    --tertiary: 146, 146, 146;
+    --accent: 155, 155, 155;
     --danger: 167, 40, 40;
+  }
+}
+
+@mixin custom-scroll($width, $horizontal: false) {
+  scrollbar-color: rbg(var(--secondary)) #{"rgba(var(--secondary), 0.6)"};
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    @if $horizontal {
+      height: $width;
+    } @else {
+      width: $width;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #{"rgba(var(--secondary), 0.3)"};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #{"rgba(var(--accent), 0.6)"};
   }
 }

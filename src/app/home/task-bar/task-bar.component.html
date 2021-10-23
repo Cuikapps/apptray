@@ -1,4 +1,4 @@
-<div class="bar {{ barOpen }}">
+<div class="bar open {{ barOpen }}">
   <div class="app" title="Search" (click)="openSearch()">
     <svg
       width="82"
@@ -101,7 +101,7 @@
         width="79"
         height="39"
         rx="1.5"
-        fill="url(#paint0_linear)"
+        fill="url(#paint6_linear)"
         stroke="#0F3057"
       />
       <path
@@ -115,7 +115,7 @@
       />
       <defs>
         <linearGradient
-          id="paint0_linear"
+          id="paint6_linear"
           x1="16"
           y1="9"
           x2="73"
@@ -140,7 +140,7 @@
       </defs>
     </svg>
   </div>
-  <div class="app" title="Favorites">
+  <div class="app" title="Favorites" (click)="openFavorites()">
     <svg
       width="71"
       height="67"
@@ -150,7 +150,7 @@
     >
       <path
         d="M35.0531 1.00512C35.2376 0.637486 35.7624 0.637483 35.9469 1.00512L45.9523 20.9412C46.1706 21.3762 46.5863 21.6782 47.0673 21.7514L69.1196 25.1065C69.5262 25.1683 69.6884 25.6674 69.3957 25.9565L53.5272 41.6328C53.181 41.9748 53.0223 42.4634 53.1013 42.9436L56.7249 64.9533C56.7917 65.3592 56.3672 65.6676 56.0018 65.4786L36.1891 55.231C35.7569 55.0075 35.2431 55.0075 34.8109 55.231L14.9982 65.4786C14.6328 65.6676 14.2083 65.3592 14.2751 64.9533L17.8987 42.9436C17.9778 42.4634 17.819 41.9748 17.4728 41.6328L1.60427 25.9565C1.31164 25.6674 1.4738 25.1683 1.88045 25.1065L23.9327 21.7514C24.4138 21.6782 24.8294 21.3762 25.0477 20.9412L35.0531 1.00512L34.6153 0.785406L35.0531 1.00512Z"
-        fill="url(#paint0_linear)"
+        fill="url(#paint6_linear)"
         stroke="#0F3057"
       />
       <defs>
@@ -171,7 +171,7 @@
       </defs>
     </svg>
   </div>
-  <div class="app" title="Store">
+  <div class="app" title="Store" (click)="openStore()">
     <svg
       width="76"
       height="63"
@@ -254,7 +254,7 @@
       </defs>
     </svg>
   </div>
-  <div class="app" title="File Explorer">
+  <div class="app" title="File Explorer" (click)="openFileExplorer()">
     <svg
       width="73"
       height="52"
@@ -264,7 +264,7 @@
     >
       <path
         d="M20 4.40196H72V51H1V10.6471V2H20V4.40196Z"
-        fill="url(#paint0_linear)"
+        fill="url(#paint6_linear)"
       />
       <path
         d="M20 4.40196H72V51H1V10.6471M20 4.40196L16.5 10.6471H1M20 4.40196V2H1V10.6471"
@@ -279,7 +279,7 @@
       />
       <defs>
         <linearGradient
-          id="paint0_linear"
+          id="paint6_linear"
           x1="8.5"
           y1="5.36274"
           x2="64.332"
@@ -294,7 +294,7 @@
       </defs>
     </svg>
   </div>
-  <div class="app" title="Trash">
+  <div class="app" title="Trash" (click)="openTrash()">
     <svg
       width="59"
       height="72"
@@ -304,7 +304,7 @@
     >
       <path
         d="M8.5 70L1 5.5L11 2H49.5L58.5 5.5L52 70L47.5 71H13L8.5 70Z"
-        fill="url(#paint0_linear)"
+        fill="url(#paint6_linear)"
       />
       <path
         d="M58.5 5.5L49.5 13M58.5 5.5L52 70L47.5 71M58.5 5.5L49.5 2H11L1 5.5M49.5 13H11M49.5 13L47.5 71M11 13L1 5.5M11 13L13 71M1 5.5L8.5 70L13 71M47.5 71H13"
@@ -337,7 +337,7 @@
       />
       <defs>
         <linearGradient
-          id="paint0_linear"
+          id="paint6_linear"
           x1="29.5"
           y1="2"
           x2="29.5"
@@ -390,5 +390,14 @@
         </radialGradient>
       </defs>
     </svg>
+  </div>
+  <div class="split"></div>
+  <ng-container *ngFor="let app of apps">
+    <app-task [app]="app"></app-task>
+  </ng-container>
+  <div class="overflow" (click)="openTaskMenu()">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
   </div>
 </div>

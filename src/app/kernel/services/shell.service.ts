@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LexedCommand } from '../interface/lexed-command';
-import { Param } from '../interface/Param';
+import { Param } from '../interface/param';
 import { ExecutablesService } from './executables.service';
 
 @Injectable()

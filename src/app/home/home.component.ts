@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../kernel/internal/services/auth.service';
 import { ThemeService } from '../kernel/internal/services/theme.service';
+import { DesktopService } from '../kernel/services/desktop.service';
 import { ShellService } from '../kernel/services/shell.service';
 import { StateService } from '../kernel/services/state.service';
 
@@ -27,15 +28,6 @@ export class HomeComponent implements OnInit {
   menuEvents: (() => void)[] = [() => {}];
   menuLeft = 'unset';
 
-  // Mouse data
-  mouseXPosClick = 0;
-  mouseYPosClick = 0;
-  mouseXPosCurrent = 0;
-  mouseYPosCurrent = 0;
-  mouseXPosStart = 0;
-  mouseYPosStart = 0;
-  isMouseDown = false;
-
   selectAreaStyle: AreaStyle = {
     top: 'unset',
     bottom: 'unset',
@@ -51,16 +43,39 @@ export class HomeComponent implements OnInit {
     public readonly auth: AuthService,
     public readonly theme: ThemeService,
     public readonly state: StateService,
-    public readonly shell: ShellService
+    public readonly shell: ShellService,
+    public readonly desktop: DesktopService
   ) {}
 
   ngOnInit(): void {
     document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+    window.addEventListener(
+      'popstate',
+      () => {
+        // The popstate event is fired each time when the current history entry changes.
+
+        const r = confirm('You pressed a Back button! Are you sure?!');
+
+        if (r === true) {
+          // Call Back button programmatically as per user confirmation.
+          history.back();
+          // Uncomment below line to redirect to the previous page instead.
+          // window.location = document.referrer // Note: IE11 is not supporting this.
+        } else {
+          // Stay on the current page.
+          history.pushState(null, '', window.location.pathname);
+        }
+
+        history.pushState(null, '', window.location.pathname);
+      },
+      false
+    );
   }
 
   clicked(event: MouseEvent): void {
-    this.mouseXPosClick = event.clientX;
-    this.mouseYPosClick = event.clientY;
+    this.desktop.mouseXPosClick = event.clientX;
+    this.desktop.mouseYPosClick = event.clientY;
     switch (event.button) {
       case 0: {
         this.closeAll();
@@ -71,23 +86,28 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+
     // Reset Select area
     this.openSelectArea();
     this.isSelectAreaOpen = false;
-    this.isMouseDown = false;
+    this.desktop.mouseUp(event);
+    this.desktop.isMouseDown = false;
+    this.desktop.isMouseFocused = false;
+    this.state.isTaskMenuOpen.next(false);
   }
 
   mouseDown(e: MouseEvent): void {
-    this.isMouseDown = true;
-    this.mouseXPosStart = e.clientX;
-    this.mouseYPosStart = e.clientY;
+    this.desktop.isMouseDown = true;
+    this.desktop.mouseXPosStart = e.clientX;
+    this.desktop.mouseYPosStart = e.clientY;
   }
 
   mouseMoved(e: MouseEvent): void {
-    this.mouseXPosCurrent = e.clientX;
-    this.mouseYPosCurrent = e.clientY;
+    this.desktop.mouseXPosCurrent = e.clientX;
+    this.desktop.mouseYPosCurrent = e.clientY;
+    e.preventDefault();
 
-    if (this.isMouseDown) {
+    if (this.desktop.isMouseDown && !this.desktop.isMouseFocused) {
       this.openSelectArea();
     }
   }
@@ -110,8 +130,8 @@ export class HomeComponent implements OnInit {
   }
 
   openSelectArea(): void {
-    const deltaX = this.mouseXPosCurrent - this.mouseXPosStart;
-    const deltaY = this.mouseYPosCurrent - this.mouseYPosStart;
+    const deltaX = this.desktop.mouseXPosCurrent - this.desktop.mouseXPosStart;
+    const deltaY = this.desktop.mouseYPosCurrent - this.desktop.mouseYPosStart;
 
     const quadrant = this.getMovementQuadrant();
 
@@ -125,9 +145,9 @@ export class HomeComponent implements OnInit {
       case 1: {
         this.selectAreaStyle.top = 'unset';
         this.selectAreaStyle.right = 'unset';
-        this.selectAreaStyle.left = this.mouseXPosStart + 'px';
+        this.selectAreaStyle.left = this.desktop.mouseXPosStart + 'px';
         this.selectAreaStyle.bottom =
-          this.getWindowHeight() - this.mouseYPosStart + 'px';
+          this.getWindowHeight() - this.desktop.mouseYPosStart + 'px';
 
         this.selectAreaStyle.width = Math.abs(deltaX) + 'px';
         this.selectAreaStyle.height = Math.abs(deltaY) + 'px';
@@ -136,19 +156,19 @@ export class HomeComponent implements OnInit {
       case 2: {
         this.selectAreaStyle.top = 'unset';
         this.selectAreaStyle.right =
-          this.getWindowWidth() - this.mouseXPosStart + 'px';
+          this.getWindowWidth() - this.desktop.mouseXPosStart + 'px';
         this.selectAreaStyle.left = 'unset';
         this.selectAreaStyle.bottom =
-          this.getWindowHeight() - this.mouseYPosStart + 'px';
+          this.getWindowHeight() - this.desktop.mouseYPosStart + 'px';
 
         this.selectAreaStyle.width = Math.abs(deltaX) + 'px';
         this.selectAreaStyle.height = Math.abs(deltaY) + 'px';
         break;
       }
       case 3: {
-        this.selectAreaStyle.top = this.mouseYPosStart + 'px';
+        this.selectAreaStyle.top = this.desktop.mouseYPosStart + 'px';
         this.selectAreaStyle.right =
-          this.getWindowWidth() - this.mouseXPosStart + 'px';
+          this.getWindowWidth() - this.desktop.mouseXPosStart + 'px';
         this.selectAreaStyle.left = 'unset';
         this.selectAreaStyle.bottom = 'unset';
 
@@ -157,9 +177,9 @@ export class HomeComponent implements OnInit {
         break;
       }
       case 4: {
-        this.selectAreaStyle.top = this.mouseYPosStart + 'px';
+        this.selectAreaStyle.top = this.desktop.mouseYPosStart + 'px';
         this.selectAreaStyle.right = 'unset';
-        this.selectAreaStyle.left = this.mouseXPosStart + 'px';
+        this.selectAreaStyle.left = this.desktop.mouseXPosStart + 'px';
         this.selectAreaStyle.bottom = 'unset';
 
         this.selectAreaStyle.width = Math.abs(deltaX) + 'px';
@@ -182,29 +202,29 @@ export class HomeComponent implements OnInit {
   getMovementQuadrant(): number {
     // If Increase in X direction and Decrease in Y direction
     if (
-      this.mouseXPosCurrent > this.mouseXPosStart &&
-      this.mouseYPosCurrent < this.mouseYPosStart
+      this.desktop.mouseXPosCurrent > this.desktop.mouseXPosStart &&
+      this.desktop.mouseYPosCurrent < this.desktop.mouseYPosStart
     ) {
       return 1;
     }
     // If  Decrease in XY direction
     if (
-      this.mouseXPosCurrent < this.mouseXPosStart &&
-      this.mouseYPosCurrent < this.mouseYPosStart
+      this.desktop.mouseXPosCurrent < this.desktop.mouseXPosStart &&
+      this.desktop.mouseYPosCurrent < this.desktop.mouseYPosStart
     ) {
       return 2;
     }
     // If Decrease in X direction and Increase in Y direction
     if (
-      this.mouseXPosCurrent < this.mouseXPosStart &&
-      this.mouseYPosCurrent > this.mouseYPosStart
+      this.desktop.mouseXPosCurrent < this.desktop.mouseXPosStart &&
+      this.desktop.mouseYPosCurrent > this.desktop.mouseYPosStart
     ) {
       return 3;
     }
     // If Increase in XY direction
     if (
-      this.mouseXPosCurrent > this.mouseXPosStart &&
-      this.mouseYPosCurrent > this.mouseYPosStart
+      this.desktop.mouseXPosCurrent > this.desktop.mouseXPosStart &&
+      this.desktop.mouseYPosCurrent > this.desktop.mouseYPosStart
     ) {
       return 4;
     }

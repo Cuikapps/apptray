@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../../interface/iuser';
-import { Param } from '../../interface/Param';
+import { Param } from '../../interface/param';
 import { AuthURLs } from '../data/EApiUrls';
 import { CookieService } from './cookie.service';
 import { FormatParamService } from './format-param.service';

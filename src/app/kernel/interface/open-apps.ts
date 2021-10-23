@@ -1,5 +1,5 @@
 import { App } from './app';
 
 export interface OpenApps {
-  fileExplorers: App[];
+  [key: string]: App[];
 }

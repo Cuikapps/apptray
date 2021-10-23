@@ -1,0 +1,68 @@
+.app {
+  height: 96px;
+  width: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 20px;
+  border: 1px solid rgb(var(--secondary));
+  background-color: #{"rgba(var(--secondary), 0.3)"};
+  transition: all 100ms ease;
+
+  &:hover {
+    background-color: #{"rgba(var(--accent), 0.2)"};
+  }
+
+  svg {
+    path,
+    rect,
+    circle {
+      stroke: rgb(var(--primary));
+    }
+
+    stop {
+      stop-color: rgb(var(--tertiary));
+    }
+  }
+
+  .menu {
+    position: absolute;
+    top: -100px;
+    height: 90px;
+    width: 130px;
+    padding: 3px;
+    border-radius: 20px;
+    border: 1px solid rgb(var(--secondary));
+    background: radial-gradient(
+      farthest-corner at 40% 45%,
+      #{"rgba(var(--secondary), 0.6)"} 0%,
+      #{"rgba(var(--secondary), 0.3)"} 100%
+    );
+
+    > div {
+      user-select: none;
+      cursor: pointer;
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 100ms ease;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-wrap: none;
+      white-space: nowrap;
+      color: rgb(var(--primary));
+
+      &:hover {
+        background-color: #{"rgba(var(--accent), 0.2)"};
+      }
+    }
+  }
+}
+
+.focused {
+  border: 1px solid rgb(var(--accent));
+}

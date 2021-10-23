@@ -24,8 +24,8 @@
   tabindex="0"
 >
   <app-options-menu
-    [style.top]="mouseYPosClick + 'px'"
-    [style.left]="mouseXPosClick + 'px'"
+    [style.top]="desktop.mouseYPosClick + 'px'"
+    [style.left]="desktop.mouseXPosClick + 'px'"
     *ngIf="isOptionsOpen"
   >
     <div class="menu-button explorer">File Explorer</div>
@@ -44,6 +44,7 @@
     class="select-area"
   ></div>
 </div>
+<app-program-manager></app-program-manager>
 <app-task-bar
   class="{{ theme.currentTheme | async }}"
   *ngIf="!(state.isMainMenuOpen | async)"
@@ -60,8 +61,12 @@
   </h6>
 </app-nav-menu>
 <app-search *ngIf="state.isSearchOpen | async"></app-search>
-<app-program-manager></app-program-manager>
+
 <app-main-menu
   *ngIf="state.isMainMenuOpen | async"
   [class]="theme.currentTheme | async"
 ></app-main-menu>
+<app-task-menu
+  *ngIf="state.isTaskMenuOpen | async"
+  [class]="theme.currentTheme | async"
+></app-task-menu>

@@ -1,4 +1,4 @@
-import { Param } from './Param';
+import { Param } from './param';
 
 export interface LexedCommand {
   func: string;

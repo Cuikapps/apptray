@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Param } from '../interface/Param';
+import { App } from '../interface/app';
+import { Param } from '../interface/param';
 import { MailProviderURL, SearchEngineURL } from '../interface/setting';
 import { AuthService } from '../internal/services/auth.service';
 import { SettingsService } from '../internal/services/settings.service';
+import { DesktopService } from './desktop.service';
 import { StateService } from './state.service';
 
 @Injectable()
@@ -10,7 +12,8 @@ export class ExecutablesService {
   constructor(
     private readonly auth: AuthService,
     private readonly state: StateService,
-    private readonly settings: SettingsService
+    private readonly settings: SettingsService,
+    private readonly desktop: DesktopService
   ) {}
 
   public async launch(name: string, params: Param): Promise<void> {
@@ -38,11 +41,34 @@ export class ExecutablesService {
         }
         case 'mail': {
           this.mailCommand(params);
+          break;
+        }
+        case 'file': {
+          this.fileCommand(params);
+          break;
+        }
+        default: {
+          throw new Error('Invalid Command: ' + name);
         }
       }
     } catch (error) {
       console.error(error);
       throw new Error(error as string);
+    }
+  }
+
+  private fileCommand(params: Param): void {
+    if (params.open && params.path) {
+      this.openApp('fileExplorers', {
+        path: params.path,
+        title: `File Explorer | ${params.path.slice(
+          1,
+          params.path.length - 1
+        )}`,
+        isMinimized: false,
+        id: this.genAppID(),
+        type: 'file',
+      });
     }
   }
 
@@ -138,5 +164,23 @@ export class ExecutablesService {
       this.state.isMainMenuOpen.next(true);
       this.state.openMenuTab.next('help');
     }
+  }
+
+  private openApp(name: string, data: App): void {
+    const currentApps = { ...this.state.openApps.value };
+
+    currentApps[name].push(data);
+
+    this.state.openApps.next(currentApps);
+    this.desktop.focusedApp.next(data.id);
+  }
+
+  private genAppID(): number {
+    let id = -1;
+    do {
+      id = Math.floor(Math.random() * 100);
+    } while (this.state.getAppByID(id) !== null);
+
+    return id;
   }
 }

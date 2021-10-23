@@ -16,6 +16,8 @@ import { MainMenuComponent } from './home/main-menu/main-menu.component';
 import { SettingsComponent } from './home/main-menu/settings/settings.component';
 import { MenuTabComponent } from './home/main-menu/menu-tab/menu-tab.component';
 import { SettingsMenuComponent } from './home/main-menu/settings/settings-menu/settings-menu.component';
+import { TaskComponent } from './home/task-bar/task/task.component';
+import { TaskMenuComponent } from './home/task-menu/task-menu.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { SettingsMenuComponent } from './home/main-menu/settings/settings-menu/s
     SettingsComponent,
     MenuTabComponent,
     SettingsMenuComponent,
+    TaskComponent,
+    TaskMenuComponent,
   ],
   imports: [
     BrowserModule,

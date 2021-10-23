@@ -14,6 +14,8 @@ import { SettingsService } from './internal/services/settings.service';
 import { FileExplorerComponent } from './components/apps/file-explorer/file-explorer.component';
 import { SearchComponent } from './components/apps/search/search.component';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
+import { DesktopService } from './services/desktop.service';
+import { FileExplorerToolBarComponent } from './components/apps/file-explorer/file-explorer-tool-bar/file-explorer-tool-bar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { SelectMenuComponent } from './components/select-menu/select-menu.compon
     FileExplorerComponent,
     SearchComponent,
     SelectMenuComponent,
+    FileExplorerToolBarComponent,
   ],
   imports: [CommonModule, HttpClientModule],
   providers: [
@@ -33,6 +36,7 @@ import { SelectMenuComponent } from './components/select-menu/select-menu.compon
     ThemeService,
     StateService,
     SettingsService,
+    DesktopService,
   ],
   exports: [
     OptionsMenuComponent,

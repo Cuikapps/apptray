@@ -1,1 +1,7 @@
-<app-file-explorer></app-file-explorer>
+<app-file-explorer
+  *ngFor="let fileExplorer of (state.openApps | async)?.fileExplorers"
+  [props]="fileExplorer"
+  [ngStyle]="{
+    'z-index': (desktop.focusedApp | async) === fileExplorer.id ? 5 : 0
+  }"
+></app-file-explorer>

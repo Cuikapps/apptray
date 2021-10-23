@@ -1,1 +1,152 @@
+<div
+  #panel
+  class="panel {{ theme.currentTheme | async }}"
+  (mousemove)="$event.preventDefault()"
+  (mouseup)="desktop.mouseUp($event)"
+  (click)="desktop.focusedApp.next(props.id)"
+  [ngStyle]="{ visibility: props.isMinimized ? 'hidden' : 'visible' }"
+>
+  <div class="header">
+    <div
+      class="move"
+      (mousedown)="mouseDown($event)"
+      (mouseup)="moveStart($event)"
+    >
+      {{ props.title }}
+    </div>
+    <svg
+      (click)="state.unminimizeApp(props.id)"
+      viewBox="0 0 17 2"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16 1L1 1"
+        stroke="url(#paint0_linear_115:136)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_115:136"
+          x1="1"
+          y1="1"
+          x2="16"
+          y2="1"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-opacity="0.9" />
+          <stop offset="0.461458" stop-opacity="0.71" />
+          <stop offset="1" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <svg
+      (click)="maximize()"
+      viewBox="0 0 26 19"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="7"
+        y="1"
+        width="18"
+        height="11"
+        rx="2"
+        stroke="url(#paint0_linear_301:2)"
+        stroke-width="2"
+      />
+      <rect
+        x="1"
+        y="7"
+        width="18"
+        height="11"
+        rx="2"
+        stroke="url(#paint1_linear_301:2)"
+        stroke-width="2"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_301:2"
+          x1="16"
+          y1="0"
+          x2="16"
+          y2="13"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-opacity="0.9" />
+          <stop offset="0.461458" stop-opacity="0.71" />
+          <stop offset="1" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_301:2"
+          x1="10"
+          y1="6"
+          x2="10"
+          y2="19"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#0F3057" stop-opacity="0.9" />
+          <stop offset="0.461458" stop-color="#0F3057" stop-opacity="0.71" />
+          <stop offset="1" stop-color="#0F3057" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <svg
+      (click)="state.closeApp(props)"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="2"
+        y1="17.5564"
+        x2="17.5563"
+        y2="2.00007"
+        stroke="#A72828"
+        stroke-opacity="0.93"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <line
+        x1="2.12132"
+        y1="2"
+        x2="17.6777"
+        y2="17.5563"
+        stroke="#A72828"
+        stroke-opacity="0.93"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+    </svg>
+  </div>
+  <div class="tool-bar {{ isToolBarOpen ? 'open' : '' }}">
+    <div class="tool-header">
+      <svg viewBox="0 0 330 330" (click)="isToolBarOpen = !isToolBarOpen">
+        <path
+          [ngClass]="{ open: isToolBarOpen }"
+          id="XMLID_225_"
+          d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393
+      c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393
+      s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
+        />
+      </svg>
+    </div>
+    <app-file-explorer-tool-bar
+      [class]="theme.currentTheme | async"
+    ></app-file-explorer-tool-bar>
+  </div>
+  <div
+    class="main {{ isToolBarOpen ? 'open' : '' }}"
+    [ngClass]="{ focused: (desktop.focusedApp | async) === props.id }"
+  >
+    <div class="bottom">
+      <div class="sidebar"></div>
+      <div class="explorer"></div>
+    </div>
+  </div>
 
+  <div class="expand-right" (mousedown)="mouseDown($event, 'r')"></div>
+  <div class="expand-down" (mousedown)="mouseDown($event, 'd')"></div>
+  <div class="expand-both" (mousedown)="mouseDown($event, 'b')"></div>
+</div>
