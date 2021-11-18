@@ -60,7 +60,7 @@ export class ExecutablesService {
   private fileCommand(params: Param): void {
     if (params.open && params.path) {
       this.openApp('fileExplorers', {
-        path: params.path,
+        path: params.path.slice(1, params.path.length - 1),
         title: `File Explorer | ${params.path.slice(
           1,
           params.path.length - 1
@@ -172,7 +172,7 @@ export class ExecutablesService {
     currentApps[name].push(data);
 
     this.state.openApps.next(currentApps);
-    this.desktop.focusedApp.next(data.id);
+    this.desktop.focusApp(data.id);
   }
 
   private genAppID(): number {

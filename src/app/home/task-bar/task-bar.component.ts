@@ -45,15 +45,15 @@ export class TaskBarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openFileExplorer(): void {
-    this.shell.run(['file --open="true" --path="/"']);
+    this.shell.run(['file --open="true" --path=""']);
   }
 
   openFavorites(): void {
-    this.shell.run(['file --open="true" --path="/C:/favorites/"']);
+    this.shell.run(['file --open="true" --path="favorites/"']);
   }
 
   openTrash(): void {
-    this.shell.run(['file --open="true" --path="/C:/trash/"']);
+    this.shell.run(['file --open="true" --path="trash/"']);
   }
 
   openTaskMenu(): void {

@@ -45,6 +45,25 @@ export class StateService {
     return null;
   }
 
+  updateApp(id: number, app: App): void {
+    const tempOpenApps = { ...this.openApps.value };
+
+    for (const apps in tempOpenApps) {
+      if (tempOpenApps[apps] !== []) {
+        tempOpenApps[apps] = tempOpenApps[apps].map<App>((a) => {
+          if (a.id === id) {
+            a = app;
+          }
+          return a;
+        });
+
+        this.openApps.next(tempOpenApps);
+      } else {
+        return;
+      }
+    }
+  }
+
   getAllOpenApps(): App[] {
     const currentOpenApps = this.openApps.value;
 

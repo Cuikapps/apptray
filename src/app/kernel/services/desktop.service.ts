@@ -14,11 +14,22 @@ export class DesktopService {
   isMouseDown = false;
   isMouseFocused = false;
 
+  oldFocusedApp = -1;
   focusedApp: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
 
   mouseUpEvent: Subject<MouseEvent> = new Subject<MouseEvent>();
 
   mouseUp(event: MouseEvent): void {
     this.mouseUpEvent.next(event);
+    this.isMouseDown = false;
+  }
+
+  focusApp(id: number): void {
+    this.oldFocusedApp = this.focusedApp.value;
+    this.focusedApp.next(id);
+  }
+
+  duringFocusChange(): boolean {
+    return this.oldFocusedApp !== this.focusedApp.value;
   }
 }

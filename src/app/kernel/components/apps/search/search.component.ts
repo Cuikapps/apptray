@@ -28,6 +28,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   query(q: string): void {
-    this.shell.run([`search --q="${q}"`]);
+    this.shell.run([`search --q="${encodeURIComponent(q)}"`]);
   }
 }

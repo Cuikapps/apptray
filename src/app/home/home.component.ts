@@ -284,13 +284,16 @@ export class HomeComponent implements OnInit {
         const left = 'calc(50vw - 60px)';
         this.isNavMenuOpen = !(this.menuLeft === left && this.isNavMenuOpen);
         this.menuLeft = this.menuLeft === left ? 'unset' : left;
-        this.menuItems = ['Documentation', 'Support'];
+        this.menuItems = ['Documentation', 'Support', 'Log out'];
         this.menuEvents = [
           () => {
             this.shell.run(['help --open="true"']);
           },
           () => {
             this.shell.run(['help --open="true"']);
+          },
+          () => {
+            this.auth.signOut();
           },
         ];
         break;

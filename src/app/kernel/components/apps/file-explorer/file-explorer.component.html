@@ -3,7 +3,7 @@
   class="panel {{ theme.currentTheme | async }}"
   (mousemove)="$event.preventDefault()"
   (mouseup)="desktop.mouseUp($event)"
-  (click)="desktop.focusedApp.next(props.id)"
+  (click)="desktop.focusApp(props.id)"
   [ngStyle]="{ visibility: props.isMinimized ? 'hidden' : 'visible' }"
 >
   <div class="header">
@@ -12,7 +12,7 @@
       (mousedown)="mouseDown($event)"
       (mouseup)="moveStart($event)"
     >
-      {{ props.title }}
+      {{ props.title || "Root" }}
     </div>
     <svg
       (click)="state.unminimizeApp(props.id)"
@@ -140,13 +140,176 @@
     class="main {{ isToolBarOpen ? 'open' : '' }}"
     [ngClass]="{ focused: (desktop.focusedApp | async) === props.id }"
   >
-    <div class="bottom">
-      <div class="sidebar"></div>
-      <div class="explorer"></div>
+    <div class="sidebar">
+      <div class="pinned">
+        <h4>Main</h4>
+        <button (click)="goto('favorites/')">Favorites</button>
+        <button (click)="goto('photos/')">Photos</button>
+        <button (click)="goto('videos/')">Videos</button>
+        <button (click)="goto('documents/')">Documents</button>
+        <button (click)="goto('shared/')">Shared</button>
+        <button (click)="goto('trash/')">Trash</button>
+      </div>
+      <div class="drives">
+        <h4>Drives</h4>
+        <button *ngFor="let drive of drives" (click)="goto(drive + '/')">
+          Drive {{ drive }}
+        </button>
+      </div>
+    </div>
+    <div class="explorer">
+      <app-breadcrumbs
+        [path]="props.path ?? ''"
+        (pathChange)="goto($event.join('/') + '/')"
+      ></app-breadcrumbs>
+      <div
+        class="files"
+        #files
+        (click)="
+          windowUtil.isTarget($event, files)
+            ? closeAll()
+            : $event.preventDefault()
+        "
+        (contextmenu)="
+          windowUtil.isTarget($event, files) && props.path !== ''
+            ? openOptions($event, 'none')
+            : $event.preventDefault()
+        "
+      >
+        <app-folder
+          *ngFor="let folder of currentFolders"
+          [props]="folder"
+          [rename]="renamingName === folder.folderName + '/'"
+          [selected]="selectedNames.includes(folder.folderName + '/')"
+          (openFolder)="goto(props.path + $event + '/')"
+          (selectFolder)="select($event)"
+          (renameFolder)="renameFolder($event)"
+          (cancel)="renamingName = ''"
+          (contextmenu)="
+            rightClickOn(folder.folderName + '/'); openOptions($event, 'folder')
+          "
+        ></app-folder>
+        <app-file
+          *ngFor="let file of currentFiles"
+          [props]="file"
+          [rename]="renamingName === file.fileName"
+          [selected]="selectedNames.includes(file.fileName)"
+          (selectFile)="select($event)"
+          (renameFile)="renameFile($event)"
+          (cancel)="renamingName = ''"
+          (contextmenu)="
+            rightClickOn(file.fileName); openOptions($event, 'file')
+          "
+        ></app-file>
+        <app-new-folder
+          *ngIf="isNewFolderOpen"
+          appCloseOnUnfocus
+          [unFocusCondition]="isNewFolderOpen"
+          [delay]="100"
+          (unFocus)="isNewFolderOpen = false"
+          (create)="newFolder($event)"
+        ></app-new-folder>
+      </div>
+      <app-options-menu
+        *ngIf="isOptionsOpen && props.path !== ''"
+        appCloseOnUnfocus
+        [unFocusCondition]="isOptionsOpen"
+        (unFocus)="isOptionsOpen = false"
+        [style.top]="desktop.mouseYPosClick + 'px'"
+        [style.left]="desktop.mouseXPosClick + 'px'"
+      >
+        <ng-container *ngIf="optionsType === 'none'">
+          <div
+            class="menu-button"
+            (click)="isUploadOpen = true; isOptionsOpen = false"
+          >
+            Upload
+          </div>
+          <div
+            class="menu-button"
+            (click)="isNewFolderOpen = true; isOptionsOpen = false"
+          >
+            New Folder
+          </div>
+          <div class="menu-button">New App</div>
+          <hr />
+          <div class="menu-button">Select All</div>
+          <div class="menu-button">Unselect All</div>
+          <div class="menu-button">Paste</div>
+        </ng-container>
+        <ng-container
+          *ngIf="optionsType === 'folder' || optionsType === 'file'"
+        >
+          <div
+            class="menu-button"
+            *ngIf="selectedNames.length === 1"
+            (click)="open()"
+          >
+            Open
+          </div>
+          <div class="menu-button" (click)="downloadSelected()">Download</div>
+          <hr />
+          <div
+            class="menu-button"
+            (click)="rename(); isOptionsOpen = false"
+            *ngIf="selectedNames.length === 1"
+          >
+            Rename
+          </div>
+          <div class="menu-button">Copy</div>
+          <div class="menu-button" *ngIf="selectedNames.length === 1">
+            Copy Path
+          </div>
+          <div class="menu-button">Cut</div>
+          <div
+            class="menu-button"
+            (click)="deleteSelected(); isOptionsOpen = false"
+          >
+            Delete
+          </div>
+          <hr />
+          <div class="menu-button">Move to</div>
+          <div class="menu-button">Copy to</div>
+          <div class="menu-button">Share</div>
+        </ng-container>
+      </app-options-menu>
     </div>
   </div>
 
   <div class="expand-right" (mousedown)="mouseDown($event, 'r')"></div>
   <div class="expand-down" (mousedown)="mouseDown($event, 'd')"></div>
   <div class="expand-both" (mousedown)="mouseDown($event, 'b')"></div>
+  <div
+    class="uploads"
+    *ngIf="isUploadOpen"
+    appCloseOnUnfocus
+    [unFocusCondition]="isUploadOpen"
+    [delay]="100"
+    (unFocus)="isUploadOpen = false"
+  >
+    <label for="files1">
+      <input
+        multiple
+        webkitdirectory
+        directory
+        id="files1"
+        #files1
+        (change)="upload(files1)"
+        type="file"
+      /><span
+        >Click to Choose Folders {{ isUploading ? "(Uploading...)" : "" }}</span
+      ></label
+    >
+    <label for="files2">
+      <input
+        multiple
+        id="files2"
+        #files2
+        (change)="upload(files2)"
+        type="file"
+      /><span
+        >Click to Choose Files {{ isUploading ? "(Uploading...)" : "" }}</span
+      ></label
+    >
+  </div>
 </div>

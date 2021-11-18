@@ -1,0 +1,77 @@
+<div
+  class="file {{ selected ? 'selected' : '' }}"
+  (dblclick)="openFile.emit(props.fileName)"
+  (click)="
+    $event.ctrlKey ? selectFile.emit(props.fileName) : $event.preventDefault()
+  "
+>
+  <svg
+    width="17"
+    height="17"
+    viewBox="0 0 65 65"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M39.3291 17.4837V17.9837H39.8291H53.7046H54.8557L54.07 17.1424L40.1945 2.28525L39.3291 1.35861V2.62653V17.4837ZM55.8842 15.0543V64.5H9.11581V0.5H42.2915L55.8842 15.0543ZM17.2383 57.302H33.7403C34.8152 57.302 35.5801 56.4384 35.5801 55.4622C35.5801 54.4039 34.7198 53.6224 33.7403 53.6224H17.2383C16.1799 53.6224 15.3985 54.4828 15.3985 55.4622C15.3985 56.5206 16.2588 57.302 17.2383 57.302ZM17.2383 48.8388H47.775C48.771 48.8388 49.6148 48.0542 49.6148 46.999C49.6148 45.9406 48.7545 45.1592 47.775 45.1592H17.2383C16.1799 45.1592 15.3985 46.0195 15.3985 46.999C15.3985 48.0573 16.2588 48.8388 17.2383 48.8388ZM17.2383 40.4286H47.775C48.771 40.4286 49.6148 39.644 49.6148 38.5888C49.6148 37.5304 48.7545 36.749 47.775 36.749H17.2383C16.1799 36.749 15.3985 37.6093 15.3985 38.5888C15.3985 39.6471 16.2588 40.4286 17.2383 40.4286ZM17.2383 32.0184H47.775C48.771 32.0184 49.6148 31.2338 49.6148 30.1786C49.6148 29.1202 48.7545 28.3388 47.775 28.3388H17.2383C16.1927 28.3388 15.3985 29.133 15.3985 30.1786C15.3985 31.2369 16.2588 32.0184 17.2383 32.0184ZM17.2383 23.5551H47.775C48.7677 23.5551 49.6148 22.787 49.6148 21.7153C49.6148 20.6569 48.7545 19.8755 47.775 19.8755H17.2383C16.1799 19.8755 15.3985 20.7358 15.3985 21.7153C15.3985 22.7737 16.2588 23.5551 17.2383 23.5551Z"
+      fill="url(#paint0_linear_308:9)"
+      stroke="#0F3057"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_308:9"
+        x1="18"
+        y1="4.5"
+        x2="51.5"
+        y2="71.5"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#00587A" stop-opacity="0.84" />
+        <stop offset="0.0677083" stop-color="#00587A" stop-opacity="0.93" />
+        <stop offset="0.442708" stop-color="#00587A" stop-opacity="0.6" />
+        <stop offset="0.9999" stop-color="#00587A" stop-opacity="0.91" />
+        <stop offset="1" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+  </svg>
+  <input
+    *ngIf="rename"
+    (keyup.enter)="
+      renameFile.emit({ oldName: props.fileName, newName: this.newName })
+    "
+    type="text"
+    [(ngModel)]="newName"
+  />
+
+  <svg
+    *ngIf="rename"
+    (click)="cancel.emit()"
+    width="15px"
+    height="15px"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <line
+      x1="2"
+      y1="17.5564"
+      x2="17.5563"
+      y2="2.00007"
+      stroke="#A72828"
+      stroke-opacity="0.93"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    <line
+      x1="2.12132"
+      y1="2"
+      x2="17.6777"
+      y2="17.5563"
+      stroke="#A72828"
+      stroke-opacity="0.93"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+  </svg>
+  <p *ngIf="!rename">{{ props.fileName }}</p>
+</div>

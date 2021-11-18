@@ -1,0 +1,39 @@
+@use "../../../Theme" as theme;
+
+.file {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0px 5px;
+  gap: 5px;
+  border-radius: 5px;
+
+  p {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    background-color: #{"rgba(var(--secondary), 0.2)"};
+  }
+
+  svg stop {
+    stop-color: rgb(var(--tertiary));
+  }
+
+  input {
+    color: rgb(var(--primary));
+    background-color: transparent;
+    border: none;
+    outline-color: rgb(var(--tertiary));
+    user-select: all;
+    border-bottom: 1px solid rgb(var(--secondary));
+  }
+}
+
+.selected {
+  background-color: #{"rgba(var(--secondary), 0.4)"};
+}

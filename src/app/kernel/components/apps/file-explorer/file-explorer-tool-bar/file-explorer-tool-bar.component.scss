@@ -11,6 +11,7 @@
   flex-direction: column;
   color: rgb(var(--primary));
   cursor: default;
+  user-select: none;
 
   .actions {
     display: grid;

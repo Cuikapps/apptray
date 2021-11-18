@@ -1,0 +1,13 @@
+@use "../../../Theme" as theme;
+
+.path {
+  margin-top: 5px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #{"rgba(var(--secondary), 0.2)"};
+  }
+
+  &::after {
+    content: ">";
+  }
+}

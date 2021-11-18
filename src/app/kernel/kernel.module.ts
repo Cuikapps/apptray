@@ -16,6 +16,15 @@ import { SearchComponent } from './components/apps/search/search.component';
 import { SelectMenuComponent } from './components/select-menu/select-menu.component';
 import { DesktopService } from './services/desktop.service';
 import { FileExplorerToolBarComponent } from './components/apps/file-explorer/file-explorer-tool-bar/file-explorer-tool-bar.component';
+import { FileService } from './internal/services/file.service';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { FolderComponent } from './components/folder/folder.component';
+import { FileComponent } from './components/file/file.component';
+import { WindowUtilService } from './internal/services/window-util.service';
+import { CloseOnUnfocusDirective } from './internal/directive/close-on-unfocus.directive';
+import { PopUpService } from './internal/services/pop-up.service';
+import { NewFolderComponent } from './components/new-folder/new-folder.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,8 +33,13 @@ import { FileExplorerToolBarComponent } from './components/apps/file-explorer/fi
     SearchComponent,
     SelectMenuComponent,
     FileExplorerToolBarComponent,
+    BreadcrumbsComponent,
+    FolderComponent,
+    FileComponent,
+    CloseOnUnfocusDirective,
+    NewFolderComponent,
   ],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   providers: [
     ShellService,
     ExecutablesService,
@@ -37,12 +51,19 @@ import { FileExplorerToolBarComponent } from './components/apps/file-explorer/fi
     StateService,
     SettingsService,
     DesktopService,
+    FileService,
+    WindowUtilService,
+    PopUpService,
   ],
   exports: [
     OptionsMenuComponent,
     FileExplorerComponent,
     SearchComponent,
     SelectMenuComponent,
+    FileExplorerToolBarComponent,
+    BreadcrumbsComponent,
+    FolderComponent,
+    FileComponent,
   ],
 })
 export class KernelModule {}

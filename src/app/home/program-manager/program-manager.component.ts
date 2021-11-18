@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { App } from 'src/app/kernel/interface/app';
 import { DesktopService } from 'src/app/kernel/services/desktop.service';
 import { StateService } from 'src/app/kernel/services/state.service';
 
@@ -17,4 +18,8 @@ export class ProgramManagerComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   ngOnInit(): void {}
+
+  trackByAppID(index: number, app: App): number {
+    return app.id;
+  }
 }

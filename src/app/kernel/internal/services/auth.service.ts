@@ -37,8 +37,6 @@ export class AuthService {
     const email = this.formatParam.format(params.email);
     const password = this.formatParam.format(params.password);
 
-    console.log(email);
-
     try {
       await this.loading.load<void>(async () => {
         await firstValueFrom(
@@ -65,6 +63,29 @@ export class AuthService {
     await this.getStoreData();
 
     this.router.navigate(['/home']);
+  }
+
+  async signOut(): Promise<void> {
+    try {
+      await this.loading.load<void>(async () => {
+        await firstValueFrom(
+          this.http.post<void>(
+            environment.apiURL + AuthURLs.SIGN_OUT,
+            {},
+            { withCredentials: true }
+          )
+        );
+
+        this.cookie.deleteCookie('isLoggedIn');
+        localStorage.setItem('current-email', '');
+      });
+    } catch (error) {
+      alert('Failed to sign out user');
+      console.error(error);
+      throw new Error(error as string);
+    }
+
+    this.router.navigate(['/']);
   }
 
   async getStoreData(): Promise<void> {
