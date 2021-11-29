@@ -21,4 +21,5 @@ export enum ApptrayURLs {
 export enum ApptrayWS {
   START_UPLOAD = 'start-upload',
   CONTINUE_UPLOAD = 'continue',
+  END = 'end',
 }

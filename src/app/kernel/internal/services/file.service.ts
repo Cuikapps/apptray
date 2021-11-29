@@ -1,19 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  EMPTY,
-  firstValueFrom,
-  Subject,
-  tap,
-} from 'rxjs';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { BehaviorSubject, firstValueFrom, timer } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FolderNode } from '../../interface/nodes';
 import { UploadFileDTO } from '../../interface/uploadFile.dto';
 import { invalidNamingChars } from '../data/Constants';
 import { ApptrayURLs, ApptrayWS, AuthURLs } from '../data/EApiUrls';
+import { io, Socket } from 'socket.io-client';
 
 @Injectable()
 export class FileService {
@@ -26,6 +19,8 @@ export class FileService {
     },
   });
 
+  private readonly MAX_FILES_SIZE = 100000;
+
   constructor(private readonly http: HttpClient) {
     // Get the file tree from server
     firstValueFrom(
@@ -35,6 +30,19 @@ export class FileService {
     ).then((v) => {
       this.fileTree.next(v);
     });
+  }
+
+  async reloadFileTree(): Promise<void> {
+    const newFileTree = await firstValueFrom(
+      this.http.get<FolderNode>(
+        environment.apiURL + ApptrayURLs.GET_FILES_TREE,
+        {
+          withCredentials: true,
+        }
+      )
+    );
+
+    this.fileTree.next(newFileTree);
   }
 
   async createFolder(path: string, name: string): Promise<void> {
@@ -111,49 +119,76 @@ export class FileService {
     }
   }
 
-  async uploadFile(file: File | any, path: string): Promise<void> {
+  async uploadFile(
+    file: File | any,
+    path: string,
+    percentCb: (percent: number) => void
+  ): Promise<void> {
+    const socket = io(environment.apiWS + '/file-upload', {
+      withCredentials: true,
+      extraHeaders: { 'Access-Control-Allow-Credentials': 'true' },
+      transports: ['websocket'],
+    });
+
     try {
-      let filePath: string = file.webkitRelativePath
+      const filePath: string = file.webkitRelativePath
         ? path.replace(/\//g, '>') + file.webkitRelativePath.replace(/\//g, '>')
         : path.replace(/\//g, '>') + file.name;
 
       const fileBuffers = await this.chunkFile(file);
 
-      const userToken = await firstValueFrom(
-        this.http.get<{ token: string }>(
-          environment.apiURL + AuthURLs.GET_TOKEN,
-          {
-            withCredentials: true,
-          }
-        )
-      );
-
-      const ws = this.createWS(environment.apiWS);
       const data: UploadFileDTO = {
         path: filePath,
         formData: {
-          file_buffer: JSON.stringify(fileBuffers[0]),
+          file_buffer: fileBuffers[0],
           type: file.type,
         },
         metaData: { shared: [] },
-        token: userToken.token,
-        last: true,
       };
 
-      ws.next(
-        new MessageEvent<UploadFileDTO>(ApptrayWS.START_UPLOAD, {
-          data: data,
-        })
-      );
+      if (socket.connected) {
+        socket.off();
+        socket.disconnect();
+      }
+      socket.connect();
 
-      const sub = ws.subscribe((msg: MessageEvent) => {
-        console.log(msg);
+      if (fileBuffers.length === 1) {
+        await this.awaitSocket(socket, ApptrayWS.START_UPLOAD, data);
+        percentCb(100);
+      }
 
-        if (JSON.parse(msg.data).last) {
-          ws.complete();
-          sub.unsubscribe();
+      if (fileBuffers.length > 1) {
+        for (let i = 0; i < fileBuffers.length; i++) {
+          const continuedData: UploadFileDTO = {
+            path: filePath,
+            formData: {
+              file_buffer: fileBuffers[i],
+              type: file.type,
+            },
+            metaData: { shared: [] },
+          };
+
+          percentCb((i / fileBuffers.length) * 100);
+
+          await this.awaitSocket(
+            socket,
+            ApptrayWS.CONTINUE_UPLOAD,
+            continuedData
+          );
         }
-      });
+
+        await this.awaitSocket(socket, ApptrayWS.END, {
+          path: filePath,
+          formData: {
+            file_buffer: new Uint8Array(0),
+            type: file.type,
+          },
+          metaData: { shared: [] },
+        });
+      }
+
+      socket.off();
+      socket.disconnect();
 
       const newFileTree = await firstValueFrom(
         this.http.get<FolderNode>(
@@ -166,6 +201,8 @@ export class FileService {
 
       this.fileTree.next(newFileTree);
     } catch (error) {
+      socket.off();
+      socket.disconnect();
       console.error(error);
     }
   }
@@ -341,36 +378,35 @@ export class FileService {
     }
   }
 
+  private awaitSocket<T>(
+    socket: Socket,
+    event: string,
+    data: T
+  ): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      socket.emit(event, data, () => {
+        console.log('result');
+        resolve();
+      });
+    });
+  }
+
   private async chunkFile(file: File): Promise<Uint8Array[]> {
     const tempArray = [];
 
-    if (file.size < 6000000) {
+    if (file.size < this.MAX_FILES_SIZE) {
       const chunk = new Uint8Array(await file.arrayBuffer());
       tempArray.push(chunk);
       return tempArray;
     }
 
-    for (let i = 0; i < file.size; i += 6000000) {
+    for (let i = 0; i < file.size; i += this.MAX_FILES_SIZE) {
       const chunk = new Uint8Array(
-        await file.slice(i, i + 6000000).arrayBuffer()
+        await file.slice(i, i + this.MAX_FILES_SIZE).arrayBuffer()
       );
-
-      console.log(`Percent Done: ${((i / file.size) * 100).toFixed(2)}`);
-
       tempArray.push(chunk);
     }
 
     return tempArray;
-  }
-
-  private createWS(url: string): WebSocketSubject<MessageEvent<UploadFileDTO>> {
-    const subject = webSocket<MessageEvent<UploadFileDTO>>(url);
-
-    subject.pipe(
-      tap({ error: (error) => console.error('Websocket error') }),
-      catchError((_) => EMPTY)
-    );
-
-    return subject;
   }
 }

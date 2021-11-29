@@ -73,5 +73,5 @@
       stroke-linecap="round"
     />
   </svg>
-  <p *ngIf="!rename">{{ props.fileName }}</p>
+  <p *ngIf="!rename" [title]="props.fileName">{{ props.fileName }}</p>
 </div>

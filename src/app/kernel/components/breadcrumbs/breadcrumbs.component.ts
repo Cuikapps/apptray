@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class BreadcrumbsComponent implements OnInit {
   @Input() path!: string;
   @Output() pathChange: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() reload: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 

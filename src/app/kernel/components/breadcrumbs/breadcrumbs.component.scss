@@ -1,13 +1,42 @@
 @use "../../../Theme" as theme;
 
-.path {
+.paths {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+  align-items: center;
+  .path {
+    margin-top: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #{"rgba(var(--secondary), 0.2)"};
+    }
+
+    &::after {
+      content: ">";
+    }
+  }
+}
+.reload {
   margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
   &:hover {
     background-color: #{"rgba(var(--secondary), 0.2)"};
   }
-
-  &::after {
-    content: ">";
+  svg {
+    width: 15px;
+    height: 15px;
+    path {
+      stroke: rgb(var(--primary));
+      fill: rgb(var(--primary));
+    }
   }
 }

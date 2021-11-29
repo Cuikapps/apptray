@@ -39,6 +39,7 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   minWidth = 430;
   minHeight = 200;
+  percentDone = 0;
 
   maximized = false;
   memStyle: { [key: string]: string } = {};
@@ -125,6 +126,10 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  reload(): void {
+    this.file.reloadFileTree();
+  }
+
   async newFolder(name: string): Promise<void> {
     await this.file.createFolder(this.props.path ?? '', name);
   }
@@ -156,13 +161,19 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   async upload(input: HTMLInputElement): Promise<void> {
     if (input.files) {
       this.isUploading = true;
+      this.percentDone = 0;
 
       // FileList does not have an iterator for a 'for of' loop
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < input.files?.length; i++) {
-        await this.file.uploadFile(input.files[i], this.props.path ?? '');
+        await this.file.uploadFile(
+          input.files[i],
+          this.props.path ?? '',
+          (percent: number) => (this.percentDone = percent)
+        );
       }
       this.isUploading = false;
+      this.isUploadOpen = false;
     }
   }
 

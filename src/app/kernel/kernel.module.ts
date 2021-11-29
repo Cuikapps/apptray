@@ -39,7 +39,11 @@ import { FormsModule } from '@angular/forms';
     CloseOnUnfocusDirective,
     NewFolderComponent,
   ],
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+  ],
   providers: [
     ShellService,
     ExecutablesService,

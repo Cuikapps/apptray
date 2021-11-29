@@ -85,5 +85,5 @@
     />
   </svg>
 
-  <p *ngIf="!rename">{{ props.folderName }}</p>
+  <p *ngIf="!rename" [title]="props.folderName">{{ props.folderName }}</p>
 </div>

@@ -161,6 +161,7 @@
       <app-breadcrumbs
         [path]="props.path ?? ''"
         (pathChange)="goto($event.join('/') + '/')"
+        (reload)="reload()"
       ></app-breadcrumbs>
       <div
         class="files"
@@ -296,8 +297,12 @@
         #files1
         (change)="upload(files1)"
         type="file"
+        [disabled]="isUploading"
       /><span
-        >Click to Choose Folders {{ isUploading ? "(Uploading...)" : "" }}</span
+        >Click to Choose Folders
+        {{
+          isUploading ? "(" + (percentDone | number: "2.1-2") + "%)" : ""
+        }}</span
       ></label
     >
     <label for="files2">
@@ -307,8 +312,12 @@
         #files2
         (change)="upload(files2)"
         type="file"
+        [disabled]="isUploading"
       /><span
-        >Click to Choose Files {{ isUploading ? "(Uploading...)" : "" }}</span
+        >Click to Choose Files
+        {{
+          isUploading ? "(" + (percentDone | number: "2.1-2") + "%)" : ""
+        }}</span
       ></label
     >
   </div>
