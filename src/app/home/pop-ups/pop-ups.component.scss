@@ -1,0 +1,77 @@
+@use "../../Theme" as theme;
+
+$width: 700px;
+
+.pop-up-holder {
+  position: fixed;
+  top: 25px;
+  left: calc(50vw - ($width / 2));
+  width: $width;
+  max-height: 300px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 5px;
+  flex-wrap: wrap;
+  user-select: none;
+  transition: all 100ms ease-in;
+
+  > div {
+    width: $width;
+    color: rgb(var(--primary));
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid rgb(var(--secondary));
+    background: radial-gradient(
+      farthest-corner at 40% 45%,
+      #{"rgba(var(--secondary), 0.6)"} 0%,
+      #{"rgba(var(--secondary), 0.3)"} 100%
+    );
+
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 10px;
+  }
+
+  .confirms {
+    display: grid;
+    grid-template-areas: "top top" "left right";
+    padding: 5px;
+
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      grid-area: top;
+      text-indent: 10px;
+    }
+
+    &:nth-child(3) {
+      grid-area: left;
+    }
+    &:nth-child(3) {
+      grid-area: right;
+    }
+
+    button {
+      align-self: center;
+      justify-self: center;
+      padding: 1px 10px;
+      background-color: transparent;
+      border: 1px solid rgb(var(--secondary));
+      border-radius: 5px;
+      transition: all 100ms ease-in;
+      color: rgb(var(--primary));
+      cursor: pointer;
+
+      &:hover {
+        background-color: #{"rgba(var(--secondary), 0.4)"};
+      }
+    }
+  }
+}
+
+@include theme.theme-setup;

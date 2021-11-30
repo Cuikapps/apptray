@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { App } from 'src/app/kernel/interface/app';
 import { FileNode, FolderNode } from 'src/app/kernel/interface/nodes';
 import { FileService } from 'src/app/kernel/internal/services/file.service';
+import { PopUpService } from 'src/app/kernel/internal/services/pop-up.service';
 import { ThemeService } from 'src/app/kernel/internal/services/theme.service';
 import { WindowUtilService } from 'src/app/kernel/internal/services/window-util.service';
 import { DesktopService } from 'src/app/kernel/services/desktop.service';
@@ -70,7 +71,8 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     public readonly desktop: DesktopService,
     public readonly state: StateService,
     public readonly file: FileService,
-    public readonly windowUtil: WindowUtilService
+    public readonly windowUtil: WindowUtilService,
+    public readonly popup: PopUpService
   ) {}
 
   ngOnInit(): void {
@@ -166,6 +168,10 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
       // FileList does not have an iterator for a 'for of' loop
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < input.files?.length; i++) {
+        if (input.files[i].size > 2_000_000_000) {
+          this.popup.alert('File size exceeds 2Gb');
+          continue;
+        }
         await this.file.uploadFile(
           input.files[i],
           this.props.path ?? '',

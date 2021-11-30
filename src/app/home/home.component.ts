@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../kernel/internal/services/auth.service';
+import { PopUpService } from '../kernel/internal/services/pop-up.service';
 import { ThemeService } from '../kernel/internal/services/theme.service';
 import { DesktopService } from '../kernel/services/desktop.service';
 import { ShellService } from '../kernel/services/shell.service';
@@ -44,11 +45,13 @@ export class HomeComponent implements OnInit {
     public readonly theme: ThemeService,
     public readonly state: StateService,
     public readonly shell: ShellService,
-    public readonly desktop: DesktopService
+    public readonly desktop: DesktopService,
+    public readonly popup: PopUpService
   ) {}
 
   ngOnInit(): void {
     document.addEventListener('contextmenu', (event) => event.preventDefault());
+    this.popup.confirm('This website uses  cookies!', (yes) => {});
 
     window.addEventListener(
       'popstate',

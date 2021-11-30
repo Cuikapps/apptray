@@ -7,6 +7,7 @@ import { UploadFileDTO } from '../../interface/uploadFile.dto';
 import { invalidNamingChars } from '../data/Constants';
 import { ApptrayURLs, ApptrayWS, AuthURLs } from '../data/EApiUrls';
 import { io, Socket } from 'socket.io-client';
+import { PopUpService } from './pop-up.service';
 
 @Injectable()
 export class FileService {
@@ -21,7 +22,10 @@ export class FileService {
 
   private readonly MAX_FILES_SIZE = 100000;
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly popup: PopUpService
+  ) {
     // Get the file tree from server
     firstValueFrom(
       http.get<FolderNode>(environment.apiURL + ApptrayURLs.GET_FILES_TREE, {
@@ -60,8 +64,9 @@ export class FileService {
         }
       }
       if (!valid) {
-        // TODO Replace with pop-up service functions
-        alert('Folder name cannot contain characters: / \\ < > ? . | " * :');
+        this.popup.alert(
+          'Folder name cannot contain characters: / \\ < > ? . | " * :'
+        );
       } else {
         path = path.replace(/\//g, '>');
         path += name;
@@ -229,8 +234,9 @@ export class FileService {
         }
       }
       if (!valid) {
-        // TODO Replace with pop-up service functions
-        alert('Folder name cannot contain characters: / \\ < > ? . | " * :');
+        this.popup.alert(
+          'Folder name cannot contain characters: / \\ < > ? . | " * :'
+        );
       } else {
         path = path.replace(/\//g, '>');
         path += oldName;
@@ -278,8 +284,9 @@ export class FileService {
         }
       }
       if (!valid) {
-        // TODO Replace with pop-up service functions
-        alert('File name cannot contain characters: / \\ < > ? . | " * :');
+        this.popup.alert(
+          'File name cannot contain characters: / \\ < > ? . | " * :'
+        );
       } else {
         path = path.replace(/\//g, '>');
         path += oldName;

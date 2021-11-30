@@ -1,0 +1,27 @@
+<div class="pop-up-holder {{ theme.currentTheme | async }}">
+  <div
+    class="alerts"
+    *ngFor="let alert of popup.alerts | async"
+    [title]="alert.message"
+  >
+    {{ alert.message }}
+  </div>
+  <div
+    class="confirms"
+    *ngFor="let confirm of popup.confirms | async"
+    [title]="confirm.message"
+  >
+    <p>
+      {{ confirm.message }}
+    </p>
+    <button (click)="confirm.onDelete(true)">Accept</button
+    ><button (click)="confirm.onDelete(false)">Cancel</button>
+  </div>
+  <div
+    class="errors"
+    *ngFor="let error of popup.errors | async"
+    [title]="error.message"
+  >
+    ERROR: {{ error.message }}
+  </div>
+</div>
