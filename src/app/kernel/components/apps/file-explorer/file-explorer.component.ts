@@ -128,8 +128,17 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  reload(): void {
-    this.file.reloadFileTree();
+  async reload(): Promise<void> {
+    await this.file.reloadFileTree();
+
+    // TODO fix the reload removing the files
+    const newTree = this.gotoPath(this.file.fileTree.value, ['']);
+
+    // Update Current files and folders
+    this.currentFolders = newTree.folders;
+    this.currentFiles = newTree.files;
+
+    this.selectedNames = [];
   }
 
   async newFolder(name: string): Promise<void> {
@@ -433,6 +442,14 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.updateStyle();
     this.maximized = !this.maximized;
+  }
+
+  getTop(): number {
+    return parseFloat(this.style.top.substring(0, this.style.top.length - 2));
+  }
+
+  getLeft(): number {
+    return parseFloat(this.style.left.substring(0, this.style.left.length - 2));
   }
 
   ngOnDestroy(): void {

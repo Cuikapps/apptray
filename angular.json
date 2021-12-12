@@ -27,7 +27,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/Apptray_Logo_Default.ico",
+              "src/Apptray_Logo_Dark.ico",
+              "src/Apptray_Logo_Light.ico",
+              "src/assets"
+            ],
             "styles": ["src/styles.scss"],
             "scripts": []
           },

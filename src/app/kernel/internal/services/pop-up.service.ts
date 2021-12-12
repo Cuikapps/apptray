@@ -20,6 +20,7 @@ export class PopUpService {
   confirm(message: string, cb: (yes: boolean) => void): void {
     const confirm = new Popup('confirm', message, (yes) => {
       cb(yes);
+
       this.confirms.next(
         this.confirms.value.filter((popup) => popup !== confirm)
       );

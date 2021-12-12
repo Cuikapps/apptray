@@ -52,6 +52,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     document.addEventListener('contextmenu', (event) => event.preventDefault());
     this.popup.confirm('This website uses  cookies!', (yes) => {});
+    this.popup.confirm('This website uses  cookies!', (yes) => {});
+    this.popup.confirm('This website uses  cookies!', (yes) => {});
 
     window.addEventListener(
       'popstate',

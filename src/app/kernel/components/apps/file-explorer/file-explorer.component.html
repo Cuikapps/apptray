@@ -216,8 +216,8 @@
         appCloseOnUnfocus
         [unFocusCondition]="isOptionsOpen"
         (unFocus)="isOptionsOpen = false"
-        [style.top]="desktop.mouseYPosClick + 'px'"
-        [style.left]="desktop.mouseXPosClick + 'px'"
+        [style.top]="desktop.mouseYPosClick - getTop() + 'px'"
+        [style.left]="desktop.mouseXPosClick - getLeft() + 'px'"
       >
         <ng-container *ngIf="optionsType === 'none'">
           <div

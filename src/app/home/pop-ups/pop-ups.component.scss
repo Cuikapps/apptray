@@ -27,7 +27,9 @@ $width: 700px;
       #{"rgba(var(--secondary), 0.6)"} 0%,
       #{"rgba(var(--secondary), 0.3)"} 100%
     );
+    margin-top: -300px;
 
+    @include theme.background-blur(5px, false);
     display: flex;
     align-items: center;
     text-overflow: ellipsis;
@@ -71,6 +73,11 @@ $width: 700px;
         background-color: #{"rgba(var(--secondary), 0.4)"};
       }
     }
+  }
+
+  .errors {
+    color: theme.$danger;
+    border: 1px solid theme.$danger;
   }
 }
 

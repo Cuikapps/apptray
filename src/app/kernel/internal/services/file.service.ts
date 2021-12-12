@@ -20,6 +20,8 @@ export class FileService {
     },
   });
 
+  // TODO create uploads list
+
   private readonly MAX_FILES_SIZE = 100000;
 
   constructor(

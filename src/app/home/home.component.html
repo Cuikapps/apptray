@@ -1,6 +1,12 @@
 <div class="head">
   <div class="left">
-    <img src="../../assets/LOGO.png" height="20" alt="Logo" />
+    <img
+      src="../../assets/Apptray_Logo_{{
+        (theme.currentTheme | async) ?? 'Default'
+      }}.png"
+      height="20"
+      alt="Logo"
+    />
     <h6 (click)="openNavMenu('settings')">Settings</h6>
     <h6 (click)="openNavMenu('store')">Store</h6>
     <h6 (click)="openNavMenu('help')">Help</h6>
@@ -71,3 +77,4 @@
   [class]="theme.currentTheme | async"
 ></app-task-menu>
 <app-pop-ups></app-pop-ups>
+<app-transfer-list></app-transfer-list>

@@ -3,6 +3,7 @@
     class="alerts"
     *ngFor="let alert of popup.alerts | async"
     [title]="alert.message"
+    [@simpleFadeAnimation]="'in'"
   >
     {{ alert.message }}
   </div>
@@ -10,6 +11,7 @@
     class="confirms"
     *ngFor="let confirm of popup.confirms | async"
     [title]="confirm.message"
+    [@simpleFadeAnimation]="'in'"
   >
     <p>
       {{ confirm.message }}
@@ -21,6 +23,7 @@
     class="errors"
     *ngFor="let error of popup.errors | async"
     [title]="error.message"
+    [@simpleFadeAnimation]="'in'"
   >
     ERROR: {{ error.message }}
   </div>

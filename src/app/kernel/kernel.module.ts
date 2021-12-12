@@ -39,11 +39,7 @@ import { FormsModule } from '@angular/forms';
     CloseOnUnfocusDirective,
     NewFolderComponent,
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-  ],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   providers: [
     ShellService,
     ExecutablesService,
@@ -68,6 +64,8 @@ import { FormsModule } from '@angular/forms';
     BreadcrumbsComponent,
     FolderComponent,
     FileComponent,
+    CloseOnUnfocusDirective,
+    NewFolderComponent,
   ],
 })
 export class KernelModule {}

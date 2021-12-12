@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { KernelModule } from './kernel/kernel.module';
 
 import { CirclesToRhumbusesSpinnerModule } from 'angular-epic-spinners';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { HomeComponent } from './home/home.component';
 import { ChangeThemeComponent } from './home/change-theme/change-theme.component';
 import { ClockComponent } from './home/clock/clock.component';
@@ -19,6 +21,7 @@ import { SettingsMenuComponent } from './home/main-menu/settings/settings-menu/s
 import { TaskComponent } from './home/task-bar/task/task.component';
 import { TaskMenuComponent } from './home/task-menu/task-menu.component';
 import { PopUpsComponent } from './home/pop-ups/pop-ups.component';
+import { TransferListComponent } from './home/transfer-list/transfer-list.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +39,14 @@ import { PopUpsComponent } from './home/pop-ups/pop-ups.component';
     TaskComponent,
     TaskMenuComponent,
     PopUpsComponent,
+    TransferListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     KernelModule,
     CirclesToRhumbusesSpinnerModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
