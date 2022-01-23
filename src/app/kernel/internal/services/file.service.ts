@@ -9,13 +9,13 @@ import { ApptrayURLs, ApptrayWS } from '../data/EApiUrls';
 import { io, Socket } from 'socket.io-client';
 import { PopUpService } from './pop-up.service';
 import { v1 as uuidv1 } from 'uuid';
+import { AuthService } from './auth.service';
 
 export interface Upload {
   percent: number;
   timeLeft: number;
   name: string;
   uuid: string;
-  download: boolean;
 }
 
 @Injectable()
@@ -35,7 +35,8 @@ export class FileService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly popup: PopUpService
+    private readonly popup: PopUpService,
+    private readonly auth: AuthService
   ) {
     // Get the file tree from server
     firstValueFrom(
@@ -141,6 +142,7 @@ export class FileService {
 
       this.download(blob);
     } catch (error) {
+      this.popup.error('File size to download should be less than 2GB');
       console.error(error);
     }
   }
@@ -186,7 +188,6 @@ export class FileService {
           percent: 100,
           timeLeft: 0,
           uuid: uploadID,
-          download: false,
         });
 
         this.currentUploads.next(uploads);
@@ -204,7 +205,6 @@ export class FileService {
           percent: 0,
           timeLeft: deltaTime * fileBuffers.length,
           uuid: uploadID,
-          download: false,
         });
         this.currentUploads.next(uploads);
 
