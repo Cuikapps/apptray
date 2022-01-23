@@ -19,10 +19,6 @@ export class ExecutablesService {
   public async launch(name: string, params: Param): Promise<void> {
     try {
       switch (name) {
-        case 'sign-in': {
-          this.auth.signIn(params);
-          break;
-        }
         case 'settings': {
           this.settingsCommand(params);
           break;

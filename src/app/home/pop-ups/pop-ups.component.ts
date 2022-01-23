@@ -20,18 +20,19 @@ import { ThemeService } from 'src/app/kernel/internal/services/theme.service';
     // the fade-in/fade-out animation.
     trigger('simpleFadeAnimation', [
       // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({ marginTop: 'unset' })),
+      state('in', style({ transform: 'none' })),
 
-      // fade in when created. this could also be written as transition('void => *')
       transition(
         ':enter',
-        animate('100ms 0ms ease-out', style({ marginTop: 'unset' }))
+        animate('100ms 0ms ease-out', style({ transform: 'none' }))
       ),
 
-      // fade out when destroyed. this could also be written as transition('void => *')
       transition(
         ':leave',
-        animate('300ms 0ms ease-in', style({ marginTop: '-300px' }))
+        animate(
+          '100ms 0ms ease-in',
+          style({ transform: 'translateX(300px)', opacity: 0.5 })
+        )
       ),
     ]),
   ],

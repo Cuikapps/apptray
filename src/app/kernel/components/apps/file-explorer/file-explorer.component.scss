@@ -40,18 +40,7 @@
     }
 
     svg {
-      width: 25px;
-      height: 25px;
-      padding: 3px;
-      border-radius: 5px;
-      cursor: pointer;
-      &:hover {
-        background-color: #{"rgba(var(--accent), 0.3)"};
-      }
-
-      stop {
-        stop-color: rgb(var(--primary));
-      }
+      @include theme.mat-button();
     }
   }
 

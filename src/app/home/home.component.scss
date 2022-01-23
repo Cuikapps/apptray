@@ -159,11 +159,13 @@ app-main-menu {
   height: calc(100vh - 20px);
   display: flex;
 
+  @include theme.background-blur(5px);
+
   border: 1px solid rgb(var(--secondary));
   background: radial-gradient(
     farthest-corner at 40% 45%,
-    #{"rgba(var(--secondary), 0.6)"} 0%,
-    #{"rgba(var(--secondary), 0.3)"} 100%
+    #{"rgba(var(--secondary), 0.8)"} 0%,
+    #{"rgba(var(--secondary), 0.5)"} 100%
   );
 }
 
@@ -180,11 +182,10 @@ app-program-manager {
 
 app-transfer-list {
   position: fixed;
-  top: 25px;
+  top: 30px;
   right: 10px;
   width: 300px;
-  height: auto;
-  max-height: 700px;
+  height: fit-content;
 }
 
 @include theme.theme-setup;

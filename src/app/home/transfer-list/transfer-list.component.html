@@ -1,1 +1,77 @@
-<p>transfer-list works!</p>
+<div
+  class="accordion"
+  *ngIf="(file.currentUploads | async)?.length"
+  [style.height]="isListOpen ? '' : '35px'"
+  [style.overflowY]="isListOpen ? '' : 'hidden'"
+>
+  <div class="accordion-head">
+    <h6>Transfer List</h6>
+    <svg
+      [style.transform]="isListOpen ? 'rotateZ(90deg)' : 'rotateZ(-90deg)'"
+      (click)="isListOpen = !isListOpen"
+      width="20px"
+      height="20px"
+      viewBox="0 0 979.469 979.469"
+    >
+      <path
+        d="M421.337,945.03l-377.5-378.1c-44.4-44.5-44.4-111.1,0-155.401l377.5-377.3c44.3-44.3,113.7-46.2,157.7-2.2
+    c43,43,38.399,115.5-3.4,157.2l-184.399,184.4c0,0,465.1,0.6,465.3,0.6c30.8,0,60.5,12,81.6,34.4
+    c50.601,54,37.101,148.5-27.7,184.4c-16.399,9.101-35.1,13.9-53.899,13.801l-465.3-0.4c0,0,184.3,184.2,184.399,184.3
+    c41.9,41.9,46.101,114.101,3.4,156.9C535.037,991.631,465.637,989.331,421.337,945.03z"
+      />
+    </svg>
+  </div>
+  <ng-container *ngIf="isListOpen">
+    <div
+      class="accordion-item"
+      *ngFor="let upload of file.currentUploads | async"
+    >
+      <div class="item-head">
+        <p [title]="upload.name">
+          <svg
+            class="upload-icon"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.053 28.9531V8.6694L19.653 12.2694C19.8551 12.4714 20.1245 12.5755 20.3939 12.5755C20.6632 12.5755 20.9326 12.4714 21.1347 12.2694C21.5449 11.8592 21.5449 11.1918 21.1347 10.7816L15.7408 5.38776C15.349 4.99593 14.651 4.99593 14.253 5.38776L8.85917 10.7816C8.44896 11.1918 8.44896 11.8592 8.85917 12.2694C9.26937 12.6796 9.93672 12.6796 10.3469 12.2694L13.9469 8.6694V28.9469C13.9469 29.5286 14.4183 30 14.9939 30C15.5877 30 16.053 29.5347 16.053 28.9531Z"
+            />
+            <path
+              d="M1.71436 1.04694V7.15102C1.71436 7.73265 2.18578 8.20408 2.76129 8.20408C3.34293 8.20408 3.81436 7.73265 3.81436 7.15102V2.1H26.1919V7.15714C26.1919 7.73878 26.6633 8.2102 27.2388 8.2102C27.8144 8.2102 28.2858 7.73878 28.2858 7.15714V1.04694C28.2858 0.465306 27.8144 0 27.2388 0H2.76742C2.18578 0 1.71436 0.465306 1.71436 1.04694Z"
+            />
+          </svg>
+          {{ upload.name }}
+        </p>
+        <p class="number" *ngIf="upload.percent < 100; else closeBtn">
+          {{ upload.timeLeft | timeRemaining }}
+        </p>
+        <ng-template #closeBtn>
+          <button class="close-btn" (click)="file.removeUpload(upload.uuid)">
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-x"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </ng-template>
+      </div>
+      <div class="item-bar" *ngIf="upload.percent < 100; else complete">
+        <div class="bar" [style.width]="upload.percent * 2 + 'px'"></div>
+
+        <p class="number">{{ upload.percent | number: "2.1-2" }}%</p>
+      </div>
+      <ng-template #complete>
+        <div class="complete">Completed</div>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

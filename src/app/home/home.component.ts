@@ -52,8 +52,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     document.addEventListener('contextmenu', (event) => event.preventDefault());
     this.popup.confirm('This website uses  cookies!', (yes) => {});
-    this.popup.confirm('This website uses  cookies!', (yes) => {});
-    this.popup.confirm('This website uses  cookies!', (yes) => {});
 
     window.addEventListener(
       'popstate',
@@ -79,8 +77,6 @@ export class HomeComponent implements OnInit {
   }
 
   clicked(event: MouseEvent): void {
-    this.desktop.mouseXPosClick = event.clientX;
-    this.desktop.mouseYPosClick = event.clientY;
     switch (event.button) {
       case 0: {
         this.closeAll();
@@ -95,21 +91,16 @@ export class HomeComponent implements OnInit {
     // Reset Select area
     this.openSelectArea();
     this.isSelectAreaOpen = false;
-    this.desktop.mouseUp(event);
     this.desktop.isMouseDown = false;
-    this.desktop.isMouseFocused = false;
+
     this.state.isTaskMenuOpen.next(false);
   }
 
   mouseDown(e: MouseEvent): void {
     this.desktop.isMouseDown = true;
-    this.desktop.mouseXPosStart = e.clientX;
-    this.desktop.mouseYPosStart = e.clientY;
   }
 
   mouseMoved(e: MouseEvent): void {
-    this.desktop.mouseXPosCurrent = e.clientX;
-    this.desktop.mouseYPosCurrent = e.clientY;
     e.preventDefault();
 
     if (this.desktop.isMouseDown && !this.desktop.isMouseFocused) {

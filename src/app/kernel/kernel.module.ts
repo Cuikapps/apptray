@@ -25,6 +25,7 @@ import { CloseOnUnfocusDirective } from './internal/directive/close-on-unfocus.d
 import { PopUpService } from './internal/services/pop-up.service';
 import { NewFolderComponent } from './components/new-folder/new-folder.component';
 import { FormsModule } from '@angular/forms';
+import { TimeRemainingPipe } from './internal/pipe/time-remaining.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FormsModule } from '@angular/forms';
     FileComponent,
     CloseOnUnfocusDirective,
     NewFolderComponent,
+    TimeRemainingPipe,
   ],
   imports: [CommonModule, HttpClientModule, FormsModule],
   providers: [
@@ -66,6 +68,7 @@ import { FormsModule } from '@angular/forms';
     FileComponent,
     CloseOnUnfocusDirective,
     NewFolderComponent,
+    TimeRemainingPipe,
   ],
 })
 export class KernelModule {}

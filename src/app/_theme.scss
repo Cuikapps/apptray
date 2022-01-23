@@ -3,6 +3,7 @@ $secondary: #e7e7de;
 $tertiary: #00587a;
 $accent: #008891;
 $danger: #8b0000;
+$kelly: #4cbb17;
 
 @mixin theme-setup {
   .Dark {
@@ -37,7 +38,22 @@ $danger: #8b0000;
   }
 }
 
-@mixin custom-scroll($width, $horizontal: false) {
+@mixin mat-button() {
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #{"rgba(var(--accent), 0.3)"};
+  }
+
+  stop {
+    stop-color: rgb(var(--primary));
+  }
+}
+
+@mixin custom-scroll($width, $horizontal: false, $margin-top-bottom: 0px) {
   scrollbar-color: rbg(var(--secondary)) #{"rgba(var(--secondary), 0.6)"};
   scrollbar-width: thin;
 
@@ -51,9 +67,21 @@ $danger: #8b0000;
 
   &::-webkit-scrollbar-track {
     background-color: #{"rgba(var(--secondary), 0.3)"};
+    border-radius: 5px;
+    @if $horizontal {
+      margin-left: $margin-top-bottom;
+      margin-right: $margin-top-bottom;
+    } @else {
+      margin-top: $margin-top-bottom;
+      margin-bottom: $margin-top-bottom;
+    }
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #{"rgba(var(--accent), 0.6)"};
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
   }
 }

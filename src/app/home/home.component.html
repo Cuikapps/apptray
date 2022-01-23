@@ -24,6 +24,7 @@
 <div
   class="desktop {{ theme.currentTheme | async }}"
   (mouseup)="clicked($event)"
+  (click)="this.desktop.isMouseFocused = false"
   (mousedown)="mouseDown($event)"
   (mousemove)="mouseMoved($event)"
   (keydown.control.f)="openSearchBar($event)"
@@ -77,4 +78,4 @@
   [class]="theme.currentTheme | async"
 ></app-task-menu>
 <app-pop-ups></app-pop-ups>
-<app-transfer-list></app-transfer-list>
+<app-transfer-list class="{{ theme.currentTheme | async }}"></app-transfer-list>

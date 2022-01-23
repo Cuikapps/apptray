@@ -2,14 +2,13 @@
   #panel
   class="panel {{ theme.currentTheme | async }}"
   (mousemove)="$event.preventDefault()"
-  (mouseup)="desktop.mouseUp($event)"
   (click)="desktop.focusApp(props.id)"
   [ngStyle]="{ visibility: props.isMinimized ? 'hidden' : 'visible' }"
 >
   <div class="header">
     <div
       class="move"
-      (mousedown)="mouseDown($event)"
+      (mousedown)="mouseDown($event, '', true)"
       (mouseup)="moveStart($event)"
     >
       {{ props.title || "Root" }}
@@ -277,9 +276,9 @@
     </div>
   </div>
 
-  <div class="expand-right" (mousedown)="mouseDown($event, 'r')"></div>
-  <div class="expand-down" (mousedown)="mouseDown($event, 'd')"></div>
-  <div class="expand-both" (mousedown)="mouseDown($event, 'b')"></div>
+  <div class="expand-right" (mousedown)="mouseDown($event, 'r', false)"></div>
+  <div class="expand-down" (mousedown)="mouseDown($event, 'd', false)"></div>
+  <div class="expand-both" (mousedown)="mouseDown($event, 'b', false)"></div>
   <div
     class="uploads"
     *ngIf="isUploadOpen"
@@ -297,13 +296,7 @@
         #files1
         (change)="upload(files1)"
         type="file"
-        [disabled]="isUploading"
-      /><span
-        >Click to Choose Folders
-        {{
-          isUploading ? "(" + (percentDone | number: "2.1-2") + "%)" : ""
-        }}</span
-      ></label
+      />Click to upload folders</label
     >
     <label for="files2">
       <input
@@ -312,13 +305,7 @@
         #files2
         (change)="upload(files2)"
         type="file"
-        [disabled]="isUploading"
-      /><span
-        >Click to Choose Files
-        {{
-          isUploading ? "(" + (percentDone | number: "2.1-2") + "%)" : ""
-        }}</span
-      ></label
+      />Click to upload files</label
     >
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShellService } from '../kernel/services/shell.service';
+import { AuthService } from '../kernel/internal/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,11 +7,11 @@ import { ShellService } from '../kernel/services/shell.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-  constructor(private readonly shell: ShellService) {}
+  constructor(private readonly auth: AuthService) {}
 
   ngOnInit(): void {}
 
   submit(email: string, pass: string): void {
-    this.shell.run([`sign-in --email="${email}" --password="${pass}"`]);
+    this.auth.signIn(email, pass);
   }
 }

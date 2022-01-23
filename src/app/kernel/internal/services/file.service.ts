@@ -5,9 +5,18 @@ import { environment } from 'src/environments/environment';
 import { FolderNode } from '../../interface/nodes';
 import { UploadFileDTO } from '../../interface/uploadFile.dto';
 import { invalidNamingChars } from '../data/Constants';
-import { ApptrayURLs, ApptrayWS, AuthURLs } from '../data/EApiUrls';
+import { ApptrayURLs, ApptrayWS } from '../data/EApiUrls';
 import { io, Socket } from 'socket.io-client';
 import { PopUpService } from './pop-up.service';
+import { v1 as uuidv1 } from 'uuid';
+
+export interface Upload {
+  percent: number;
+  timeLeft: number;
+  name: string;
+  uuid: string;
+  download: boolean;
+}
 
 @Injectable()
 export class FileService {
@@ -20,7 +29,7 @@ export class FileService {
     },
   });
 
-  // TODO create uploads list
+  currentUploads: BehaviorSubject<Upload[]> = new BehaviorSubject<Upload[]>([]);
 
   private readonly MAX_FILES_SIZE = 100000;
 
@@ -35,6 +44,16 @@ export class FileService {
       })
     ).then((v) => {
       this.fileTree.next(v);
+    });
+
+    if (localStorage.getItem('uploads') !== '') {
+      this.currentUploads.next(
+        JSON.parse(localStorage.getItem('uploads') ?? '[]')
+      );
+    }
+
+    this.currentUploads.subscribe((uploads) => {
+      localStorage.setItem('uploads', JSON.stringify(uploads));
     });
   }
 
@@ -126,11 +145,7 @@ export class FileService {
     }
   }
 
-  async uploadFile(
-    file: File | any,
-    path: string,
-    percentCb: (percent: number) => void
-  ): Promise<void> {
+  async uploadFile(file: File | any, path: string): Promise<void> {
     const socket = io(environment.apiWS + '/file-upload', {
       withCredentials: true,
       extraHeaders: { 'Access-Control-Allow-Credentials': 'true' },
@@ -143,6 +158,8 @@ export class FileService {
         : path.replace(/\//g, '>') + file.name;
 
       const fileBuffers = await this.chunkFile(file);
+
+      const uploadID = uuidv1();
 
       const data: UploadFileDTO = {
         path: filePath,
@@ -159,13 +176,41 @@ export class FileService {
       }
       socket.connect();
 
+      // If the file size is less than 100kb
       if (fileBuffers.length === 1) {
         await this.awaitSocket(socket, ApptrayWS.START_UPLOAD, data);
-        percentCb(100);
+
+        const uploads = this.currentUploads.value;
+        uploads.push({
+          name: file.name,
+          percent: 100,
+          timeLeft: 0,
+          uuid: uploadID,
+          download: false,
+        });
+
+        this.currentUploads.next(uploads);
       }
 
+      // If the file size is greater than 100kb
       if (fileBuffers.length > 1) {
+        // Add upload to uploads list
+        const uploads = this.currentUploads.value;
+
+        let deltaTime = 1;
+
+        uploads.push({
+          name: file.name,
+          percent: 0,
+          timeLeft: deltaTime * fileBuffers.length,
+          uuid: uploadID,
+          download: false,
+        });
+        this.currentUploads.next(uploads);
+
+        // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < fileBuffers.length; i++) {
+          const startTime = window.performance.now();
           const continuedData: UploadFileDTO = {
             path: filePath,
             formData: {
@@ -175,13 +220,22 @@ export class FileService {
             metaData: { shared: [] },
           };
 
-          percentCb((i / fileBuffers.length) * 100);
+          const timeRemaining = deltaTime * (fileBuffers.length - i);
+
+          this.updateUpload(
+            uploadID,
+            (i / (fileBuffers.length - 1)) * 100,
+            timeRemaining
+          );
 
           await this.awaitSocket(
             socket,
             ApptrayWS.CONTINUE_UPLOAD,
             continuedData
           );
+          const endTime = window.performance.now();
+
+          deltaTime = endTime - startTime;
         }
 
         await this.awaitSocket(socket, ApptrayWS.END, {
@@ -373,6 +427,16 @@ export class FileService {
     }
   }
 
+  removeUpload(id: string): void {
+    let uploads = this.currentUploads.value;
+
+    uploads = uploads.filter((upload) => {
+      return upload.uuid !== id;
+    });
+
+    this.currentUploads.next(uploads);
+  }
+
   private download(blob: Blob): void {
     const link = document.createElement('a');
     // Browsers that support HTML5 download attribute
@@ -394,10 +458,22 @@ export class FileService {
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       socket.emit(event, data, () => {
-        console.log('result');
         resolve();
       });
     });
+  }
+
+  private updateUpload(id: string, percent: number, timeLeft: number): void {
+    const uploads = this.currentUploads.value;
+
+    uploads.map((upload) => {
+      if (upload.uuid === id) {
+        upload.percent = percent;
+        upload.timeLeft = timeLeft;
+      }
+    });
+
+    this.currentUploads.next(uploads);
   }
 
   private async chunkFile(file: File): Promise<Uint8Array[]> {

@@ -33,10 +33,7 @@ export class AuthService {
     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, HEAD, OPTIONS',
   });
 
-  async signIn(params: Param): Promise<void> {
-    const email = this.formatParam.format(params.email);
-    const password = this.formatParam.format(params.password);
-
+  async signIn(email: string, password: string): Promise<void> {
     try {
       await this.loading.load<void>(async () => {
         await firstValueFrom(

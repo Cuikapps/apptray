@@ -45,12 +45,12 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   maximized = false;
   memStyle: { [key: string]: string } = {};
 
+  isMoving = false;
   isExpanding = false;
   isToolBarOpen = false;
   isOptionsOpen = false;
   isNewFolderOpen = false;
   isUploadOpen = false;
-  isUploading = false;
 
   expandDir = '';
   optionsType: Targets = 'none';
@@ -96,6 +96,8 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       this.moveStart(e);
+      this.isMoving = false;
+
       if (this.isExpanding) {
         switch (this.expandDir) {
           case 'r': {
@@ -116,8 +118,6 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openOptions(e: MouseEvent, target: Targets): void {
-    this.desktop.mouseXPosClick = e.clientX;
-    this.desktop.mouseYPosClick = e.clientY;
     this.optionsType = target;
     this.isOptionsOpen = true;
   }
@@ -131,8 +131,12 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   async reload(): Promise<void> {
     await this.file.reloadFileTree();
 
-    // TODO fix the reload removing the files
-    const newTree = this.gotoPath(this.file.fileTree.value, ['']);
+    const newPath = this.props.path?.split('/') ?? [''];
+
+    // Remove empty path
+    newPath.pop();
+
+    const newTree = this.gotoPath(this.file.fileTree.value, newPath);
 
     // Update Current files and folders
     this.currentFolders = newTree.folders;
@@ -143,6 +147,8 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async newFolder(name: string): Promise<void> {
     await this.file.createFolder(this.props.path ?? '', name);
+
+    await this.reload();
   }
 
   async renameFolder(names: Names): Promise<void> {
@@ -152,6 +158,8 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
       names.newName
     );
     this.renamingName = '';
+
+    await this.reload();
   }
 
   async renameFile(names: Names): Promise<void> {
@@ -161,18 +169,21 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
       names.newName
     );
     this.renamingName = '';
+
+    await this.reload();
   }
 
   async downloadSelected(): Promise<void> {
     await this.file.downloadFiles(this.props.path ?? '', this.selectedNames);
 
     this.selectedNames = [];
+
+    await this.reload();
   }
 
   async upload(input: HTMLInputElement): Promise<void> {
     if (input.files) {
-      this.isUploading = true;
-      this.percentDone = 0;
+      const awaits: Promise<void>[] = [];
 
       // FileList does not have an iterator for a 'for of' loop
       // tslint:disable-next-line: prefer-for-of
@@ -181,14 +192,19 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.popup.alert('File size exceeds 2Gb');
           continue;
         }
-        await this.file.uploadFile(
-          input.files[i],
-          this.props.path ?? '',
-          (percent: number) => (this.percentDone = percent)
+        awaits.push(
+          this.file.uploadFile(input.files[i], this.props.path ?? '')
         );
       }
-      this.isUploading = false;
+
       this.isUploadOpen = false;
+
+      // Awaits them in parallel
+      for (const wait of awaits) {
+        await wait;
+      }
+
+      await this.reload();
     }
   }
 
@@ -202,6 +218,8 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.selectedNames = [];
+
+    await this.reload();
   }
 
   rename(): void {
@@ -275,63 +293,49 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedNames = [];
   }
 
-  mouseDown(e: MouseEvent, expand?: string): void {
+  mouseDown(e: MouseEvent, expand: string, move: boolean): void {
     e.preventDefault();
-    this.desktop.mouseXPosStart = e.clientX;
-    this.desktop.mouseYPosStart = e.clientY;
-    this.desktop.isMouseDown = true;
     this.desktop.isMouseFocused = true;
     this.desktop.focusApp(this.props.id);
 
-    if (expand) {
+    if (move) {
+      this.isMoving = true;
+    }
+
+    if (expand !== '') {
       this.expandDir = expand;
       this.isExpanding = true;
     }
   }
 
   moveStart(e: MouseEvent): void {
-    this.desktop.mouseXPosClick = e.clientX;
-    this.desktop.mouseYPosClick = e.clientY;
+    e.preventDefault();
 
-    const deltaX = this.desktop.mouseXPosClick - this.desktop.mouseXPosStart;
-    const deltaY = this.desktop.mouseYPosClick - this.desktop.mouseYPosStart;
+    const deltaX = this.desktop.mouseXPosCurrent - this.desktop.mouseXPosStart;
+    const deltaY = this.desktop.mouseYPosCurrent - this.desktop.mouseYPosStart;
 
-    const currentLeft = parseFloat(
-      this.style.left.substring(0, this.style.left.length - 2)
-    );
-    const currentTop = parseFloat(
-      this.style.top.substring(0, this.style.top.length - 2)
-    );
-
+    const currentLeft = this.getLeft();
+    const currentTop = this.getTop();
     if (
-      this.desktop.isMouseDown &&
       this.desktop.isMouseFocused &&
       this.desktop.focusedApp.value === this.props.id &&
+      this.isMoving &&
       !this.maximized &&
       !this.isExpanding
     ) {
-      if (deltaX !== 0) {
-        this.style.left = `${currentLeft + deltaX}px`;
-      }
-      if (deltaY !== 0) {
-        this.style.top = `${currentTop + deltaY}px`;
-      }
+      this.style.top = currentTop + deltaY + 'px';
+      this.style.left = currentLeft + deltaX + 'px';
     }
 
     this.updateStyle();
   }
 
   expandRight(e: MouseEvent): void {
-    this.desktop.mouseXPosClick = e.clientX;
+    const deltaX = this.desktop.mouseXPosCurrent - this.desktop.mouseXPosStart;
 
-    const deltaX = this.desktop.mouseXPosClick - this.desktop.mouseXPosStart;
-
-    const currentWidth = parseFloat(
-      this.style.width.substring(0, this.style.width.length - 2)
-    );
+    const currentWidth = this.getWidth();
 
     if (
-      this.desktop.isMouseDown &&
       this.desktop.isMouseFocused &&
       this.desktop.focusedApp.value === this.props.id &&
       !this.maximized &&
@@ -350,16 +354,11 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   expandDown(e: MouseEvent): void {
-    this.desktop.mouseYPosClick = e.clientY;
+    const deltaY = this.desktop.mouseYPosCurrent - this.desktop.mouseYPosStart;
 
-    const deltaY = this.desktop.mouseYPosClick - this.desktop.mouseYPosStart;
-
-    const currentHeight = parseFloat(
-      this.style.height.substring(0, this.style.height.length - 2)
-    );
+    const currentHeight = this.getHeight();
 
     if (
-      this.desktop.isMouseDown &&
       this.desktop.isMouseFocused &&
       this.desktop.focusedApp.value === this.props.id &&
       !this.maximized &&
@@ -378,21 +377,13 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   expandBoth(e: MouseEvent): void {
-    this.desktop.mouseXPosClick = e.clientX;
-    this.desktop.mouseYPosClick = e.clientY;
+    const deltaX = this.desktop.mouseXPosCurrent - this.desktop.mouseXPosStart;
+    const deltaY = this.desktop.mouseYPosCurrent - this.desktop.mouseYPosStart;
 
-    const deltaX = this.desktop.mouseXPosClick - this.desktop.mouseXPosStart;
-    const deltaY = this.desktop.mouseYPosClick - this.desktop.mouseYPosStart;
-
-    const currentWidth = parseFloat(
-      this.style.width.substring(0, this.style.width.length - 2)
-    );
-    const currentHeight = parseFloat(
-      this.style.height.substring(0, this.style.height.length - 2)
-    );
+    const currentWidth = this.getWidth();
+    const currentHeight = this.getHeight();
 
     if (
-      this.desktop.isMouseDown &&
       this.desktop.isMouseFocused &&
       this.desktop.focusedApp.value === this.props.id &&
       !this.maximized &&
@@ -445,11 +436,27 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTop(): number {
-    return parseFloat(this.style.top.substring(0, this.style.top.length - 2));
+    const top = this.style.top.substring(0, this.style.left.indexOf('px'));
+
+    return parseFloat(top);
   }
 
   getLeft(): number {
-    return parseFloat(this.style.left.substring(0, this.style.left.length - 2));
+    const left = this.style.left.substring(0, this.style.left.indexOf('px'));
+
+    return parseFloat(left);
+  }
+
+  getWidth(): number {
+    const width = this.style.width.substring(0, this.style.width.length - 2);
+
+    return parseFloat(width);
+  }
+
+  getHeight(): number {
+    const height = this.style.height.substring(0, this.style.height.length - 2);
+
+    return parseFloat(height);
   }
 
   ngOnDestroy(): void {

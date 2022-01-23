@@ -42,9 +42,13 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {}
 
   unminimize(e: MouseEvent): void {
-    if (e.button === 0) {
-      this.isMenuOpen = false;
-      this.state.unminimizeApp(this.app.id);
+    if (this.desktop.focusedApp.value !== this.app.id) {
+      this.desktop.focusApp(this.app.id);
+    } else {
+      if (e.button === 0) {
+        this.isMenuOpen = false;
+        this.state.unminimizeApp(this.app.id);
+      }
     }
   }
 }
