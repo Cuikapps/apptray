@@ -47,14 +47,23 @@ export class FileService {
       this.fileTree.next(v);
     });
 
-    if (localStorage.getItem('uploads') !== '') {
-      this.currentUploads.next(
-        JSON.parse(localStorage.getItem('uploads') ?? '[]')
-      );
+    if (auth.storeData.value) {
+      if (localStorage.getItem('uploads-' + auth.storeData.value.uid) !== '') {
+        this.currentUploads.next(
+          JSON.parse(
+            localStorage.getItem('uploads-' + auth.storeData.value.uid) ?? '[]'
+          )
+        );
+      }
     }
 
     this.currentUploads.subscribe((uploads) => {
-      localStorage.setItem('uploads', JSON.stringify(uploads));
+      if (auth.storeData.value) {
+        localStorage.setItem(
+          'uploads-' + auth.storeData.value.uid,
+          JSON.stringify(uploads)
+        );
+      }
     });
   }
 
