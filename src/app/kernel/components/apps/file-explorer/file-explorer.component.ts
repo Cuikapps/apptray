@@ -30,6 +30,9 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('panel') panel!: ElementRef<HTMLDivElement>;
   @ViewChild('nameCreator') nameCreator!: ElementRef<HTMLDivElement>;
 
+  // prettier-ignore
+  validFilePath = new RegExp('[A-Za-z]:\/[A-Za-z\/\_\!\-\&\%\#\^\@\(\)\$\=\+\~\`\,\{\}\[\]\;\']*$', 'g');
+
   style: { [key: string]: string } = {
     width: '800px',
     height: '600px',
@@ -180,6 +183,8 @@ export class FileExplorerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     await this.reload();
   }
+
+  async moveFile(): Promise<void> {}
 
   async upload(input: HTMLInputElement): Promise<void> {
     if (input.files) {

@@ -1,11 +1,18 @@
 @use "../../../Theme" as theme;
 
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+}
 .container {
   color: rgb(var(--primary));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;  
+  gap: 10px;
   h3 {
     margin-bottom: 10px;
   }

@@ -7,6 +7,7 @@ export class PopUpService {
 
   alerts: BehaviorSubject<Popup[]> = new BehaviorSubject<Popup[]>([]);
   confirms: BehaviorSubject<Popup[]> = new BehaviorSubject<Popup[]>([]);
+  inputs: BehaviorSubject<Popup[]> = new BehaviorSubject<Popup[]>([]);
   errors: BehaviorSubject<Popup[]> = new BehaviorSubject<Popup[]>([]);
 
   alert(message: string): void {
@@ -19,7 +20,7 @@ export class PopUpService {
 
   confirm(message: string, cb: (yes: boolean) => void): void {
     const confirm = new Popup('confirm', message, (yes) => {
-      cb(yes);
+      cb(yes as boolean);
 
       this.confirms.next(
         this.confirms.value.filter((popup) => popup !== confirm)
@@ -27,6 +28,20 @@ export class PopUpService {
     });
 
     this.confirms.next([...this.confirms.value, confirm]);
+  }
+
+  input(message: string, regex: RegExp, cb: (value: string) => void): void {
+    const input = new Popup('input', message, (value) => {
+      const str = value as string;
+
+      if (str.match(regex)) {
+        cb(str);
+      }
+
+      this.inputs.next(this.inputs.value.filter((popup) => popup !== input));
+    });
+
+    this.inputs.next([...this.inputs.value, input]);
   }
 
   error(message: string): void {
@@ -40,9 +55,9 @@ export class PopUpService {
 
 export class Popup {
   constructor(
-    public type: 'alert' | 'confirm' | 'error',
+    public type: 'alert' | 'confirm' | 'input' | 'error',
     public message: string,
-    public onDelete: (yes: boolean) => void
+    public onDelete: (v: boolean | string) => void
   ) {
     if (type !== 'confirm') {
       const sub = timer(5000).subscribe(() => {

@@ -1,5 +1,16 @@
 @use "../../../../../Theme" as theme;
 
+:host {
+  display: none;
+  gap: 5px;
+  padding: 0px 5px;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  align-items: center;
+}
+
 .tool-panel {
   width: 100px;
   height: 100px;

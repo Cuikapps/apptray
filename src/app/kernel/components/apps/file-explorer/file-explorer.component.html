@@ -215,6 +215,7 @@
         appCloseOnUnfocus
         [unFocusCondition]="isOptionsOpen"
         (unFocus)="isOptionsOpen = false"
+        (click)="isOptionsOpen = false"
         [style.top]="desktop.mouseYPosClick - getTop() + 'px'"
         [style.left]="desktop.mouseXPosClick - getLeft() + 'px'"
       >
@@ -268,7 +269,18 @@
             Delete
           </div>
           <hr />
-          <div class="menu-button">Move to</div>
+          <div
+            class="menu-button"
+            (click)="
+              popup.input(
+                'Enter the new filepath to move to: ',
+                validFilePath,
+                moveFile
+              )
+            "
+          >
+            Move to
+          </div>
           <div class="menu-button">Copy to</div>
           <div class="menu-button">Share</div>
         </ng-container>

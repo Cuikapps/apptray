@@ -31,6 +31,7 @@ export class FileService {
 
   currentUploads: BehaviorSubject<Upload[]> = new BehaviorSubject<Upload[]>([]);
 
+  // Max size for each file chunk
   private readonly MAX_FILES_SIZE = 100000;
 
   constructor(
@@ -130,21 +131,23 @@ export class FileService {
     try {
       path = path.replace(/\//g, '>');
 
-      const bin = await firstValueFrom(
-        this.http.get<{ bin: string }>(
-          environment.apiURL + ApptrayURLs.DOWNLOAD_FILES,
-          {
-            withCredentials: true,
-            params: {
-              data: encodeURIComponent(JSON.stringify({ path, names })),
-            },
-          }
+      const bin = (
+        await firstValueFrom(
+          this.http.get<{ bin: string }>(
+            environment.apiURL + ApptrayURLs.DOWNLOAD_FILES,
+            {
+              withCredentials: true,
+              params: {
+                data: encodeURIComponent(JSON.stringify({ path, names })),
+              },
+            }
+          )
         )
-      );
+      ).bin;
 
-      const array = new Uint8Array(bin.bin.length);
-      for (let i = 0; i < bin.bin.length; i++) {
-        array[i] = bin.bin.charCodeAt(i);
+      const array = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) {
+        array[i] = bin.charCodeAt(i);
       }
 
       const blob = new Blob([array], { type: 'application/octet-stream' });

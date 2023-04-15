@@ -1,5 +1,13 @@
 @use "../../Theme" as theme;
 
+:host {
+  position: fixed;
+  top: 30px;
+  right: 10px;
+  width: 300px;
+  height: fit-content;
+}
+
 .accordion {
   display: flex;
   flex-direction: column;

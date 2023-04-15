@@ -1,5 +1,22 @@
 @use "../../Theme" as theme;
 
+:host {
+  position: fixed;
+  top: 20px;
+  width: 100vw;
+  height: calc(100vh - 20px);
+  display: flex;
+
+  @include theme.background-blur(5px);
+
+  border: 1px solid rgb(var(--secondary));
+  background: radial-gradient(
+    farthest-corner at 40% 45%,
+    #{"rgba(var(--secondary), 0.8)"} 0%,
+    #{"rgba(var(--secondary), 0.5)"} 100%
+  );
+}
+
 .left-menu {
   width: 300px;
   height: 100%;
@@ -40,11 +57,5 @@
     width: 100%;
   }
 
-  app-settings {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 50px;
-  }
+
 }

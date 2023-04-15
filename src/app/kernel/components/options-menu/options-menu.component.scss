@@ -1,5 +1,36 @@
 @use "../../../Theme" as theme;
 
+:host {
+  position: fixed;
+  transition: all 200ms ease-in;
+  user-select: none;
+}
+
+::ng-deep {
+  .menu-button {
+    text-indent: 5px;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: rgb(var(--primary));
+    cursor: pointer;
+    transition: all 200ms ease-in;
+
+    &:hover {
+      background-color: #{"rgba(var(--accent), .2)"};
+    }
+  }
+
+  hr {
+    background-color: rgb(var(--primary));
+    border: none;
+    height: 2px;
+  }
+}
+
 .menu {
   display: flex;
   width: 200px;

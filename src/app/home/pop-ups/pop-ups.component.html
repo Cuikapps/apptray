@@ -20,6 +20,15 @@
     ><button (click)="confirm.onDelete(false)">Cancel</button>
   </div>
   <div
+    class="input"
+    *ngFor="let input of popup.inputs | async"
+    [title]="input.message"
+    [@simpleFadeAnimation]="'in'"
+  >
+    {{ input.message }}
+    <input type="text" />
+  </div>
+  <div
     class="errors"
     *ngFor="let error of popup.errors | async"
     [title]="error.message"

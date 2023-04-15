@@ -1,5 +1,13 @@
 @use "../../Theme" as theme;
 
+:host {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: calc(100vh - 160px);
+}
+
 .bar {
   width: 80vw;
   height: 106px;
@@ -60,11 +68,7 @@
     border-radius: 2px;
     background-color: rgb(var(--secondary));
   }
-  app-task {
-    position: relative;
-    height: 96px;
-    width: 96px;
-  }
+
 
   .overflow {
     position: absolute;

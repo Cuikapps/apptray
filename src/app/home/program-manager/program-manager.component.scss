@@ -1,7 +1,10 @@
-app-file-explorer {
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
-  position: relative;
-  height: fit-content;
-  width: fit-content;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
 }

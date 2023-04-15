@@ -1,5 +1,9 @@
 @use "../../../Theme" as theme;
 
+:host {
+  pointer-events: all;
+}
+
 .file {
   width: 100%;
   height: 20px;

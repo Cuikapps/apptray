@@ -1,5 +1,23 @@
 @use "../../Theme" as theme;
 
+:host {
+  position: fixed;
+  top: 25px;
+  transition: all 200ms ease-in-out;
+
+  h6 {
+    user-select: none;
+    cursor: pointer;
+    font-weight: 300;
+    text-indent: 10px;
+    transition: all 100ms ease-out;
+
+    &:hover {
+      background-color: theme.$tertiary;
+    }
+  }
+}
+
 .menu {
   display: flex;
   flex-direction: column;

@@ -1,1 +1,27 @@
 @use "../../Theme" as theme;
+
+:host {
+  position: fixed;
+  width: 300px;
+  height: calc(100vh - 260px);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow-x: scroll;
+  overflow-y: clip;
+  gap: 10px;
+  padding: 10px;
+  @include theme.custom-scroll(10px);
+  @include theme.background-blur(5px);
+
+  bottom: 210px;
+  right: 10vw;
+  top: 50px;
+  border: 1px solid rgb(var(--secondary));
+  background: radial-gradient(
+    farthest-corner at 40% 45%,
+    #{"rgba(var(--secondary), 0.6)"} 0%,
+    #{"rgba(var(--secondary), 0.3)"} 100%
+  );
+  border-radius: 10px 10px 5px 5px;
+}
